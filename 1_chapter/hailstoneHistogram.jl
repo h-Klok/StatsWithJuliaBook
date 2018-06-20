@@ -18,4 +18,3 @@ lengths = [hailLength(n) for n in 2:10^7]
 plt[:hist](lengths, 1000, normed="true")
 xlabel("Length")
 ylabel("Frequency")
-savefig("hailstoneLengthHist.png")

@@ -20,15 +20,14 @@ function graphCreator(n::Int)
     ax[:add_artist](dots)
 
     function animate(i)
-        u, v = edges[i+1][1], edges[i+1][2]
+        u, v = edges[i][1], edges[i][2]
         xpoints = (xPts[u],xPts[v])
         ypoints = (yPts[u],yPts[v])
         ax[:plot](xpoints,ypoints,"r-")
     end
 
-    GraphAnimation = anim.FuncAnimation(fig, animate,  frames=length(edges),
-                                          interval=100, repeat=true)
-    GraphAnimation[:save]("graph.gif", writer="imagemagick", fps=n, dpi=100)
+	[animate(i) for i in 1:length(edges)]
+	
 end
 
 graphCreator(16);
