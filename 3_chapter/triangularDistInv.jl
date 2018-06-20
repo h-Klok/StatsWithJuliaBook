@@ -1,12 +1,11 @@
 using Distributions, PyPlot
 
-tDist = TriangularDist(0,2,1)
+triangDist = TriangularDist(0,2,1)
+xGrid = 0:0.1:2
 N = 10^6
-inverseSampledData = quantile.(tDist,rand(N))
+inverseSampledData = quantile.(triangDist,rand(N))
 
-figure(figsize=(8,5))
-plt[:hist](inverseSampledData,50,ec="black",lw=0.5,normed=true,
+plt[:hist](inverseSampledData,50, normed = true,ec="k",
         label="Inverse transform\n sampled data")
-plot(xGrid,pdf(tDist,xGrid),"r",label="Analytic PDF")
+plot(xGrid,pdf(triangDist,xGrid),"r",label="PDF")
 legend(loc="upper right")
-savefig("triangularDistInv.png");

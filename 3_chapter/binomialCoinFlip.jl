@@ -1,19 +1,20 @@
 using StatsBase, Distributions, PyPlot
 
-function coinFlip(p,flips,N)
-    counts([count(rand(flips) .< p) for _ in 1:N])/N
+function binomialRV(n,p)
+   return sum(rand(n) .< p) 
 end
 
-p, flips, N = 0.5, 10, 10^6
+p, n, N = 0.5, 10, 10^6
 
-bDist = Binomial(flips,p)
-xGrid = 0:flips
+bDist = Binomial(n,p)
+xGrid = 0:n
 bPmf = [pdf(bDist,i) for i in xGrid]
+data = [binomialRV(n,p) for _ in 1:N]
+pmfEst = counts(data,0:n)/N
 
-stem(xGrid,coinFlip(p,flips,N),label="MC estimate",basefmt="none")
-plot(xGrid,bPmf,"rx",ms=8,label="Analytic Solution")
+stem(xGrid,pmfEst,label="MC estimate",basefmt="none")
+plot(xGrid,bPmf,"rx",ms=8,label="PMF")
 ylim(0,0.3)
-xlabel(L"$x$")
-ylabel(L"$\mathbb{P}(X=x)$")
-legend(loc="upper right")
-savefig("binomialCoinFlip.png")
+xlabel("x")
+ylabel("Probability")
+legend(loc="upper right");

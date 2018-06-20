@@ -1,14 +1,15 @@
-using Distributions, PyPlot
+using StatsBase, Distributions, PyPlot
 
-lambda = 1
+lambda, N = 1, 10^6
+xGrid = 0:6
 
 expDist = Exponential(1/lambda)
+floorData = counts(convert.(Int,floor.(rand(expDist,N))), xGrid)/N
 geomDist = Geometric(1-e^-lambda)
 
-expGrid = 0:0.1:6
-geomGrid =0:1:6
-
-plot(expGrid,pdf(expDist,expGrid))
-plt[:stem](geomGrid,pdf(geomDist,geomGrid),basefmt="none")
-xlim(0,6)
+stem(xGrid,floorData,label="Floor of Exponential",basefmt="none");
+plot(xGrid,pdf(geomDist,xGrid),"rx",ms=8,label="Analytic Geometric")
 ylim(0,1)
+xlabel("x")
+ylabel("Probability")
+legend(loc="upper right");

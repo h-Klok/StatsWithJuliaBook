@@ -1,24 +1,25 @@
 using StatsBase, Distributions, PyPlot
 
-function rouletteSpin(p)
-    d, spin = 1, rand()
+function rouletteSpins(p)
+    x = 0
     while true
-        spin < (1-p)^d ? d += 1 : break
+        x += 1
+        if rand() < p
+            return x
+        end
     end
-    d
 end
 
 p, xGrid, N = 18/37, 1:7, 10^6
 
-mcEstimate = counts([rouletteSpin(p) for _ in 1:N],xGrid)/N
+mcEstimate = counts([rouletteSpins(p) for _ in 1:N],xGrid)/N
 
 gDist = Geometric(p)
-gPmf = [pdf(gDist,i-1) for i in xGrid]
+gPmf = [pdf(gDist,x-1) for x in xGrid]
 
 stem(xGrid,mcEstimate,label="MC estimate",basefmt="none")
-plot(xGrid,gPmf,"rx",ms=8,label="Analytic Solution")
+plot(xGrid,gPmf,"rx",ms=8,label="PMF")
 ylim(0,0.5)
-xlabel(L"$x$")
-ylabel(L"$\mathbb{P}(X=x)$")
-legend(loc="upper right")
-savefig("geometric.png")
+xlabel("x")
+ylabel("Probability")
+legend(loc="upper right");

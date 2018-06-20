@@ -1,24 +1,31 @@
 using StatsBase, Distributions, PyPlot
 
-function rouletteGambler(p,r) # p = failure, r = wins
-    d, winCount = 0, 0
-    while winCount < r
-        d +=1
-        rand() > p ? winCount += 1 : continue
+function rouletteSpins(r,p)
+    x = 0
+    wins = 0
+    while true
+        x += 1
+        if rand() < p
+            wins += 1
+            if wins == r
+                return x
+            end
+        end
     end
-    d
 end
 
-xGrid, pFailure, rWins, N = 0:16, 19/37, 4, 10^6 
+r, p, N = 5, 18/37,10^6
+xGrid = r:r+15
 
-mcEstimate = counts([rouletteGambler(pFailure, rWins) for _ in 1:N],xGrid+rWins)/N
-negBinomDist = NegativeBinomial(rWins, 1-pFailure)
-negBinomPdf =  pdf(negBinomDist,xGrid)
+mcEstimate = counts([rouletteSpins(r,p) for _ in 1:N],xGrid)/N
+
+nbDist = NegativeBinomial(r,p)
+nbPmf = [pdf(nbDist,x-r) for x in xGrid]
 
 stem(xGrid,mcEstimate,label="MC estimate",basefmt="none")
-plot(xGrid,negBinomPdf,"rx",ms=8,label="Analytic Solution")
+plot(xGrid,nbPmf,"rx",ms=8,label="PMF")
+xlim(0,maximum(xGrid))
 ylim(0,0.2)
-xlabel(L"$x$")
+xlabel("x")
 ylabel("Probability")
-legend(loc="upper right")
-savefig("negativeBinomial.png")
+legend(loc="upper right");
