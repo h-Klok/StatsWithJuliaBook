@@ -1,8 +1,13 @@
-numLowerCaseChars(str) = sum([islower(char) for char in str])
-
-passLength, numToCheck = 8, 1
+passLength, numMatchesForLog = 8, 1
 possibleChars = ['a':'z';'A':'Z';'0':'9']
 
-n = 10^6
-passwords = [String(rand(possibleChars,passLength)) for _ in 1:n]
-proportion = sum([numLowerCaseChars(p) <= numToCheck for p in passwords])/n
+correctPassword = "3xyZu4vN"
+
+numMatch(loginPassword) = 
+    sum([loginPassword[i] == correctPassword[i] for i in 1:passLength])
+
+N = 10^7
+srand(1)
+passwords = [String(rand(possibleChars,passLength)) for _ in 1:N]
+numLogs = sum([numMatch(p) >= numMatchesForLog for p in passwords])
+numLogs, numLogs/N

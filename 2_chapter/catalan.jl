@@ -1,15 +1,12 @@
 using Combinatorics, PyPlot
-
-n = 5
-N = 10^5
-
+n, N = 5, 10^5
+srand(1)
 function isUpperLattice(v)
     for i in 1:Int(length(v)/2)
         sum(v[1:2*i-1]) >= i ? continue : return false && break
     end
     return true
 end
-
 function plotPath(v,l)
     x,y = 0,0
     graphX, graphY = [x], [y]
@@ -23,12 +20,9 @@ function plotPath(v,l)
     end
     plot(graphX,graphY,alpha=0.8,label=l)
 end
-
-#Model I
 omega = unique(permutations([zeros(Int,n);ones(Int,n)]))
 A = omega[isUpperLattice.(omega)]
 Ac = setdiff(omega,A)
-
 figure(figsize=(5,5))
 plotPath(rand(A),"Upper lattice path")
 plotPath(rand(Ac),"Non-upper lattice path")
@@ -37,11 +31,7 @@ plot([0, n], [0,n], ls="--","k")
 xlim(0,n)
 ylim(0,n)
 grid("on")
-savefig("catalanPaths.png")
-
 pA_modelI = length(A)/length(omega)
-
-#Model II
 function randomWalkPath(n)
     x, y = 0, 0
     path = []
@@ -54,7 +44,6 @@ function randomWalkPath(n)
             push!(path,1)
         end
     end
-    
     if x < n
         append!(path,zeros(Int64,n-x))
     else
@@ -62,10 +51,5 @@ function randomWalkPath(n)
     end
     return path
 end
-
-N = 10^5
-
 pA_modelIIest = sum([isUpperLattice(randomWalkPath(n)) for _ in 1:N])/N
-
-#Comparison of Model I and Model II
 pA_modelI, pA_modelIIest

@@ -16,4 +16,5 @@ function montyHall(switchPolicy)
 end
 
 N = 10^6
-sum([montyHall(true) for _ in 1:N])/N
+sum([montyHall(true) for _ in 1:N])/N, 
+sum([montyHall(false) for _ in 1:N])/N

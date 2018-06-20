@@ -1,25 +1,44 @@
-using PyPlot,StatsBase
+using PyPlot,StatsBase,Combinatorics
 
-function proportionCorrect(letters,n)
+function bruteSetsProbabilityAllMiss(n)
+    omega = collect(permutations(1:n))
+    matchEvents = []
 
-    function envelopeStuffer()
-        envelopes = shuffle!(collect(1:letters))
-        sum([envelopes[i] == i for i in 1:letters])
+    for i in 1:n
+        event = []
+        for p in omega
+            if p[i] == i
+                push!(event,p)
+            end
+        end
+        push!(matchEvents,event)
     end
 
-    data = [envelopeStuffer() for _ in 1:n]
-    proportions = counts(data,0:letters)/n
-    stem(0:letters,proportions,basefmt="none",label="Simulated results")
-    plot(0,1/e,"rx",label="Limiting asymptote 1/e",markersize=8)
-    println("Analytic solution: ", 1 -sum([(-1)^(k+1)/factorial(k)
-                                    for k in 1:letters]))
-    println("Simulation: ", proportions[1])
-    println("Limiting asymptoe: ",1/e)
+    noMatch = setdiff(omega,union(matchEvents...))
+    return length(noMatch)/length(omega)
 end
 
-proportionCorrect(4, 10^6)
-ylim(0,0.4)
-xlabel("Number of correct envelopes")
-ylabel("Proportion")
-legend(loc="upper right")
-savefig("secretaryEnvelopes.png");
+function formulaCalcAllMiss(n)
+    return sum([(-1)^k/factorial(k) for k in 0:n])
+end
+
+function mcAllMiss(n,N)
+    function envelopeStuffer()
+        envelopes = shuffle!(collect(1:n))
+        return sum([envelopes[i] == i for i in 1:n]) == 0
+    end
+
+    data = [envelopeStuffer() for _ in 1:N]
+    return sum(data)/N
+end
+
+N = 10^6
+
+println("n\t\tBrute Force\t\tFormula\t\tMonte Carlo",)
+for n in 1:8
+    bruteForce = bruteSetsProbabilityAllMiss(n)
+    fromFormula = formulaCalcAllMiss(n)
+    fromMC = mcAllMiss(n,N)
+    println(n,"\t\t",round(bruteForce,4),"\t\t\t",round(fromFormula,4),
+                "\t\t",round(fromMC,4),"\t\t",round(1/e,4))
+end
