@@ -1,6 +1,6 @@
 # Exploring Julia: A Statistical Primer
 
-This repository is a collection of all code blocks contained within our book. In addition, a preliminary draft version of the book is available at the following link: https://people.smp.uq.edu.au/YoniNazarathy/julia-stats/exploring-julia-a-statistical-primer-DRAFT.pdf  
+This repository is a collection of all code blocks contained within our book. A preliminary draft version of the book is available here: [Exploring Julia (draft)](https://people.smp.uq.edu.au/YoniNazarathy/julia-stats/exploring-julia-a-statistical-primer-DRAFT.pdf). 
 
 The book comprises of the following ten chapters:
 
