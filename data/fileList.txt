@@ -1,0 +1,7 @@
+ecdf.png
+KDE.png
+pieChart.png
+radarPlot.png
+scatterplot.png
+stackplot.png
+summaryStats.png
