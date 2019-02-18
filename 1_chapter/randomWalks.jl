@@ -1,4 +1,4 @@
-using PyPlot
+using PyPlot, Random
 
 N = 5000
 
@@ -25,7 +25,7 @@ end
 alphaRange = 0.2:0.01:0.22
 figure(figsize=(12,5))
 
-colors = ["r","c","m"]
+colors = ["b","r","g"]
 subplot(121)
 xlim(-150,50)
 ylim(-250,50)
@@ -34,7 +34,7 @@ for i in 1:length(alphaRange)
     plot(xDat,yDat,color = colors[i]) 
 end
 
-colors = ["r","b","g"]
+colors = ["b","r","g"]
 subplot(122)
 xlim(-150,50)
 ylim(-250,50)

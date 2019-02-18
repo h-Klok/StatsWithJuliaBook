@@ -1,19 +1,19 @@
 using HTTP, JSON
 
-data = HTTP.request("GET", "https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/
-		files/t8.shakespeare.txt"); 
-			
-shakespeare = convert(String, data.body)
+data = HTTP.request("GET", 
+"https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt")
+shakespeare = String(data.body)
 shakespeareWords = split(shakespeare)
 
-jsonWords = HTTP.request("GET", "https://raw.githubusercontent.com/h-Klok/
-		StatsWithJuliaBook/master/1_chapter/jsonCode.json");
-parsedJsonDict = JSON.parse( convert(String, jsonWords.body))
+jsonWords = HTTP.request("GET",
+"https://raw.githubusercontent.com/"*
+"h-Klok/StatsWithJuliaBook/master/1_chapter/jsonCode.json")
+parsedJsonDict = JSON.parse( String(jsonWords.body))
 
 keywords = Array{String}(parsedJsonDict["words"])
 numberToShow = parsedJsonDict["numToShow"]
 wordCount = Dict([(x,count(w -> lowercase(w) == lowercase(x), shakespeareWords))
                   for x in keywords])
-				  
+
 sortedWordCount = sort(collect(wordCount),by=last,rev=true)
 sortedWordCount[1:numberToShow]

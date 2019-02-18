@@ -13,8 +13,9 @@ function graphCreator(n::Int)
          [ push!(edges,(v,u)) for u in (v+1):n ]
     end
 
-    fig = figure(figsize=(8,8))
-    ax = axes(xlim = (-1.5,1.5),ylim=(-1.5,1.5), aspect=1)
+    fig, ax = subplots()
+    xlim(-1.5,1.5)
+    ylim(-1.5,1.5)
     dots = line.Line2D(xPts, yPts, ls="None", marker="o",ms=20, mec="blue",
                           mfc="blue")
     ax[:add_artist](dots)
@@ -26,8 +27,8 @@ function graphCreator(n::Int)
         ax[:plot](xpoints,ypoints,"r-")
     end
 
-	[animate(i) for i in 1:length(edges)]
-	
+	ani = [animate(i) for i in 1:length(edges)]
+	anim.ArtistAnimation(fig, ani, interval=5, blit="False", repeat_delay=10)
 end
 
 graphCreator(16);

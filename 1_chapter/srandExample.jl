@@ -1,6 +1,8 @@
-srand(1974)
+using Random
+ 
+Random.seed!(1974)
 println("Seed 1974: ",rand(),"\t", rand(), "\t", rand())
-srand(1975)
+Random.seed!(1975)
 println("Seed 1975: ",rand(),"\t", rand(), "\t", rand())
-srand(1974)
+Random.seed!(1974)
 println("Seed 1974: ",rand(),"\t", rand(), "\t", rand())
