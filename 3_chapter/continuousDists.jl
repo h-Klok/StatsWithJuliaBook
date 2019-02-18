@@ -9,7 +9,7 @@ dists = [
     Rayleigh(2.4),
     Cauchy(20,3.5)];
 
-println("Distribution \t\t\t\t\t\t Parameters \t Support")
+println("Distribution \t\t\t Parameters \t Support")
 reshape([dists ;  params.(dists) ; 
 		((d)->(minimum(d),maximum(d))).(dists) ],
 		length(dists),3)

@@ -6,12 +6,11 @@ xGrid = 0:0.01:10
 C = ["b", "r", "g"]
 
 for (n,d) in enumerate(dists)
-	plot(xGrid,pdf(d,xGrid)./(1-cdf(d,xGrid)),C[n],
-	label="Shape = $(shape(d)), Scale = 2") 
+    plot(xGrid,pdf(d,xGrid)./(ccdf(d,xGrid)),C[n],
+    label="Shape = $(shape(d)), Scale = 2") 
 end
 xlabel("x")
 ylabel("Instantaneous failure rate")	
 xlim(0,10)
 ylim(0,3)
 legend(loc="upper right")
-savefig("weibullHazard.png")

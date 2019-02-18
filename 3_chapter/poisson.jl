@@ -2,7 +2,7 @@ using StatsBase, Distributions, PyPlot
 
 function prn(lambda)
     k, p = 0, 1
-    while p > e^(-lambda)
+    while p > MathConstants.e^(-lambda)
         k += 1
         p *= rand()
     end

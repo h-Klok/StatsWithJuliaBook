@@ -1,5 +1,5 @@
-using Distributions, PyPlot
-srand(1)
+using Random, Distributions, PyPlot
+Random.seed!(1)
 
 X() = sqrt(-2*log(rand()))*cos(2*pi*rand())
 xGrid = -4:0.01:4

@@ -1,9 +1,8 @@
-using Distributions,PyPlot
+using Distributions, LinearAlgebra, PyPlot
 
 SigY = [ 6 4 ; 4 9]
 muY = [15 ; 20]
-bruteCholFact(S) = Array(cholfact(S)[:L])
-A = bruteCholFact(SigY)
+A = cholesky(SigY).L
 
 N = 10^5
 
@@ -32,10 +31,12 @@ plot(data_a1,data_a2,".",color="blue",ms=0.2);
 plot(data_b1,data_b2,".",color="red",ms=0.2);
 plot(data_c1,data_c2,".",color="green",ms=0.2);
 
-stats(data1,data2) = println("$(mean(data1))\t$(mean(data2))\t",
-			"$(var(data1))\t$(var(data2))\t$(cov(data1,data2))")
+stats(data1,data2) = println(
+    round(mean(data1),digits=2), "\t", round(mean(data2),digits=2), "\t",
+    round(var(data1),digits=2), "\t", round(var(data2),digits=2), "\t",
+    round(cov(data1,data2),digits=2))
 
-println("Mean1\t\t\tMean2\t\t\tVar1\t\t\tVar2\t\t\tCov")
+println("Mean1\tMean2\tVar1\tVar2\tCov")
 stats(data_a1,data_a2)
 stats(data_b1,data_b2)
 stats(data_c1,data_c2)
