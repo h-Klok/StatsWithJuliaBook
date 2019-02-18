@@ -1,6 +1,6 @@
-using StatsBase
+using CSV, Statistics, StatsBase, Distributions
 
-data = readcsv("grades.csv")[1,:]
+data = CSV.read("grades.csv", types=[Int], datarow=1)[:,1]
 
 xbar = mean(data)
 svar = var(data)
@@ -8,7 +8,7 @@ sdev = std(data)
 minval = minimum(data)
 maxval = maximum(data)
 med = median(data)
-per95 = percentile(data, 25) #ie quantile(x, p/100
+per95 = percentile(data, 25) 
 q95 = quantile(data, 0.75)
 intquartrng = iqr(data)
 
@@ -22,4 +22,4 @@ println("95th percentile: $per95")
 println("0.95 quartile: $q95")
 println("Interquartile range: $intquartrng")
 
-summarystats(data)
+summarystats(data) 

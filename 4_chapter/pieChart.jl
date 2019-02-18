@@ -1,6 +1,6 @@
-using DataFrames, PyPlot
+using DataFrames, CSV, PyPlot
 
-df = readtable("companyData.csv")
+df = CSV.read("companyData.csv")
 
 types = unique(df[:Type])
 

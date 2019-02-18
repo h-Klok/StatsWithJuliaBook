@@ -1,5 +1,5 @@
-using Distributions, PyPlot
+using Random, Distributions, PyPlot
+Random.seed!(0)
 
-srand(1)
 data = randn(10^2)
-plt[:hist](data, 5, color="blue", ec="black", cumulative=true)
+plt[:hist](data, 8, ec="black", cumulative=true);

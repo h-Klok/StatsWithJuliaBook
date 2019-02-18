@@ -1,5 +1,5 @@
-using Distributions, KernelDensity, PyPlot
-srand(1)
+using Random, Distributions, KernelDensity, PyPlot
+Random.seed!(0)
 
 mu1, sigma1 = 10, 5
 mu2, sigma2 = 40, 12

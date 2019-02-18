@@ -1,5 +1,5 @@
-using PyPlot, Distributions, StatsBase
-
+using Random, PyPlot, Distributions, StatsBase
+Random.seed!(0)
 function normalProbabilityPlot(data, C, L)
         mu = mean(data)
         sig = std(data)

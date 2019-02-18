@@ -1,14 +1,14 @@
 function lineSearch(inputFilename, outputFilename, keyword)
-	infile = open(inputFilename, "r")
-	outfile = open(outputFilename,"w")
-
-	for (index, text) in enumerate(eachline(infile))
-		if contains(text, keyword)
-			println(outfile, "$index: $text")
-		end
-	end
-	close(infile)
-	close(outfile)
+    infile  = open(inputFilename, "r")
+    outfile = open(outputFilename,"w")
+    
+    for (index, line) in enumerate(split(read(infile, String), "\n")) 
+        if occursin(keyword, line)
+            println(outfile, "$index: $line")
+        end
+    end
+    close(infile)
+    close(outfile)
 end
 
 lineSearch("earth.txt", "waterLines.txt", "water")

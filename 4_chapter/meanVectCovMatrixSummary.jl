@@ -1,6 +1,6 @@
-using DataFrames
+using DataFrames, CSV, Statistics
 
-data = readtable("temperatures.csv")
+data = CSV.read("temperatures.csv")
 brisT = data[4]
 gcT = data[5]
 
@@ -14,6 +14,6 @@ covMat =  [ sigB^2  covBG;
             covBG   sigG^2];
 
 outfile = open("mvParams.jl","w") 
-println(outfile,"meanVect = $meanVect")
-println(outfile,"covMat = $covMat")
-close(outfile);
+write(outfile,"meanVect = $meanVect \ncovMat = $covMat")
+close(outfile)
+print(read("mvParams.jl", String))

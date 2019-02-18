@@ -1,15 +1,16 @@
+using Random, Statistics
+Random.seed!(0)
 include("dataframeCreation.jl")
 
 noTypePrice = (ismissing.(purchaseData[:Type])) .& 
 	(ismissing.(purchaseData[:Price]))
-purchaseData = purchaseData[!noTypePrice,:]
+purchaseData = purchaseData[.!noTypePrice,:]
 
 purchaseData[ismissing.(purchaseData[:Name]), :Name] = "notRecorded"
-
 purchaseData[ismissing.(purchaseData[:Time]), :Time] = "12:00 PM" 
 
 types = unique(skipmissing(purchaseData[:Type])) 
-srand(1)
+
 for i in 1:size(purchaseData)[1]
 	if ismissing(purchaseData[:Type][i]) 
 		purchaseData[:Type][i] = rand(types) 
@@ -19,7 +20,7 @@ end
 for t in types
 	prices = skipmissing(purchaseData[purchaseData[:Type] .== t, :Price])
 	if !isempty(prices) 
-		m = convert(Int,round(mean(prices),0))
+		m = convert(Int,round(mean(prices)))
 		for i in 1:size(purchaseData)[1]
 			if (ismissing(purchaseData[:Price][i])) .& 
 			   (purchaseData[:Type][i] == t)
@@ -29,5 +30,5 @@ for t in types
 	end
 end
 
-writetable("purchaseDataImputed.csv", purchaseData)
+CSV.write("purchaseDataImputed.csv", purchaseData)
 showcols(purchaseData)

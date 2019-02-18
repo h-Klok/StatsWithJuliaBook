@@ -1,6 +1,6 @@
-using DataFrames, PyPlot
+using DataFrames, CSV, PyPlot
 
-df = readtable("companyData.csv")
+df = CSV.read("companyData.csv")
 
 types = unique(df[:Type])
 
@@ -18,4 +18,4 @@ end
 xlabel("Dividend (%)")
 ylabel("StockPrice (\$)")
 xlim(0,10)
-ylim(0,10)
+ylim(0,10);

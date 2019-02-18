@@ -1,3 +1,5 @@
+using Statistics
+
 include("dataframeCreation.jl")
 println(mean(purchaseData[:Price]))
 println(mean(dropmissing(purchaseData)[:Price]))

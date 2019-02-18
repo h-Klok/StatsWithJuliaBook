@@ -1,6 +1,6 @@
-using DataFrames, PyPlot
+using DataFrames, CSV, PyPlot
 
-df = readtable("companyData.csv")
+df = CSV.read("companyData.csv")
 
 types = unique(df[:Type])
 
@@ -14,4 +14,4 @@ legend(loc="upper left")
 xlim(minimum(years),maximum(years))
 xticks(years)
 xlabel("Years")
-ylabel("MarketCap")
+ylabel("MarketCap");

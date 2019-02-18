@@ -1,3 +1,3 @@
-using DataFrames
+using DataFrames, CSV
 
-purchaseData = readtable("purchaseData.csv");
+purchaseData = CSV.read("purchaseData.csv");
