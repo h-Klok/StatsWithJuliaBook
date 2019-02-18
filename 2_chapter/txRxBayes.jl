@@ -1,3 +1,6 @@
+using Random
+Random.seed!(1)
+
 N = 10^5
 prob1 = 0.7
 eps0 = 0.1

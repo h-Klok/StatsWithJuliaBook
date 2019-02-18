@@ -1,3 +1,6 @@
+using Random, SpecialFunctions
+Random.seed!(1)
+
 n = 2000
 
 probAgivenB(k) = 1- 1/(k+1)

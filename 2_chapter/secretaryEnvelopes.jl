@@ -1,5 +1,5 @@
-using PyPlot,StatsBase,Combinatorics
-
+using Random, PyPlot, StatsBase, Combinatorics
+Random.seed!(1)
 function bruteSetsProbabilityAllMiss(n)
     omega = collect(permutations(1:n))
     matchEvents = []
@@ -24,7 +24,7 @@ end
 
 function mcAllMiss(n,N)
     function envelopeStuffer()
-        envelopes = shuffle!(collect(1:n))
+        envelopes = Random.shuffle!(collect(1:n))
         return sum([envelopes[i] == i for i in 1:n]) == 0
     end
 
@@ -34,11 +34,11 @@ end
 
 N = 10^6
 
-println("n\t\tBrute Force\t\tFormula\t\tMonte Carlo",)
+println("n\tBrute Force\tFormula\t\tMonte Carlo\t\tAnalytic",)
 for n in 1:8
     bruteForce = bruteSetsProbabilityAllMiss(n)
     fromFormula = formulaCalcAllMiss(n)
     fromMC = mcAllMiss(n,N)
-    println(n,"\t\t",round(bruteForce,4),"\t\t\t",round(fromFormula,4),
-                "\t\t",round(fromMC,4),"\t\t",round(1/e,4))
+    println(n,"\t",round(bruteForce,digits=4),"\t\t",round(fromFormula,digits=4),
+	"\t\t",round(fromMC,digits=4),"\t\t",round(1/MathConstants.e,digits=4))
 end

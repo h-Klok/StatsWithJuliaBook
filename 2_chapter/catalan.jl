@@ -1,13 +1,14 @@
-using Combinatorics, PyPlot
+using Random, Combinatorics, PyPlot
+Random.seed!(1)
+
 n, N = 5, 10^5
-srand(1)
 function isUpperLattice(v)
     for i in 1:Int(length(v)/2)
         sum(v[1:2*i-1]) >= i ? continue : return false && break
     end
     return true
 end
-function plotPath(v,l)
+function plotPath(v,l,c)
     x,y = 0,0
     graphX, graphY = [x], [y]
     for i in v
@@ -18,14 +19,14 @@ function plotPath(v,l)
         end
         push!(graphX,x), push!(graphY,y)
     end
-    plot(graphX,graphY,alpha=0.8,label=l)
+    plot(graphX,graphY,alpha=0.8,label=l, lw=2, c=c)
 end
 omega = unique(permutations([zeros(Int,n);ones(Int,n)]))
 A = omega[isUpperLattice.(omega)]
 Ac = setdiff(omega,A)
 figure(figsize=(5,5))
-plotPath(rand(A),"Upper lattice path")
-plotPath(rand(Ac),"Non-upper lattice path")
+plotPath(rand(A),"Upper lattice path","b")
+plotPath(rand(Ac),"Non-upper lattice path","r")
 legend(loc="upper left");
 plot([0, n], [0,n], ls="--","k")
 xlim(0,n)

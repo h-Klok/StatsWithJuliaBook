@@ -9,7 +9,7 @@ function proportionFished(gF,sF,numberFished,N,withReplacement = false)
             fished = rand(fishInPond)
             push!(fishCaught,fished)
             if withReplacement == false
-                deleteat!(fishInPond, findfirst(fishInPond,fished))
+                deleteat!(fishInPond, findfirst(x->x==fished, fishInPond))
             end
         end
         sum(fishCaught)
@@ -20,9 +20,10 @@ function proportionFished(gF,sF,numberFished,N,withReplacement = false)
     
     if withReplacement
         stem(0:numberFished,proportions,basefmt="none",linefmt="r--", 
-             markerfmt="rx",basefmt="none",label="With replacement");
+             markerfmt="rx",label="With replacement");
     else
-        stem(0:numberFished,proportions,basefmt="none",label="Without replacement")
+        stem(0:numberFished,proportions,basefmt="none",
+			label="Without replacement")
     end
 end
 

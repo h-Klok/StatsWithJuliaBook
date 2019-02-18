@@ -1,3 +1,6 @@
+using Random
+Random.seed!()
+
 passLength, numMatchesForLog = 8, 1
 possibleChars = ['a':'z';'A':'Z';'0':'9']
 
@@ -7,7 +10,7 @@ numMatch(loginPassword) =
     sum([loginPassword[i] == correctPassword[i] for i in 1:passLength])
 
 N = 10^7
-srand(1)
+
 passwords = [String(rand(possibleChars,passLength)) for _ in 1:N]
-numLogs = sum([numMatch(p) >= numMatchesForLog for p in passwords])
+numLogs   = sum([numMatch(p) >= numMatchesForLog for p in passwords])
 numLogs, numLogs/N

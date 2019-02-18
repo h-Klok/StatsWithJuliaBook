@@ -1,3 +1,6 @@
+using Random
+Random.seed!(1)
+
 function montyHall(switchPolicy)
     prize = rand(1:3)
     choice = rand(1:3)
