@@ -1,6 +1,6 @@
-using Distributions, HypothesisTests
+using CSV, Distributions, HypothesisTests
 
-data = readcsv("machine1.csv")[:,1]
+data = CSV.read("machine1.csv", header=false)[:,1]
 xBar, n = mean(data), length(data)
 sig = 1.2
 alpha = 0.1

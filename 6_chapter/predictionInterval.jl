@@ -1,5 +1,5 @@
-using Distributions,PyPlot
-srand(3)
+using Random, Statistics, Distributions, PyPlot
+Random.seed!(3)
 
 mu, sig = 50, 3
 dist = Normal(mu,sig)
@@ -32,4 +32,3 @@ ylim(0,100)
 xlabel("Number of observations")
 ylabel("Value")
 legend(loc="upper right")
-savefig("predictionInterval.pdf")

@@ -1,5 +1,5 @@
-using Distributions, NLsolve
-srand(1)
+using Random, Distributions, NLsolve
+Random.seed!(0)
 
 a, b, c = 3, 5, 4
 dist = TriangularDist(a,b,c)

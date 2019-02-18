@@ -1,12 +1,12 @@
-using Distributions, PyPlot
-srand(1)
+using Random, Distributions, PyPlot
+Random.seed!(0)
 
-lambda = 1/4.5 
+lambda  = 1/4.5 
 expDist = Exponential(1/lambda)
-n, N = 10, 10^6
+n, N    = 10, 10^6
 
-means = Array{Float64}(N)
-variances = Array{Float64}(N)
+means     = Array{Float64}(undef, N)
+variances = Array{Float64}(undef, N)
 
 for i in 1:N
     data = rand(expDist,n)

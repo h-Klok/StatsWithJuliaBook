@@ -1,5 +1,5 @@
-using Distributions
-srand(1)
+using Random, Distributions
+Random.seed!(0)
 
 M = 1000
 N = 10^4

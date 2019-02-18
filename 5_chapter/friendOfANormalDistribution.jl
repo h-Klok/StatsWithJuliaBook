@@ -3,17 +3,17 @@ using Distributions, PyPlot
 mu, sigma = 10, 4
 n, N = 10, 10^6
 
-sMeans = Array{Float64}(N)
-sVariances = Array{Float64}(N)
-tStats = Array{Float64}(N)
+sMeans = Array{Float64}(undef, N)
+sVars  = Array{Float64}(undef, N)
+tStats = Array{Float64}(undef, N)
 
 for i in 1:N
-    data = rand(Normal(mu,sigma),n)
+    data       = rand(Normal(mu,sigma),n)
     sampleMean = mean(data)
-    sampleVariance = var(data)
-    sMeans[i] = sampleMean
-    sVariances[i] = sampleVariance
-    tStats[i] = (sampleMean - mu)/(sqrt(sampleVariance/n))
+    sampleVars = var(data)
+    sMeans[i]  = sampleMean
+    sVars[i]   = sampleVars
+    tStats[i]  = (sampleMean - mu)/(sqrt(sampleVars/n))
 end
 
 xRangeMean = 5:0.1:15
@@ -30,7 +30,7 @@ xlim(5,15)
 xlabel(L"$\overline{X}$")
 
 subplot(132)
-plt[:hist](sVariances,50, histtype="step", color="b", label="Simulated", 
+plt[:hist](sVars,50, histtype="step", color="b", label="Simulated", 
 	normed=true);
 plot(xRangeVar, (n-1)/sigma^2*pdf(Chisq(n-1), xRangeVar * (n-1)/sigma^2), 
 	"-r", label="Analytic")

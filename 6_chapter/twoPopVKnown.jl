@@ -1,7 +1,7 @@
-using Distributions, HypothesisTests
+using CSV, Distributions, HypothesisTests
 
-data1 = readcsv("machine1.csv")[:,1]
-data2 = readcsv("machine2.csv")[:,1]
+data1 = CSV.read("machine1.csv", header=false)[:,1]
+data2 = CSV.read("machine2.csv", header=false)[:,1]
 xBar1, xBar2 = mean(data1), mean(data2)
 n1, n2 = length(data1), length(data2)
 sig1, sig2 = 1.2, 1.6

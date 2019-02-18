@@ -6,7 +6,7 @@ dist1 = Normal(mu1, sig1)
 dist2 = Normal(mu2, sig2)
 
 N = 10^6
-tdArray = Array{Tuple{Float64,Float64}}(N)
+tdArray = Array{Tuple{Float64,Float64}}(undef,N)
 
 df(s1,s2,n1,n2) = 
     (s1^2/n1 + s2^2/n2)^2 / ( (s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1) )
@@ -22,13 +22,13 @@ for i in 1:N
 
     tdArray[i] = (tStat , df(s1,s2,n1,n2))
 end
-tdArray = sort(tdArray,1)
+sort!(tdArray, by = tdArray -> tdArray[1])
 
 invVal(data,i) = quantile(TDist(data),i/(N+1))
 
-xCoords = Array{Float64}(N)
-yCoords1 = Array{Float64}(N)
-yCoords2 = Array{Float64}(N)
+xCoords  = Array{Float64}(undef,N)
+yCoords1 = Array{Float64}(undef,N)
+yCoords2 = Array{Float64}(undef,N)
 
 for i in 1:N
     xCoords[i] = first(tdArray[i])
@@ -44,4 +44,3 @@ xlim(-7,7)
 ylim(-7,7)
 xlabel("Theoretical t-distribution quantiles")
 ylabel("Simulated t-distribution quantiles")
-savefig("vDOF_comparions.pdf")

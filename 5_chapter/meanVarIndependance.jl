@@ -6,11 +6,11 @@ function statPair(dist,n)
 end
 
 stdUni = Uniform(-sqrt(3),sqrt(3))
-
 n, N = 2, 10^5
-dataUni = [statPair(stdUni,n) for _ in 1:N]
-dataUniInd = [[mean(rand(stdUni,n)),var(rand(stdUni,n))] for _ in 1:N]
-dataNorm = [statPair(Normal(),n) for _ in 1:N]
+
+dataUni     = [statPair(stdUni,n) for _ in 1:N]
+dataUniInd  = [[mean(rand(stdUni,n)),var(rand(stdUni,n))] for _ in 1:N]
+dataNorm    = [statPair(Normal(),n) for _ in 1:N]
 dataNormInd = [[mean(rand(Normal(),n)),var(rand(Normal(),n))] for _ in 1:N]
 
 figure("test", figsize=(10,5))
@@ -29,4 +29,3 @@ xlabel(L"$\overline{X}$")
 ylabel(L"$S^2$")
 legend(markerscale=60,loc="upper right")
 ylim(0,10)
-savefig("sampleStatInd.png")

@@ -1,5 +1,5 @@
-using Distributions, PyPlot
-srand(1)
+using Random, Distributions, PyPlot
+Random.seed!(0)
 
 actualAlpha, actualLambda = 2,3
 gammaDist = Gamma(actualAlpha,1/actualLambda)

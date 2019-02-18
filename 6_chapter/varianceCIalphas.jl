@@ -2,11 +2,11 @@ using Distributions, PyPlot
 
 std, n, N = 3, 15, 10^4
 alphaUsed = 0.001:0.001:0.1
-dNormal = Normal(2,std)
+dNormal   = Normal(2,std)
 dLogistic = Logistic(2,sqrt(std^2*3)/pi)
 
 function alphaSimulator(dist, n, alpha)
-    popVar = var(dist)
+    popVar        = var(dist)
     coverageCount = 0
     for i in 1:N
         sVar = var(rand(dist, n))

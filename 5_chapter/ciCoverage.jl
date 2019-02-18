@@ -1,8 +1,8 @@
-using Distributions, PyPlot
-srand(2)
+using Random, Distributions, PyPlot
+Random.seed!(2)
 
-mu=5.57
-alpha = 0.05
+mu = 5.57
+alpha  = 0.05
 L(obs) = obs - (1-sqrt(alpha))
 U(obs) = obs + (1-sqrt(alpha))
 

@@ -5,7 +5,7 @@ N = 10^6
 mu, sigma = 10, 4
 normDist = Normal(mu,sigma)
 
-fValues = Array{Float64}(N)
+fValues = Array{Float64}(undef, N)
 
 for i in 1:N
     data1 = rand(normDist,n1)
