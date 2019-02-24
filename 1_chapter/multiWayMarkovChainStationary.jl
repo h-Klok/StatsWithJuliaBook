@@ -25,7 +25,7 @@ state = 1
 N = 10^6
 for t in 1:N
     numInState[state] += 1
-    state = sample(1:3,weights(P[state,:]))
+    global state = sample(1:3,weights(P[state,:]))
 end
 piProb4 = numInState/N
 
