@@ -7,26 +7,26 @@ model2 = lm(@formula(Y2 ~ X2), df)
 model3 = lm(@formula(Y3 ~ X3), df)
 model4 = lm(@formula(Y4 ~ X4), df)
 
-yHat(model, X) = coef(model)' * [ 1 , X ]  
+yHat(model, X) = coef(model)' * [ 1 , X ]
 xlims = [0, 20]
 
 subplot(221)
-plot(df[:X1], df[:Y1],".b")
+plot(df.X1, df.Y1,".b")
 plot(xlims, [yHat(model1, i) for i in xlims], "r")
 xlim(xlims)
 
 subplot(222)
-plot(df[:X2], df[:Y2],".b")
+plot(df.X2, df.Y2,".b")
 plot(xlims, [yHat(model2, i) for i in xlims], "r")
 xlim(xlims)
 
 subplot(223)
-plot(df[:X3], df[:Y3],".b")
+plot(df.X3, df.Y3,".b")
 plot(xlims, [yHat(model3, i) for i in xlims], "r")
 xlim(xlims)
 
 subplot(224)
-plot(df[:X4], df[:Y4],".b")
+plot(df.X4, df.Y4,".b")
 plot(xlims, [yHat(model4, i) for i in xlims], "r")
 xlim(xlims)
 

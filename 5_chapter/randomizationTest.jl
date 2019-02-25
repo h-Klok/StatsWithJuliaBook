@@ -1,8 +1,8 @@
-using Combinatorics, DataFrames
+using Combinatorics, DataFrames, CSV
 
-data = readtable("fertilizer.csv")
-control = data[1]
-fertilizer = data[2]
+data = CSV.read("fertilizer.csv")
+control = data.Control
+fertilizer = data.FertilizerX
 
 x = collect(combinations([control;fertilizer],10))
 

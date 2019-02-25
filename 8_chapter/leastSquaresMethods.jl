@@ -1,6 +1,7 @@
-using DataFrames, GLM, Statistics, LinearAlgebra
-data = readtable("L1L2data.csv")
-xVals, yVals = Array{Float64}(data[:X]), Array{Float64}(data[:Y])
+using DataFrames, GLM, Statistics, LinearAlgebra, CSV
+
+data = CSV.read("L1L2data.csv")
+xVals, yVals = Array{Float64}(data.X), Array{Float64}(data.Y)
 n = length(xVals)
 A = [ones(n) xVals]
 
@@ -15,7 +16,7 @@ b1B = cor(xVals,yVals)*(std(yVals)/std(xVals))
 b0B = yBar - b1B*xBar
 
 # Approach C
-b0C,b1C = A'A \ A'yVals 
+b0C,b1C = A'A \ A'yVals
 
 # Approach D
 Adag = inv(A'*A)*A'
