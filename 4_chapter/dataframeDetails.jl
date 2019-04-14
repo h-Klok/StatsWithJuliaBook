@@ -1,3 +1,4 @@
 include("dataframeCreation.jl")
-println(head(purchaseData))
-println(showcols(purchaseData))
+println(first(purchaseData, 6))
+println(last(purchaseData, 6))
+println(describe(purchaseData))

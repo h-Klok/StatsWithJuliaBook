@@ -1,4 +1,4 @@
-using DataFrames, GLM, PyPlot, Distributions
+using DataFrames, GLM, PyPlot, Distributions, CSV
 
 function normalProbabilityPlot(data)
         mu = mean(data)
@@ -15,16 +15,16 @@ function normalProbabilityPlot(data)
         ylabel("Quantiles of data")
 end
 
-data = readtable("weightHeight.csv")
+data = CSV.read("weightHeight.csv")
 
 model = lm(@formula(Height ~ Weight), data)
 pred(x) = coef(model)'*[1, x]
 
-residuals = data[:Height] - pred.(data[:Weight])
+residuals = data.Height - pred.(data.Weight)
 
 figure(figsize=(8,4))
 subplot(121)
-plot(data[:Weight], residuals,"b.")
+plot(data.Weight, residuals,"b.")
 
 subplot(122)
 normalProbabilityPlot(data[:,3]);

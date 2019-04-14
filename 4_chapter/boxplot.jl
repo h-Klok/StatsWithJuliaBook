@@ -1,15 +1,9 @@
-using DataFrames, PyPlot
+using DataFrames, PyPlot, CSV
 
-imputedData = readtable("purchaseDataImputed.csv")
-types = unique(imputedData[:Type])
-data = Array{Any}(length(types))
-
-for (i, t) in enumerate(types)
-    data[i] = imputedData[imputedData[:Type] .== t, :Price] 
-end
-
-boxplot(data, widths=0.25, sym="b+");
-xticks(1:5, types);
+imputedData = CSV.read("purchaseDataImputed.csv")
+groupedData = by(imputedData, :Type, Prices = :Price => x -> [x], sort=true)
+boxplot(groupedData.Prices, widths=0.25, sym="b+")
+xticks(axes(groupedData, 1), groupedData.Type)
 xlabel("Types")
 ylabel("Price")
 savefig("boxplot.pdf")

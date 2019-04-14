@@ -9,7 +9,7 @@ lastTindex = Int(floor(n*(1-pTrain)))
 numTest = n - lastTindex
 
 trainData = df[1:lastTindex,:]
-testData = df[lastTindex+1:n,:] 
+testData = df[lastTindex+1:n,:]
 
 formula = @formula(Perf~CycT+MMin+MMax+Cach+ChMin+ChMax)
 model1 = glm(formula,trainData,Normal(),IdentityLink())
@@ -20,7 +20,7 @@ invIdenityLink(x) = x
 invLogLink(x) = exp(x)
 invInverseLink(x) = 1/x
 
-A = [ones(numTest) testData[:CycT] testData[:MMin] testData[:MMax] testData[:Cach] testData[:ChMin] testData[:ChMax]]
+A = [ones(numTest) testData.CycT testData.MMin testData.MMax testData.Cach testData.ChMin testData.ChMax]
 pred1 = invIdenityLink.(A*coef(model1))
 pred2 = invLogLink.(A*coef(model2))
 pred3 = invInverseLink.(A*coef(model3))

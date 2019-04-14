@@ -1,10 +1,10 @@
 using CSV, RDatasets, DataFrames, GLM, PyPlot
 
 df = CSV.read("weightHeight.csv")
-mW = df[df[:Sex] .== "M", :Weight]
-mH = df[df[:Sex] .== "M", :Height]
-fW = df[df[:Sex] .== "F", :Weight]
-fH = df[df[:Sex] .== "F", :Height]
+mW = df[df.Sex .== "M", :Weight]
+mH = df[df.Sex .== "M", :Height]
+fW = df[df.Sex .== "F", :Weight]
+fH = df[df.Sex .== "F", :Height]
 categorical!(df, :Sex)
 model = lm(@formula(Height ~ Weight + Sex), df)
 
