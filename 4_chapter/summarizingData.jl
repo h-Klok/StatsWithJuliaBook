@@ -1,4 +1,4 @@
-using Statistics, StatsBase, Distributions
+using Statistics, StatsBase
 
 data = parse.(Int, readlines("grades.csv"))
 
@@ -8,8 +8,8 @@ sdev = std(data)
 minval = minimum(data)
 maxval = maximum(data)
 med = median(data)
-per95 = percentile(data, 25)
-q95 = quantile(data, 0.75)
+per95 = percentile(data, 95)
+q95 = quantile(data, 0.95)
 intquartrng = iqr(data)
 
 println("Sample Mean: $xbar")

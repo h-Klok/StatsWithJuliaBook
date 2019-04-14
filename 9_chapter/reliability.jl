@@ -22,7 +22,7 @@ adjMat = adjMatrix(edges)
 
 N = 10^3
 randNet(p) = adjMat.*(rand(L,L) .<= 1-p) 
-relEst(p) =  sum( [ pathExists(randNet(p), source, dest) for _ in 1:N] )/N
+relEst(p) = sum( [pathExists(randNet(p), source, dest) for _ in 1:N] )/N
 
 relAnalytic(p) = 1-p^3*(p-2)^2
 

@@ -1,20 +1,20 @@
 using PyPlot
 
-function hailLength(n::Int)
-    x = 0
-    while n != 1
-        if n % 2 == 0
-            n = Int(n/2)
+function hailLength(x::Int)
+    n = 0
+    while x != 1
+        if x % 2 == 0
+            x = Int(x/2)
         else
-            n = 3n +1
+            x = 3x +1
         end
-        x += 1
+        n += 1
     end
-    return x
+    return n
 end
 
-lengths = [hailLength(n) for n in 2:10^7] 
+lengths = [hailLength(x0) for x0 in 2:10^7] 
 
 plt[:hist](lengths, 1000, normed="true")
 xlabel("Length")
-ylabel("Frequency")
+ylabel("Frequency");

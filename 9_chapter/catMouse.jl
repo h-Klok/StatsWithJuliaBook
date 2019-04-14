@@ -1,4 +1,4 @@
-using Statistics, StatsBase, PyPlot, Random
+using Statistics, StatsBase, PyPlot, Random, LinearAlgebra
 Random.seed!(1)
 
 function cmHitTime()
@@ -27,15 +27,15 @@ end
 
 N = 10^6
 
-P = [   0 1 0 0 0;
-        0.25 0 0.25 0.25 0.25;
-        0    0.5  0 0 0.5;
-        0    0.5  0 0 0.5;
-        0 0 0 0 1]
+P = [   0   1   0   0   0;
+        1/4 0   1/4 1/4 1/4;
+        0   1/2 0   0   1/2;
+        0   1/2 0   0   1/2;
+        0   0   0   0   1]
 
-theor = (inv(Matrix{Float64}(I, 4, 4) - P[1:4,1:4])*ones(4))[1]
+theor = (inv(I - P[1:4,1:4])*ones(4))[1]
 est1 = mean([cmHitTime() for _ in 1:N])
-est2 = mean([length(mcTraj(P,1,100,5))-1 for _ in 1:N])
+est2 = mean([length(mcTraj(P,1,10^6,5))-1 for _ in 1:N])
 
 P[5,:] = [1 0 0 0 0]
 pi5 = sum(mcTraj(P,1,N) .== 5)/N 

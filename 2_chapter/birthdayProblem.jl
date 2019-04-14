@@ -20,7 +20,7 @@ N = 10^3
 mcEstimates = [probEst(n) for n in xGrid]
 
 plot(xGrid,analyticSolution1,"b.", label="Analytic solution")
-plot(xGrid,mcEstimates,"rx",label="Numerical estimate")
+plot(xGrid,mcEstimates,"rx",label="MC estimate")
 xlabel("Number of people in group")
 ylabel("Probability of birthday match")
 legend(loc="upper left")
