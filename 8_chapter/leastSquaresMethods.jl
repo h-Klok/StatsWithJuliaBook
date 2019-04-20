@@ -34,21 +34,26 @@ Q, R = F.Q, F.R
 b0G,b1G = (inv(R)*Q')*yVals
 
 # Approach H
+F = svd(A)
+V, Sp, Us = F.V, Diagonal(1 ./ F.S), F.U'
+b0H,b1H = (V*Sp*Us)*yVals
+
+# Approach I
 eta,eps = 0.002,10^-6.
 b,bPrev = [0,0], [1,1]
 while norm(bPrev-b) > eps
     bPrev = b
     b = b - eta*2*A'*(A*b - yVals)
 end
-b0H,b1H = b[1],b[2]
-
-# Approach I
-modelI = lm(@formula(Y ~ X), data)
-b0I,b1I = coef(modelI)
+b0I,b1I = b[1],b[2]
 
 # Approach J
-modelJ = glm(@formula(Y ~ X), data,Normal())
+modelJ = lm(@formula(Y ~ X), data)
 b0J,b1J = coef(modelJ)
 
-println([b0A,b0B,b0C,b0D,b0E,b0F,b0G,b0H,b0I,b0J])
-println([b1A,b1B,b1C,b1D,b1E,b1F,b1G,b1H,b1I,b1J])
+# Approach K
+modelK = glm(@formula(Y ~ X), data,Normal())
+b0K,b1K = coef(modelK)
+
+println(round.([b0A,b0B,b0C,b0D,b0E,b0F,b0G,b0H,b0I,b0J,b0K],digits=3))
+println(round.([b1A,b1B,b1C,b1D,b1E,b1F,b1G,b1H,b1I,b1J,b1K],digits=3))

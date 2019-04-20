@@ -1,22 +1,44 @@
 using Distributions, GLM, DataFrames, PyPlot, Random, LinearAlgebra
-Random.seed!(1)
 
-n = 1000
-beta0, beta1, beta2 = 20, 5, 7
-sig = 2.5
+n = 100
+beta0, beta1, beta2, beta3 = 10, 30, 60, 90
+sig = 25
+sigX = 5
+etaVals = [50.0, 10.0, 1.0, 0.1, 0.001, 0.0]
 
-x1 = collect(1:n) + 0.2*rand(Normal(),n)
-x2 = collect(1:n) + 0.2*rand(Normal(),n)
-x3 = x1 + 2*x2 + 0.1*rand(Normal(),n)
-y = beta0 .+ beta1*x1 + beta2*x2 + rand(Normal(),n)
+function createDataFrame(eta)
+    Random.seed!(1)
+    x1 = round.(collect(1:n) + sigX*rand(Normal(),n),digits = 5)
+    x2 = round.(collect(1:n) + sigX*rand(Normal(),n),digits = 5)
+    x3 = round.(x1 +2*x2 + eta*rand(Normal(),n),digits = 5)
+    y = beta0 .+ beta1*x1 + beta2*x2 + beta3*x3 + sig*rand(Normal(),n)
+    return DataFrame(Y = y, X1 = x1, X2 = x2, X3 = x3)
+end
 
-df = DataFrame(Y = y, X1 = x1, X2 = x2, X3 = x3)
+for eta in etaVals
+    println("\n **** eta = $(eta):")
+    df = createDataFrame(eta)
+    glmOK = true
+    try
+        global model = lm(@formula(Y ~ X1 + X2 + X3),df) 
+    catch err
+        println("\nException with GLM: ", err, "!!!!\n\n")
+        glmOK = false
+    end
 
-model = lm(@formula(Y ~ X1 + X2 + X3),df)
-
-A = [ones(n) x1 x2 x3]
-psInv(lambda) = inv(A'*A+lambda*Matrix{Float64}(I, 4, 4))*A' 
-coefManual = psInv(0.1)*y
-coefGLM = coef(model)
-
-coefManual,coefGLM
+    if glmOK
+        covMat = vcov(model)
+        sigVec = sqrt.(diag(covMat))
+        corrmat = round.(covMat ./ (sigVec*sigVec'),digits=6)
+        println("Cov(X1,X3) = ", corrmat[2,4],",\t Cov(X2,X3) = ",corrmat[3,4])
+        println(model)
+    else
+        A = [ones(n) df.X1 df.X2 df.X3]
+        psInv(lambda) = inv(A'*A + lambda*I)*A' 
+        for lam in [1000, 1, 0.5, 0.1, 0.01, 0.001, 0.0001, 0.0]
+            println("lam = ",lam,
+            	"\t coeff:",psInv(lam)*df.Y,
+		"\t pInv diff: ",round(norm(psInv(lam)-pinv(A)),digits=6))
+        end
+    end
+end

@@ -6,7 +6,6 @@ P = [0.5 0.4 0.1;
      0.5 0.3 0.2]
 
 # First way
-P^100
 piProb1 = (P^100)[1,:]
 
 # Second way

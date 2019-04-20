@@ -35,11 +35,11 @@ function sampler(piProb,qProp,rvProp)
 end
 
 mcmcSamples = sampler(posteriorUpToK,foldedNormalPDF,foldedNormalRV)
-plt[:hist](mcmcSamples,100,density=true);
+plt[:hist](mcmcSamples,100,density=true, label="Histogram of MCMC samples");
 
 lamRange = 0:0.01:10
-plot(lamRange, prior.(lamRange), "b")
+plot(lamRange, prior.(lamRange), "b", label="Prior distribution")
 closedFormPosterior(lam)=pdf(Gamma(alpha + sum(data),1/(beta+length(data))),lam)
-plot(lamRange, closedFormPosterior.(lamRange), "r")
-
+plot(lamRange, closedFormPosterior.(lamRange), "r", label="Posterior distribution")
+xlim(0, 10); ylim(0, 0.7); legend(loc="upper right")
 println("MCMC Bayes Estimate: ",mean(mcmcSamples))

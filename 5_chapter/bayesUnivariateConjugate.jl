@@ -12,8 +12,9 @@ lamRange = 0:delta:10
 K = sum([posteriorUpToK(lam)*delta for lam in lamRange])
 posterior(lam) = posteriorUpToK(lam)/K
 
-plot(lamRange, prior.(lamRange), "b")
-plot(lamRange, posterior.(lamRange), "r")
+plot(lamRange, prior.(lamRange), "b", label="Prior distribution")
+plot(lamRange, posterior.(lamRange), "r", label="Posterior distribution")
+xlim(0, 10); ylim(0, 0.7); legend(loc="upper right")
 bayesEstimate = sum([lam*posterior(lam)*delta for lam in lamRange])
 
 newAlpha, newBeta = alpha + sum(data), beta + length(data)
