@@ -14,8 +14,9 @@ posterior(lam) = posteriorUpToK(lam)/K
 
 plot(lamRange, prior.(lamRange), "b", label="Prior distribution")
 plot(lamRange, posterior.(lamRange), "r", label="Posterior distribution")
-xlim(0, 10); ylim(0, 0.7); legend(loc="upper right")
 bayesEstimate = sum([lam*posterior(lam)*delta for lam in lamRange])
+xlim(0, 10); ylim(0, 0.7); legend(loc="upper right")
+
 
 newAlpha, newBeta = alpha + sum(data), beta + length(data)
 closedFormBayesEstimate = mean(Gamma(newAlpha, 1/newBeta))

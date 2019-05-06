@@ -21,10 +21,10 @@ function QlearnSim(kappa)
     
     nextState(s,a) = 
     	a == 0 ? sample(1:L,weights(P0[s,:])) : sample(1:L,weights(P1[s,:]))
-    optimalAction(s) = Q[s,1] >= Q[s,2] ? 0 : 1
-    
+        
     Q = zeros(L,2)
     s = 1
+    optimalAction(s) = Q[s,1] >= Q[s,2] ? 0 : 1
     for t in 1:T
         if rand() < pExplore(t)
             a = rand([0,1])
@@ -46,4 +46,6 @@ for (i,kappa) in enumerate(kappaGrid)
     policyMap[:,i] = QlearnSim(kappa)
 end
 
-matshow(policyMap);
+imshow(policyMap, cmap="bwr")
+xticks(0:2:20, 0:0.2:2); yticks(0:L-1, 1:L)
+xlabel("k"); ylabel("State")

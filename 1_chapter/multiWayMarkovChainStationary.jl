@@ -9,7 +9,7 @@ P = [0.5 0.4 0.1;
 piProb1 = (P^100)[1,:]
 
 # Second way
-A = vcat((P' - Matrix{Float64}(I, 3, 3))[1:2,:],ones(3)')
+A = vcat((P' - I)[1:2,:],ones(3)')
 b = [0 0 1]'
 piProb2 = A\b
 
