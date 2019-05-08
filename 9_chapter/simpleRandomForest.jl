@@ -19,7 +19,7 @@ println("Prediction accuracy (measured on test set of size 100): ", accuracy)
 
 k = 1
 while predicted_labels[k] == testLabels[k]
-    k +=1
+    global k +=1
 end
 println("Example error (MNIST image $(50000+k)):",
         " Predicted $(predicted_labels[k]) but it is actually $(testLabels[k]).")
