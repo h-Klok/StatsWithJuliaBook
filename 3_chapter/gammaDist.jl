@@ -11,8 +11,8 @@ for (n,d) in enumerate(dists)
     sh = Int64(shape(d))
     sc = scale(d)
     data = [sum(-(1/(sh*lambda))*log.(rand(sh))) for _ in 1:N]
-    plt[:hist](data,50,color=C[n], histtype = "step", normed="true")
-    plot(xGrid,pdf(d,xGrid),C[n],
+    plt.hist(data,50,color=C[n], histtype = "step", density="true")
+    plot(xGrid,pdf.(d,xGrid),C[n],
         label="Shape = $(sh), Scale = $(round(sc,digits=2))")
 end
 xlabel("x")

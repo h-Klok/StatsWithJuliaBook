@@ -13,8 +13,8 @@ function hailLength(x::Int)
     return n
 end
 
-lengths = [hailLength(x0) for x0 in 2:10^7] 
+lengths = [hailLength(x0) for x0 in 2:10^7]
 
-plt[:hist](lengths, 1000, normed="true")
+plt.hist(lengths, 1000, density="true")
 xlabel("Length")
 ylabel("Frequency");
