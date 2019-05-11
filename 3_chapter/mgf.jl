@@ -11,7 +11,7 @@ figure(figsize=(10,5))
 subplots_adjust(wspace=0.3)
 
 subplot(121)
-p2 = plt[:hist](dataSum,200,normed="true");
+p2 = plt.hist(dataSum,200,normed="true");
 xlabel("x")
 ylabel("PDF")
 

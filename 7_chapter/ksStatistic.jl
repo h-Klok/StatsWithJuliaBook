@@ -20,14 +20,14 @@ kStats2 = [ksStat(dist2) for _ in 1:N]
 
 figure(figsize=(10,5))
 subplot(121)
-plt[:hist](kStats1,50,color="b",label="KS stat (Exponential)",histtype="step",
+plt.hist(kStats1,50,color="b",label="KS stat (Exponential)",histtype="step",
 		normed=true)
 plot(kGrid,pdf(Kolmogorov(),kGrid),"r",label="Kolmogorov PDF")
 legend(loc="upper right")
 xlim(0,2.5)
 
 subplot(122)
-plt[:hist](kStats2,50,color="b",label="KS stat (Normal)",histtype="step",
+plt.hist(kStats2,50,color="b",label="KS stat (Normal)",histtype="step",
 		normed=true)
 plot(kGrid,pdf(Kolmogorov(),kGrid),"r",label="Kolmogorov PDF")
 legend(loc="upper right")

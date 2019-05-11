@@ -10,7 +10,7 @@ gridMin, gridMax = 5, 25
 grid = gridMin:0.1:gridMax
 
 fig = figure(figsize=(6,6))
-ax = fig[:add_subplot](1,1,1)
+ax = fig.add_subplot(1,1,1)
 
 plot(grid,pdf(dist0,grid),"b", label="Bolt type 15g")
 plot(grid,pdf(dist1,grid),"g", label="Bolt type 18g")
@@ -23,8 +23,8 @@ poly1 = patch.Polygon(verts1, fc="blue", ec="0.5",alpha=0.2)
 verts2 = [ [[gridMin,0.0]]; [[i,pdf(dist1,i)] for i in gridMin:0.1:tau] ; 
     [[tau,0.0]] ]
 poly2 = patch.Polygon(verts2, fc="green", ec="0.5",alpha=0.2)
-ax[:add_artist](poly1)
-ax[:add_artist](poly2)
+ax.add_artist(poly1)
+ax.add_artist(poly2)
 
 xlim(gridMin,gridMax)
 ylim(0,0.25)

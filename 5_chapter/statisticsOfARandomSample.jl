@@ -14,9 +14,9 @@ for i in 1:N
     variances[i] = var(data)
 end
 
-plt[:hist](means,200, color="b", label = "Histogram of Sample Means",
+plt.hist(means,200, color="b", label = "Histogram of Sample Means",
 			histtype = "step", density = true)
-plt[:hist](variances,600, color="r", label = "Histogram of Sample Variances",
+plt.hist(variances,600, color="r", label = "Histogram of Sample Variances",
 			histtype = "step", density = true)
 xlim(0,40)
 legend(loc="upper right")

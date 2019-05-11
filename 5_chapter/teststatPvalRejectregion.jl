@@ -26,7 +26,7 @@ else
 end
 println("\np-value = $(round(pValue,digits=4))")
 
-plt[:hist](empricalDistUnderH0,100, color="b", histtype="step", normed="true")
+plt.hist(empricalDistUnderH0,100, color="b", histtype="step", normed="true")
 plot([testStat, testStat],[0,4],"r", label="Observed test \nstatistic")
 plot([rejectionValue, rejectionValue],[0,4],"k--", 
 	label="Critical value \nboundary")

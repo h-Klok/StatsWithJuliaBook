@@ -10,8 +10,8 @@ data1 = [mean(rand(dist1,n)) for _ in 1:N]
 data2 = [mean(rand(dist2,n)) for _ in 1:N]
 data3 = [mean(rand(dist3,n)) for _ in 1:N]
 
-plt[:hist](data1,200,color="b",label="Uniform",histtype="step",normed="True")
-plt[:hist](data2,200,color="r",label="Exponential",histtype="step",normed="True")
-plt[:hist](data3,200,color="g",label="Normal",histtype="step",normed="True")
+plt.hist(data1,200,color="b",label="Uniform",histtype="step",normed="True")
+plt.hist(data2,200,color="r",label="Exponential",histtype="step",normed="True")
+plt.hist(data3,200,color="g",label="Normal",histtype="step",normed="True")
 xlim(0,2)
 legend(loc="upper right")

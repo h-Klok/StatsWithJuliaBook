@@ -36,9 +36,9 @@ N = 10^6
 failTimes1 = [ networkLife(network,source,dest,lambda1) for _ in 1:N ]
 failTimes2 = [ networkLife(network,source,dest,lambda2) for _ in 1:N ]
 
-plt[:hist](failTimes1, 200, color="b", histtype = "step", 
+plt.hist(failTimes1, 200, color="b", histtype = "step", 
 	density=true, label="lambda = $(lambda1)")
-plt[:hist](failTimes2, 200, color="r", histtype = "step", 
+plt.hist(failTimes2, 200, color="r", histtype = "step", 
 	density=true, label="lambda = $(lambda2)")
 xlim(0,5)
 xlabel("t")

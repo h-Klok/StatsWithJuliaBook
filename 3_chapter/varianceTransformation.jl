@@ -8,12 +8,12 @@ figure(figsize=(10,5))
 subplots_adjust(wspace=0.4)
 
 subplot(121)
-plt[:hist](data,100, normed="true")
+plt.hist(data,100, normed="true")
 xlabel("x")
 ylabel("Proportion")
 
 subplot(122)
-plt[:hist](yData,100, normed="true")
+plt.hist(yData,100, normed="true")
 xlabel("y")
 ylabel("Proportion")
 

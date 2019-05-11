@@ -33,9 +33,9 @@ for i in 1:N
 		for j in 1:L ])
 end
 
-plt[:hist](mcFstatsH0, 100, color="b", histtype="step", 
+plt.hist(mcFstatsH0, 100, color="b", histtype="step", 
                     normed="true", label="Equal group \nmeans case")
-plt[:hist](mcFstatsH1, 100, color="r", histtype="step", 
+plt.hist(mcFstatsH1, 100, color="r", histtype="step", 
                     normed="true", label="Unequal group \nmeans case")
 
 dfBetween = L - 1

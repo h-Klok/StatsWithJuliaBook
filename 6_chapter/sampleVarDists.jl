@@ -18,9 +18,9 @@ xlim(-8,12)
 ylim(0,0.16)
 
 subplot(122)
-plt[:hist](sNormal,200,color="b",histtype="step",normed=true,
+plt.hist(sNormal,200,color="b",histtype="step",normed=true,
     label="Normal")
-plt[:hist](sLogistic,200,color="r",histtype="step",normed=true,
+plt.hist(sLogistic,200,color="r",histtype="step",normed=true,
     label="Logistic")
 xlabel("Sample Variance")
 legend(loc="upper right")

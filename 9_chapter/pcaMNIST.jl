@@ -18,7 +18,7 @@ end
 
 fig = figure(figsize = (15,10))
 for k in 1:5
-    aFig = fig[:add_subplot](2,3,k)
-    aFig[:set_aspect]("equal")
+    aFig = fig.add_subplot(2,3,k)
+    aFig.set_aspect("equal")
     compareDigits(2k-2,2k-1)
 end
