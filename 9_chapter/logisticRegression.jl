@@ -12,4 +12,4 @@ plot(data.Hours, data.Pass, "b.")
 plot(xGrid, pred.(xGrid), "r")
 xlabel("Hours studied")
 xlim(0, maximum(data.Hours))
-yticks([0,1], ["0 (Fail)", "1 (Pass)"]);
+yticks([0,1], ["0 (Fail)", "1 (Pass)"])

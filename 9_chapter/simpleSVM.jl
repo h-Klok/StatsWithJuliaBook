@@ -3,15 +3,15 @@ using Flux.Data.MNIST, LIBSVM, PyPlot
 imgs   = MNIST.images()
 labels = MNIST.labels()
 
-trainData = hcat([vcat(float.(imgs[i])...) for i in 1:1000]...);
-trainLabels = labels[1:1000];
+trainData = hcat([vcat(float.(imgs[i])...) for i in 1:1000]...)
+trainLabels = labels[1:1000]
 
-testData = hcat([vcat(float.(imgs[i])...) for i in 1001:2000]...);
-testLabels = labels[1001:2000];
+testData = hcat([vcat(float.(imgs[i])...) for i in 1001:2000]...)
+testLabels = labels[1001:2000]
 
-model = svmtrain(trainData,trainLabels);
+model = svmtrain(trainData,trainLabels)
 
-(predicted_labels, decision_values) = svmpredict(model, testData);
+(predicted_labels, decision_values) = svmpredict(model, testData)
 
 accuracy = sum(predicted_labels .== testLabels)/1000
 println("Prediction accuracy (measured on test set of size 1000): ", accuracy)

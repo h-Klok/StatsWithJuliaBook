@@ -17,4 +17,4 @@ subplot(121)
 plot(1:1000,data[1:1000],".")
 
 subplot(122)
-plt.hist(data,50, density = true);
+plt.hist(data,50, density = true)

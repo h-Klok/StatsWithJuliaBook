@@ -16,9 +16,9 @@ function mGraph0(seed)
     singleRng = MersenneTwister(seed)
     [mEst(lam,singleRng) for lam in lamRange]
 end
-mGraph1(seed) = [mEst(lam,MersenneTwister(seed)) for lam in lamRange];
+mGraph1(seed) = [mEst(lam,MersenneTwister(seed)) for lam in lamRange]
 mGraph2(seed1,seed2) = [mEst2(lam,MersenneTwister(seed1),
-		MersenneTwister(seed2)) for lam in lamRange];
+		MersenneTwister(seed2)) for lam in lamRange]
 
 plot(lamRange,mGraph0(1987),"r")
 plot(lamRange,mGraph1(1987),"g")

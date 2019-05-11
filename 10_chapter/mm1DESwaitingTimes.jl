@@ -49,4 +49,4 @@ xGrid = 0:0.1:20
 plot(xGrid,F.(xGrid),"b",label="Analytic CDF of waiting time")
 plot(xGrid,empiricalCDF(xGrid),"r",label="ECDF of waiting times")
 xlabel("x"); xlim(0,20); ylim(0,1)
-legend(loc="lower right");
+legend(loc="lower right")

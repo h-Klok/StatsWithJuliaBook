@@ -35,4 +35,4 @@ plot(xTraj,"b.",label="System trajectory")
 plot(xHatTraj,"r.",label="Kalman filter tracking")
 xlim(50, 100);ylim(-6,6)
 xlabel("Time");ylabel("X")
-legend(loc="upper right");
+legend(loc="upper right")

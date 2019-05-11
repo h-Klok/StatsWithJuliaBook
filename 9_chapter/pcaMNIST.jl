@@ -12,7 +12,7 @@ function compareDigits(dA,dB)
     zA, zB = M'*xA, M'*xB
     plot(zA[1,:],zA[2,:],"r.",ms="0.5",label="Digit $(dA)")
     plot(zB[1,:],zB[2,:],"b.",ms="0.5",label="Digit $(dB)")
-    xlim(-5,12.5);ylim(-7.5,7.5);
+    xlim(-5,12.5);ylim(-7.5,7.5)
     legend(loc="upper right")
 end
 

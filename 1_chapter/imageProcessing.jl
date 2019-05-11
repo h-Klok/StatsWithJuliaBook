@@ -30,4 +30,4 @@ axO.imshow(gImg,cmap="Greys")
 axO.add_artist(patch.Circle([xOriginal,yOriginal],20,fc="none",ec="red",lw=3))
 
 axS.imshow(blurImg,cmap="Greys")
-axS.add_artist(patch.Circle([xBoxBlur,yBoxBlur],20,fc="none",ec="red",lw=3));
+axS.add_artist(patch.Circle([xBoxBlur,yBoxBlur],20,fc="none",ec="red",lw=3))

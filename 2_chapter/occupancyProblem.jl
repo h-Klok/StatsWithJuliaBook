@@ -41,4 +41,4 @@ xlim(0,max_n)
 ylim(0,1)
 xlabel("n")
 ylabel("Probability")
-legend(loc="upper right");
+legend(loc="upper right")

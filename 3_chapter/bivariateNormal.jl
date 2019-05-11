@@ -16,4 +16,4 @@ CS = contour(support, support, copy(Z'), levels=[0.001, 0.005, 0.02])
 
 ax = fig.add_subplot(122, projection = "3d")
 plot_surface(support, support, Z, rstride=1, cstride=1, lw=0,
-	antialiased=false, cmap="coolwarm",);
+	antialiased=false, cmap="coolwarm",)

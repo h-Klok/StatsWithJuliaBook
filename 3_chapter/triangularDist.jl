@@ -26,4 +26,4 @@ plot(xGrid2,quantile(tDist,xGrid2))
 xlim(0,1)
 ylim(0,2)
 xlabel("Quantile")
-ylabel(L"$F^{-1}(u)$");
+ylabel(L"$F^{-1}(u)$")

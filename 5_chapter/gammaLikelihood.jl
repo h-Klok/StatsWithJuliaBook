@@ -12,4 +12,4 @@ lambdaGrid = 2:0.01:3.5
 likelihood = [ prod([pdf(Gamma(a,1/l),v) for v in sample])
                         for a in alphaGrid, l in lambdaGrid]
 plot_surface(lambdaGrid, alphaGrid, likelihood, rstride=1,
-        cstride=1,linewidth=0, antialiased=false, cmap="coolwarm");
+        cstride=1,linewidth=0, antialiased=false, cmap="coolwarm")

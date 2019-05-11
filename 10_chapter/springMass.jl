@@ -5,7 +5,7 @@ A = [0 1;
     -k/M -b/M]
 
 initX = [8.,0.0]
-tEnd = 50.0;
+tEnd = 50.0
 tRange = 0:0.1:tEnd
 
 manualSol = [exp(A*t)*initX for t in tRange]
@@ -25,5 +25,5 @@ xlabel("Displacement"); ylabel("Velocity"); legend(loc="upper right")
 subplot(122)
 plot(tRange,first.(manualSol),"b", label="Manual trajectory")
 plot(sol.t,first.(sol.u),"r.", label="DiffEq package")
-plot(0,initX[1],"k.",ms="15",label="Initial state");
+plot(0,initX[1],"k.",ms="15",label="Initial state")
 xlabel("Time"); ylabel("Displacement"); legend(loc="upper right")

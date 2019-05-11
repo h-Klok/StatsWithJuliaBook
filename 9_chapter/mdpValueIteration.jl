@@ -36,6 +36,6 @@ for (i,kappa) in enumerate(kappaGrid)
     policyMap[:,i] = valueIteration(kappa)
 end
 
-imshow(policyMap, cmap="bwr");
+imshow(policyMap, cmap="bwr")
 xticks(0:2:20, 0:0.2:2); yticks(0:L-1, 1:L)
 xlabel("k"); ylabel("State")

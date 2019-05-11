@@ -32,4 +32,4 @@ end
 @epochs 3 Flux.train!(loss, train, opt, cb=evalcb)
 
 plot( 1:length(L) , L, label="loss function","bo-")
-plot( 1:length(A) , A, label="accuracy","ro-");
+plot( 1:length(A) , A, label="accuracy","ro-")

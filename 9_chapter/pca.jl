@@ -25,10 +25,10 @@ pcDat = M[:,1:2]'*x
 figure(figsize=(10,5))
 subplot(121)
 plot( 1:length(pcVar) , pcVar,"bo-", label="Variance due to PC")
-plot( 1:length(cumVar) , cumVar,"ro-", label="Cumulative Variance");
+plot( 1:length(cumVar) , cumVar,"ro-", label="Cumulative Variance")
 legend(loc="center right")
 ylim(-0.1,1.1)
 
 subplot(122)
 plot(pcDat[1,:],pcDat[2,:],".")
-xlabel("PC 1");ylabel("PC 2");
+xlabel("PC 1");ylabel("PC 2")

@@ -15,4 +15,4 @@ plot([L, L],[0,2],"k--", label="95% CI")
 plot([U, U],[0,2],"k--")
 xlim(52,54)
 ylim(0,2)
-legend(loc="upper right");
+legend(loc="upper right")

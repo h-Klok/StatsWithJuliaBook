@@ -31,4 +31,4 @@ function graphCreator(n::Int)
 	anim.ArtistAnimation(fig, ani, interval=5, blit="False", repeat_delay=10)
 end
 
-graphCreator(16);
+graphCreator(16)

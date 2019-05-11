@@ -33,8 +33,8 @@ for muActual in muRange
 
 end
 
-plot(muRange, powerT, "b",label="t test");
-plot(muRange, powerU, "r",label="Sign test");
+plot(muRange, powerT, "b",label="t test")
+plot(muRange, powerU, "r",label="Sign test")
 xlim(51,55)
 ylim(0,1)
 legend(loc="bottom right")

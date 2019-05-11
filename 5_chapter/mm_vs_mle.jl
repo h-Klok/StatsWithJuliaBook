@@ -53,4 +53,4 @@ subplot(133)
 plot(sampleSizes,MSE[:,5],"xb",label="Bias (MLE)")
 plot(sampleSizes,MSE[:,6],"xr",label="Bias (MM)")
 xlabel("n")
-legend(loc="center right");
+legend(loc="center right")

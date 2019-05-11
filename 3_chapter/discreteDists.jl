@@ -5,7 +5,7 @@ dists = [
     Geometric(0.5),
     NegativeBinomial(10,0.5),
     Hypergeometric(30, 40, 10),
-    Poisson(5.5)];
+    Poisson(5.5)]
 
 println("Distribution \t\t\t\t\t\t Parameters \t Support")
 reshape([dists ;  params.(dists) ;

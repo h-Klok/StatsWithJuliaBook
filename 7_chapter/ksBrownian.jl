@@ -15,7 +15,7 @@ plot(xGrid,Fhat(xGrid),"k",lw=1, label="ECDF from data")
 plot(xGrid,cdf(dist,xGrid),"b:",label="CDF under \n actual distribution")
 plot(xGrid,cdf(distH0,xGrid),"r:",label="CDF under \n postulated H0")
 legend(loc="lower right")
-xlim(0,20);ylim(0,1);
+xlim(0,20);ylim(0,1)
 
 subplot(122)
 plot(cdf(dist,xGrid), diffF(dist, xGrid),lw=0.5, "b",

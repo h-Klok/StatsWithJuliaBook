@@ -18,6 +18,6 @@ plot(xlims, predMale.(xlims),"b", label="Male model")
 
 plot(fW, fH, "r.", label="Females")
 plot(xlims, predFemale.(xlims),"r", label="Female model")
-xlim(xlims);
+xlim(xlims)
 legend(loc="upper left")
 println(model)

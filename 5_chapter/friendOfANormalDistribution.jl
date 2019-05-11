@@ -31,7 +31,7 @@ xlabel(L"$\overline{X}$")
 
 subplot(132)
 plt.hist(sVars,50, histtype="step", color="b", label="Simulated",
-	normed=true);
+	normed=true)
 plot(xRangeVar, (n-1)/sigma^2*pdf(Chisq(n-1), xRangeVar * (n-1)/sigma^2),
 	"-r", label="Analytic")
 xlim(5,15)
@@ -40,7 +40,7 @@ xlabel(L"$S^2$")
 legend(loc="upper right")
 
 subplot(133)
-plt.hist(tStats,80, histtype="step", color="b", normed=true);
+plt.hist(tStats,80, histtype="step", color="b", normed=true)
 plot(xRangeTStat, pdf(TDist(n-1), xRangeTStat), "-r",)
 xlim(5,15)
 xlim(-5,5)

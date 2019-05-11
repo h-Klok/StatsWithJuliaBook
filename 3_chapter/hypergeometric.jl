@@ -8,4 +8,4 @@ xGrid = 0:1:30
     label="Failures = $(K[i])") for i in 1:length(K)]
 legend()
 xlabel("x")
-ylabel("Probability");
+ylabel("Probability")

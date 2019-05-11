@@ -34,4 +34,4 @@ xlim(0,1)
 ylim(0,1)
 xlabel("p")
 ylabel("Reliability")
-legend(loc="upper right");
+legend(loc="upper right")

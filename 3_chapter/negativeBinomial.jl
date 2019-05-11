@@ -28,4 +28,4 @@ xlim(0,maximum(xGrid))
 ylim(0,0.2)
 xlabel("x")
 ylabel("Probability")
-legend(loc="upper right");
+legend(loc="upper right")

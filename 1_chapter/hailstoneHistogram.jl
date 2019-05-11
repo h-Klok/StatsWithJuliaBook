@@ -17,4 +17,4 @@ lengths = [hailLength(x0) for x0 in 2:10^7]
 
 plt.hist(lengths, 1000, density="true")
 xlabel("Length")
-ylabel("Frequency");
+ylabel("Frequency")
