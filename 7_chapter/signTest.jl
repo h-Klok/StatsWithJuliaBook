@@ -5,10 +5,10 @@ n = length(data)
 mu0A, mu0B = 52.2, 53
 
 xPositiveA = sum(data .> mu0A)
-testStatisticA = max(xPositiveA, n-xPositiveA) 
+testStatisticA = max(xPositiveA, n-xPositiveA)
 
 xPositiveB = sum(data .> mu0B)
-testStatisticB = max(xPositiveB, n-xPositiveB) 
+testStatisticB = max(xPositiveB, n-xPositiveB)
 
 binom = Binomial(n,0.5)
 pValA = 2*ccdf(binom, testStatisticA)

@@ -1,7 +1,7 @@
 using Random, Distributions, PyPlot
 Random.seed!(0)
 
-lambda  = 1/4.5 
+lambda  = 1/4.5
 expDist = Exponential(1/lambda)
 n, N    = 10, 10^6
 

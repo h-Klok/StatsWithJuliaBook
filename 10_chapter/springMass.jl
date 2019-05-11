@@ -10,7 +10,7 @@ tRange = 0:0.1:tEnd
 
 manualSol = [exp(A*t)*initX for t in tRange]
 
-linearRHS(x,Amat,t) = Amat*x 
+linearRHS(x,Amat,t) = Amat*x
 prob = ODEProblem(linearRHS, initX, (0,tEnd), A)
 sol = solve(prob)
 

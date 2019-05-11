@@ -6,7 +6,7 @@ possibleChars = ['a':'z';'A':'Z';'0':'9']
 
 correctPassword = "3xyZu4vN"
 
-numMatch(loginPassword) = 
+numMatch(loginPassword) =
     sum([loginPassword[i] == correctPassword[i] for i in 1:passLength])
 
 N = 10^7

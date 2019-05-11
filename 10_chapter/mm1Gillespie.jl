@@ -5,10 +5,10 @@ function simulateMM1DoobGillespie(lambda,mu,Q0,T)
     t, Q = 0.0 , Q0
     tValues, qValues = [0.0], [Q0]
     while t<T
-        if Q == 0 
+        if Q == 0
             t += rand(Exponential(1/lambda))
             Q = 1
-        else  
+        else
             t += rand(Exponential(1/(lambda+mu)))
             Q += 2(rand() < lambda/(lambda+mu)) -1
         end

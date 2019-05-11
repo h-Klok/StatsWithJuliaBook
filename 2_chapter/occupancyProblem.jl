@@ -1,14 +1,14 @@
 using PyPlot
 
 function occupancyAnalytic(n,r)
-    return sum([(-1)^k * binomial(n,k) * (1 - k/n)^r for k in 0:n]) 
+    return sum([(-1)^k * binomial(n,k) * (1 - k/n)^r for k in 0:n])
 end
 
 function occupancyMC(n,r,N)
     fullCount = 0
     for _ in 1:N
         envelopes = zeros(Int,n)
-        for k in 1:r 
+        for k in 1:r
             target = rand(1:n)
             envelopes[target] += 1
         end

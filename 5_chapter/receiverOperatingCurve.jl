@@ -9,7 +9,7 @@ dist1c = Normal(mu1c,std)
 
 tauGrid = 5:0.1:25
 
-falsePositive = ccdf(dist0,tauGrid) 
+falsePositive = ccdf(dist0,tauGrid)
 truePositiveA = ccdf(dist1a,tauGrid)
 truePositiveB = ccdf(dist1b,tauGrid)
 truePositiveC = ccdf(dist1c,tauGrid)

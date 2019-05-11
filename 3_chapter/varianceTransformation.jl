@@ -17,4 +17,4 @@ plt.hist(yData,100, normed="true")
 xlabel("y")
 ylabel("Proportion")
 
-mean(yData),var(data) 
+mean(yData),var(data)

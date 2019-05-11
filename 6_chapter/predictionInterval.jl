@@ -14,13 +14,13 @@ for n in 2:N
     sd = std(observations)
     tVal = quantile(TDist(n-1),1-alpha/2)
     delta = tVal * sd * sqrt(1+1/n)
-        
+
     ciL = xbar - delta
     ciU = xbar + delta
 
     push!(ciLarray,ciL)
     push!(ciUarray,ciU)
-   
+
     xNew = rand(dist)
     push!(observations,xNew)
 end

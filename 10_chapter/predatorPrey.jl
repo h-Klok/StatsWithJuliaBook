@@ -2,7 +2,7 @@ using PyPlot
 
 a, c, d = 2, 1, 5
 next(x,y) = [a*x*(1-x) - x*y, -c*y + d*x*y]
-equibPoint = [(1+c)/d ,(d*(a-1)-a*(1+c))/d] 
+equibPoint = [(1+c)/d ,(d*(a-1)-a*(1+c))/d]
 
 initX = [0.8,0.05]
 tEnd = 100;

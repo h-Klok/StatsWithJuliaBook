@@ -4,7 +4,7 @@ println("There is more than one way to say hello:")
 helloArray = ["Hello","G'day","Shalom"]
 
 for i in 1:3
-    println("\t", helloArray[i], " World!") 
+    println("\t", helloArray[i], " World!")
 end
 
 println("\nThese squares are just perfect:")

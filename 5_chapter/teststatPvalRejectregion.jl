@@ -18,7 +18,7 @@ testStat = maximum(sample)-minimum(sample)
 pValue = sum(empricalDistUnderH0 .<= testStat)/N
 
 if testStat > rejectionValue
-    print("Didn't reject: ", round(testStat,digits=4)) 
+    print("Didn't reject: ", round(testStat,digits=4))
     print(" > ", round(rejectionValue,digits=4))
 else
     print("Reject: ", round(testStat,digits=4))
@@ -28,7 +28,7 @@ println("\np-value = $(round(pValue,digits=4))")
 
 plt.hist(empricalDistUnderH0,100, color="b", histtype="step", normed="true")
 plot([testStat, testStat],[0,4],"r", label="Observed test \nstatistic")
-plot([rejectionValue, rejectionValue],[0,4],"k--", 
+plot([rejectionValue, rejectionValue],[0,4],"k--",
 	label="Critical value \nboundary")
 legend(loc="upper left")
 ylim(0,4)

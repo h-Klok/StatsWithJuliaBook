@@ -8,7 +8,7 @@ dist2 = Normal(mu2, sig2)
 N = 10^6
 tdArray = Array{Tuple{Float64,Float64}}(undef,N)
 
-df(s1,s2,n1,n2) = 
+df(s1,s2,n1,n2) =
     (s1^2/n1 + s2^2/n2)^2 / ( (s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1) )
 
 for i in 1:N
@@ -17,7 +17,7 @@ for i in 1:N
 
     x1Bar,x2Bar = mean(x1Data),mean(x2Data)
     s1,s2 = std(x1Data),std(x2Data)
-    
+
     tStat = (x1Bar - x2Bar) / sqrt(s1^2/n1 + s2^2/n2)
 
     tdArray[i] = (tStat , df(s1,s2,n1,n2))

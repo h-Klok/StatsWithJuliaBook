@@ -4,14 +4,14 @@ function simMM1Wait(lambda,mu,T)
     tNextArr = rand(Exponential(1/(lambda)))
     tNextDep = Inf
     t = tNextArr
-    
-    waitingRoom = Queue(Float64)   
+
+    waitingRoom = Queue(Float64)
     serverBusy = false
     waitTimes = Array{Float64,1}()
-    
+
     while t<T
         if t == tNextArr
-            if !serverBusy 
+            if !serverBusy
                 tNextDep = t + rand(Exponential(1/mu))
                 serverBusy = true
                 push!(waitTimes,0.0)
@@ -24,7 +24,7 @@ function simMM1Wait(lambda,mu,T)
                tNextDep = Inf
                serverBusy = false
             else
-               tArr = dequeue!(waitingRoom) 
+               tArr = dequeue!(waitingRoom)
                waitTime = t - tArr
                push!(waitTimes, waitTime)
                tNextDep = t + rand(Exponential(1/mu))
@@ -32,7 +32,7 @@ function simMM1Wait(lambda,mu,T)
         end
         t = min(tNextArr,tNextDep)
     end
-    
+
     return waitTimes
 end
 

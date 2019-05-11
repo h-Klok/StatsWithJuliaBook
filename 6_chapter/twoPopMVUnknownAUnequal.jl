@@ -9,8 +9,8 @@ alpha = 0.05
 
 v = (s1^2/n1 + s2^2/n2)^2 / ( (s1^2/n1)^2 / (n1-1) + (s2^2/n2)^2 / (n2-1) )
 
-t = quantile(TDist(v),1-alpha/2) 
+t = quantile(TDist(v),1-alpha/2)
 
-println("Calculating formula: ", (xBar1 - xBar2 - t*sqrt(s1^2/n1 + s2^2/n2), 
+println("Calculating formula: ", (xBar1 - xBar2 - t*sqrt(s1^2/n1 + s2^2/n2),
 				  xBar1 - xBar2 + t*sqrt(s1^2/n1 + s2^2/n2)))
 println("Using confint(): ",   confint(UnequalVarianceTTest(data1,data2),alpha))

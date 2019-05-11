@@ -8,5 +8,5 @@ sig1, sig2 = 1.2, 1.6
 alpha = 0.05
 z = quantile(Normal(),1-alpha/2)
 
-println("Calculating formula: ", (xBar1 - xBar2 - z*sqrt(sig1^2/n1+sig2^2/n2), 
+println("Calculating formula: ", (xBar1 - xBar2 - z*sqrt(sig1^2/n1+sig2^2/n2),
 				  xBar1 - xBar2 + z*sqrt(sig1^2/n1+sig2^2/n2)))

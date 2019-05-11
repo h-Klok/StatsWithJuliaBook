@@ -1,5 +1,5 @@
 using Distributions, PyPlot
-      
+
 std, n, N = 3, 15, 10^7
 dNormal   = Normal(2,std)
 dLogistic = Logistic(2,sqrt(std^2*3)/pi)

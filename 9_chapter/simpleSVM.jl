@@ -20,7 +20,7 @@ showImages = float.(imgs[1001:1010])
 matshow(hcat(showImages...), cmap="Greys")
 for i in 1:10
     ok = predicted_labels[i] == testLabels[i] ? "" : "x"
-    annotate("$(predicted_labels[i])$(ok)", xy=(28i-10,25), xytext=(28i-10, 25), 
+    annotate("$(predicted_labels[i])$(ok)", xy=(28i-10,25), xytext=(28i-10, 25),
     		bbox=Dict("fc"=>"0.8"))
 end
 

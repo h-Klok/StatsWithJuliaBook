@@ -23,7 +23,7 @@ bets = [Adag*yDat(k) for k in 0:9];
 classify(input) = findmax([([1 ; input])'*bets[k] for k in 1:10])[2]-1
 
 predictions = [classify(testData[k,:]) for k in 1:nTest]
-confusionMatrix = [sum((predictions .== i) .& (testLabels .== j)) 
+confusionMatrix = [sum((predictions .== i) .& (testLabels .== j))
 				for i in 0:9, j in 0:9]
 accuracy = sum(diag(confusionMatrix))/nTest
 

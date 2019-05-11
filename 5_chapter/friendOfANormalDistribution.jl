@@ -30,9 +30,9 @@ xlim(5,15)
 xlabel(L"$\overline{X}$")
 
 subplot(132)
-plt.hist(sVars,50, histtype="step", color="b", label="Simulated", 
+plt.hist(sVars,50, histtype="step", color="b", label="Simulated",
 	normed=true);
-plot(xRangeVar, (n-1)/sigma^2*pdf(Chisq(n-1), xRangeVar * (n-1)/sigma^2), 
+plot(xRangeVar, (n-1)/sigma^2*pdf(Chisq(n-1), xRangeVar * (n-1)/sigma^2),
 	"-r", label="Analytic")
 xlim(5,15)
 xlim(0,60)

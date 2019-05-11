@@ -1,7 +1,7 @@
 using StatsBase, Distributions, PyPlot
 
 function binomialRV(n,p)
-   return sum(rand(n) .< p) 
+   return sum(rand(n) .< p)
 end
 
 p, n, N = 0.5, 10, 10^6
