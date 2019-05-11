@@ -1,7 +1,7 @@
 using DataFrames, Distributions, PyPlot, PyCall, Random, LinearAlgebra, CSV
 
-@pyimport matplotlib.patches as patch;
-@pyimport matplotlib.lines as line
+patch = pyimport("matplotlib.patches")
+line = pyimport("matplotlib.lines")
 Random.seed!(0)
 data = CSV.read("L1L2data.csv")
 xVals, yVals = data.X, data.Y

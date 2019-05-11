@@ -1,5 +1,5 @@
 using Distributions, StatsBase, PyCall, PyPlot
-@pyimport matplotlib.patches as patch
+patch = pyimport("matplotlib.patches")
 
 mu0, mu1, sd  = 15, 18, 2
 tau = 17.5
