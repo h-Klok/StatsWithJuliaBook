@@ -19,5 +19,5 @@ legend(loc="upper center")
 title(L"Plot of $G(x)= \frac{1}{2}x^2-2x$ and it's derivative")
 
 annotate("The minimum", xy=(2, -2), xytext=(3, -2.5), xycoords="data",
-    bbox=Dict("fc"=>"0.8"), arrowprops=Dict("facecolor"=>"black", 
-    "arrowstyle"=>"->"));
+    bbox=Dict("fc"=>"0.8"), arrowprops=Dict("facecolor"=>"black",
+    "arrowstyle"=>"->"))

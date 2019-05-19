@@ -18,10 +18,10 @@ function QlearnSim(kappa)
 
     R0 = collect(1:L)
     R1 = R0 .- kappa
-    
-    nextState(s,a) = 
+
+    nextState(s,a) =
     	a == 0 ? sample(1:L,weights(P0[s,:])) : sample(1:L,weights(P1[s,:]))
-        
+
     Q = zeros(L,2)
     s = 1
     optimalAction(s) = Q[s,1] >= Q[s,2] ? 0 : 1
@@ -35,7 +35,7 @@ function QlearnSim(kappa)
         r = a == 0 ? R0[sNew] : R1[sNew]
         Q[s,a+1]=(1-alpha(t))*Q[s,a+1]+alpha(t)*(r+beta*max(Q[sNew,1],Q[sNew,2]))
         s = sNew
-    end    
+    end
     [optimalAction(s) for s in 1:L]
 end
 

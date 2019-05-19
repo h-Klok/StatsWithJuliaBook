@@ -3,7 +3,7 @@ function directorySearch(directory, searchString)
     fileList = filter(x->occursin(searchString, x), readdir(directory))
 
     for file in fileList
-        println(outfile, file) 
+        println(outfile, file)
     end
     close(outfile)
 end

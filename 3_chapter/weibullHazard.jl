@@ -7,7 +7,7 @@ C = ["b", "r", "g"]
 
 for (n,d) in enumerate(dists)
     plot(xGrid,pdf(d,xGrid)./(ccdf(d,xGrid)),C[n],
-    label="Shape = $(shape(d)), Scale = 2") 
+    label="Shape = $(shape(d)), Scale = 2")
 end
 xlabel("x")
 ylabel("Instantaneous failure rate")	

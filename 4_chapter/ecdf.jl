@@ -12,4 +12,4 @@ plot(xGrid,empiricalCDF(xGrid),label="ECDF")
 xlim(0,40)
 ylim(0,1)
 xlabel(L"x")
-legend(loc="upper left");
+legend(loc="upper left")

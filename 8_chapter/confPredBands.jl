@@ -25,4 +25,4 @@ plot(xGrid,interval.(xGrid,+,1),"b",label="Prediciton interval")
 plot(xGrid,interval.(xGrid,-,1),"b")
 xlim(40, 120)
 ylim(145, 200)
-legend(loc="upper left");
+legend(loc="upper left")

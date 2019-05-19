@@ -1,7 +1,7 @@
 using StatsBase, Distributions, PyPlot
 
 function binomialRV(n,p)
-   return sum(rand(n) .< p) 
+   return sum(rand(n) .< p)
 end
 
 p, n, N = 0.5, 10, 10^6
@@ -17,4 +17,4 @@ plot(xGrid,bPmf,"rx",ms=8,label="PMF")
 ylim(0,0.3)
 xlabel("x")
 ylabel("Probability")
-legend(loc="upper right");
+legend(loc="upper right")

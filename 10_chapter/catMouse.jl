@@ -38,7 +38,7 @@ est1 = mean([cmHitTime() for _ in 1:N])
 est2 = mean([length(mcTraj(P,1,10^6,5))-1 for _ in 1:N])
 
 P[5,:] = [1 0 0 0 0]
-pi5 = sum(mcTraj(P,1,N) .== 5)/N 
+pi5 = sum(mcTraj(P,1,N) .== 5)/N
 est3 = 1/pi5 - 1
 
 println("Theoretical: ", theor)

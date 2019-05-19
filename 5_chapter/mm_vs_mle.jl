@@ -1,6 +1,6 @@
 using Distributions, PyPlot
 
-min_n, step_n, max_n = 10, 10, 100 
+min_n, step_n, max_n = 10, 10, 100
 sampleSizes = min_n:step_n:max_n
 
 MSE = Array{Float64}(undef, Int(max_n/step_n), 6)
@@ -13,7 +13,7 @@ MLEest(data) = maximum(data)
 MMest(data)  = mean(data) + sqrt(3)*std(data)
 
 for (index, n) in enumerate(sampleSizes)
-    
+
     mleEst = Array{Float64}(undef, N)
     mmEst  = Array{Float64}(undef, N)
     for i in 1:N
@@ -45,7 +45,7 @@ legend(loc="upper right")
 
 subplot(132)
 plot(sampleSizes,MSE[:,3],"xb",label="Variance (MLE)")
-plot(sampleSizes,MSE[:,4],"xr",label="Variance (MM)")   
+plot(sampleSizes,MSE[:,4],"xr",label="Variance (MM)")
 xlabel("n")
 legend(loc="upper right")
 
@@ -53,4 +53,4 @@ subplot(133)
 plot(sampleSizes,MSE[:,5],"xb",label="Bias (MLE)")
 plot(sampleSizes,MSE[:,6],"xr",label="Bias (MM)")
 xlabel("n")
-legend(loc="center right");
+legend(loc="center right")

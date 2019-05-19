@@ -11,7 +11,7 @@ end
 
 function pathExists(adjMatrix, source, destination)
     L = size(adjMatrix)[1]
-    adjMatrix += I 
+    adjMatrix += I
     sign.(adjMatrix^L)[source,destination]
 end
 
@@ -21,7 +21,7 @@ source, dest = 1, 4
 N = 10^5
 L = maximum(vcat(edges...))
 adjMat = adjMatrix(edges)
-randNet(p) = adjMat.*(rand(L,L) .<= 1-p) 
+randNet(p) = adjMat.*(rand(L,L) .<= 1-p)
 relEst(p) = sum( [pathExists(randNet(p), source, dest) for _ in 1:N] )/N
 
 relAnalytic(p) = 1-p^3*(p-2)^2
@@ -34,4 +34,4 @@ xlim(0,1)
 ylim(0,1)
 xlabel("p")
 ylabel("Reliability")
-legend(loc="upper right");
+legend(loc="upper right")

@@ -31,7 +31,7 @@ xlim(-150,50)
 ylim(-250,50)
 for i in 1:length(alphaRange)
     xDat,yDat = path(MersenneTwister(27),alphaRange[i])
-    plot(xDat,yDat,color = colors[i]) 
+    plot(xDat,yDat,color = colors[i])
 end
 
 colors = ["b","r","g"]
@@ -41,5 +41,5 @@ ylim(-250,50)
 rng = MersenneTwister(27)
 for i in 1:length(alphaRange)
     xDat,yDat = path(rng,alphaRange[i])
-    plot(xDat,yDat,color = colors[i])  
+    plot(xDat,yDat,color = colors[i])
 end

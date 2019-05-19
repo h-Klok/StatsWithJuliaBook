@@ -25,7 +25,7 @@ pdfActual = actualPDF.(xGrid)
 kdeDist = kde(data)
 pdfKDE = pdf(kdeDist,xGrid)
 
-plt[:hist](data,20, histtype = "step", normed=true, label="Sample data")
+plt.hist(data,20, histtype = "step", normed=true, label="Sample data")
 plot(xGrid,pdfActual,"-b",label="Underlying PDF")
 plot(xGrid,pdfKDE, "-r",label="KDE PDF")
 xlim(-20,80)

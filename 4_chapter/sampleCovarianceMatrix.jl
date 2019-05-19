@@ -13,5 +13,5 @@ n,p = size(X)
 xbar = [mean(X[:,i]) for i in 1:p]'
 ourCov = (X .- xbar)'*(X .- xbar)/(n-1)
 
-println(ourCov) 
+println(ourCov)
 println(cov(X))

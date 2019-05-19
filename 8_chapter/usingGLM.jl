@@ -36,4 +36,4 @@ plot(data.Weight, data.Height,"b.")
 plot(xlims, pred.(xlims),"r")
 xlim(xlims)
 xlabel("Weight (kg)")
-ylabel("Height (cm)");
+ylabel("Height (cm)")

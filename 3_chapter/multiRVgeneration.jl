@@ -27,9 +27,9 @@ data_c = [rvY_c() for _ in 1:N]
 data_c1 = first.(data_c)
 data_c2 = last.(data_c)
 
-plot(data_a1,data_a2,".",color="blue",ms=0.2);
-plot(data_b1,data_b2,".",color="red",ms=0.2);
-plot(data_c1,data_c2,".",color="green",ms=0.2);
+plot(data_a1,data_a2,".",color="blue",ms=0.2)
+plot(data_b1,data_b2,".",color="red",ms=0.2)
+plot(data_c1,data_c2,".",color="green",ms=0.2)
 
 stats(data1,data2) = println(
     round(mean(data1),digits=2), "\t", round(mean(data2),digits=2), "\t",

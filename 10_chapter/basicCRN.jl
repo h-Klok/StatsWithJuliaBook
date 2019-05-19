@@ -14,7 +14,7 @@ end
 
 trueM = theorM.(lamGrid)
 estM0 = estM.(lamGrid)
-estMCRN = estM.(lamGrid,seed) 
+estMCRN = estM.(lamGrid,seed)
 
 plot(lamGrid,trueM,"k", label="Expected curve")
 plot(lamGrid,estM0,"b", label="No CRN estiamte")

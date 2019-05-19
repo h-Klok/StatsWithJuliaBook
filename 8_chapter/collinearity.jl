@@ -20,7 +20,7 @@ for eta in etaVals
     df = createDataFrame(eta)
     glmOK = true
     try
-        global model = lm(@formula(Y ~ X1 + X2 + X3),df) 
+        global model = lm(@formula(Y ~ X1 + X2 + X3),df)
     catch err
         println("\nException with GLM: ", err, "!!!!\n\n")
         glmOK = false
@@ -34,7 +34,7 @@ for eta in etaVals
         println(model)
     else
         A = [ones(n) df.X1 df.X2 df.X3]
-        psInv(lambda) = inv(A'*A + lambda*I)*A' 
+        psInv(lambda) = inv(A'*A + lambda*I)*A'
         for lam in [1000, 1, 0.5, 0.1, 0.01, 0.001, 0.0001, 0.0]
             println("lam = ",lam,
             	"\t coeff:",psInv(lam)*df.Y,

@@ -4,11 +4,11 @@ Random.seed!(1)
 imgs   = MNIST.images()
 labels = MNIST.labels()
 
-trainData = vcat([hcat(float.(imgs[i])...) for i in 1:50000]...);
-trainLabels = labels[1:50000];
+trainData = vcat([hcat(float.(imgs[i])...) for i in 1:50000]...)
+trainLabels = labels[1:50000]
 
-testData = vcat([hcat(float.(imgs[i])...) for i in 50001:60000]...);
-testLabels = labels[50001:60000];
+testData = vcat([hcat(float.(imgs[i])...) for i in 50001:60000]...)
+testLabels = labels[50001:60000]
 
 model = build_forest(trainLabels, trainData, 10, 40, 0.7, 10)
 
