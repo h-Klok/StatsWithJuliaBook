@@ -12,11 +12,11 @@ function alphaSimulator(dist, n, alpha)
         sVar = var(rand(dist, n))
         L = (n - 1) * sVar / quantile(Chisq(n-1),1-alpha/2)
         U = (n - 1) * sVar / quantile(Chisq(n-1),alpha/2)
-        coverageCount +=  L < popVar && popVar < U 
+        coverageCount +=  L < popVar && popVar < U
     end
     1 - coverageCount/N
 end
-   
+
 plot(alphaUsed, alphaSimulator.(dNormal,n,alphaUsed),".b",label="Normal")
 plot(alphaUsed, alphaSimulator.(dLogistic, n, alphaUsed),".r",label="Logistic")
 plot([0,0.1],[0,0.1],"k",lw=0.5)

@@ -27,7 +27,7 @@ Ac = setdiff(omega,A)
 figure(figsize=(5,5))
 plotPath(rand(A),"Upper lattice path","b")
 plotPath(rand(Ac),"Non-upper lattice path","r")
-legend(loc="upper left");
+legend(loc="upper left")
 plot([0, n], [0,n], ls="--","k")
 xlim(0,n)
 ylim(0,n)

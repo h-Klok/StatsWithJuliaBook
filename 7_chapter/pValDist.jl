@@ -15,7 +15,7 @@ sig, n, N = 7, 5, 10^6
 pValsH0 = [pval(mu0,mu0,sig,n) for _ in 1:N]
 pValsH1 = [pval(mu0,mu1,sig,n) for _ in 1:N]
 
-plt[:hist](pValsH0,100,normed="true", histtype="step",color="b",label="Under H0")
-plt[:hist](pValsH1,100,normed="true",histtype="step",color="r",label="Under H1")
+plt.hist(pValsH0,100,normed="true", histtype="step",color="b",label="Under H0")
+plt.hist(pValsH1,100,normed="true",histtype="step",color="r",label="Under H1")
 xlim(0,1)
 legend(loc="upper right")

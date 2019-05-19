@@ -1,6 +1,6 @@
 using HTTP, JSON
 
-data = HTTP.request("GET", 
+data = HTTP.request("GET",
 "https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt")
 shakespeare = String(data.body)
 shakespeareWords = split(shakespeare)

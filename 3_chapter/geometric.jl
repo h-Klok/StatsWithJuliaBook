@@ -22,4 +22,4 @@ plot(xGrid,gPmf,"rx",ms=8,label="PMF")
 ylim(0,0.5)
 xlabel("x")
 ylabel("Probability")
-legend(loc="upper right");
+legend(loc="upper right")

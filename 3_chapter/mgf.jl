@@ -5,13 +5,13 @@ dist2 = TriangularDist(0,1,0)
 N=10^6
 
 data1, data2 = rand(dist1,N),rand(dist2,N)
-dataSum = data1 + data2 
+dataSum = data1 + data2
 
 figure(figsize=(10,5))
 subplots_adjust(wspace=0.3)
 
 subplot(121)
-p2 = plt[:hist](dataSum,200,normed="true");
+p2 = plt.hist(dataSum,200,normed="true")
 xlabel("x")
 ylabel("PDF")
 
@@ -30,4 +30,4 @@ plot(sGrid,mgfEst.(sGrid),"b")
 plot(sGrid,mgf.(sGrid),"r")
 plot([minimum(sGrid),maximum(sGrid)],[minimum(sGrid),maximum(sGrid)].+1,"k")
 xlabel("s")
-ylabel("MGF");
+ylabel("MGF")

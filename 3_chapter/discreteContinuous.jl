@@ -27,4 +27,4 @@ subplot(133)
 plot(xGridC,pContinuous2.(xGridC))
 ylim(0,1.1)
 xlabel("x")
-ylabel("Density");
+ylabel("Density")

@@ -17,10 +17,10 @@ function proportionFished(gF,sF,numberFished,N,withReplacement = false)
 
     simulations = [fishing() for _ in 1:N]
     proportions = counts(simulations,0:numberFished)/N
-    
+
     if withReplacement
-        stem(0:numberFished,proportions,basefmt="none",linefmt="r--", 
-             markerfmt="rx",label="With replacement");
+        stem(0:numberFished,proportions,basefmt="none",linefmt="r--",
+             markerfmt="rx",label="With replacement")
     else
         stem(0:numberFished,proportions,basefmt="none",
 			label="Without replacement")
@@ -36,4 +36,4 @@ proportionFished(goldFish, silverFish, numberFished, N, true)
 ylim(0,0.7)
 xlabel(L"$n$")
 ylabel("Probability")
-legend(loc="upper left");
+legend(loc="upper left")

@@ -2,10 +2,10 @@ using Roots
 
 function polynomialGenerator(a...)
     n = length(a)-1
-    poly =  function(x) 
+    poly =  function(x)
                 return sum([a[i+1]*x^i for i in 0:n])
             end
-    return poly 
+    return poly
 end
 
 polynomial = polynomialGenerator(1,3,-10)

@@ -15,7 +15,7 @@ means = [[rand(Uniform(xMin,xMax)),rand(Uniform(yMin,yMax))]  for _ in 1:k]
 labels = rand([1,k],n)
 prevMeans = -means
 
-while norm(prevMeans - means) > 0.001 
+while norm(prevMeans - means) > 0.001
     prevMeans = means
     labels = [findmin([norm(means[i]-x) for i in 1:k])[2]  for x in dataPoints]
     means = [sum(dataPoints[labels .== i])/sum(labels .==i) for i in 1:k]

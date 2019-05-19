@@ -14,18 +14,18 @@ function valueIteration(kappa)
 
     R0 = collect(1:L)
     R1 = R0 .- kappa
-    
+
     bellmanOperator(Vprev)=
         max.(R0 + beta*P0*Vprev, R1 + beta*P1*Vprev)
     optimalPolicy(V,state)=
         (R0+beta*P0*V)[state] >= (R1+beta*P1*V)[state] ? 0 : 1
-    
+
     V, Vprev = fill(0,L), fill(1,L)
     while norm(V-Vprev) > epsilon
         Vprev = V
         V = bellmanOperator(Vprev)
     end
-    
+
     return [optimalPolicy(V,s) for s in 1:L]
 end
 
@@ -36,6 +36,6 @@ for (i,kappa) in enumerate(kappaGrid)
     policyMap[:,i] = valueIteration(kappa)
 end
 
-imshow(policyMap, cmap="bwr");
+imshow(policyMap, cmap="bwr")
 xticks(0:2:20, 0:0.2:2); yticks(0:L-1, 1:L)
-xlabel("k"); ylabel("State") 
+xlabel("k"); ylabel("State")

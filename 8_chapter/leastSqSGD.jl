@@ -38,4 +38,4 @@ plot([0,5],[b[1],b[1]+5b[2]],"b",label="SGD")
 plot([0,5],[beta0,beta0+5*beta1],"r",label="Actual")
 xlim(0,5)
 ylim(-5,15)
-legend(loc="upper left");
+legend(loc="upper left")

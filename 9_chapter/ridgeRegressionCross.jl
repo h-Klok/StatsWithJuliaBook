@@ -32,7 +32,7 @@ println("Tried lambdas: ", @RR lamVals)
 println("Errors: ", @RR errs)
 println("Found best lambda for regularization: ", bestLambda)
 
-betaFinal = ridge(convert(Array{Float64,2},df[:,[:MMin, :Cach, :ChMin]]), 
+betaFinal = ridge(convert(Array{Float64,2},df[:,[:MMin, :Cach, :ChMin]]),
                 convert(Array{Float64,1},df[:,:Perf]),bestLambda)
 
 println("Beta estimate: ", betaFinal)

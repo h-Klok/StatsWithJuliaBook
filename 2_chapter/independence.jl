@@ -6,14 +6,14 @@ N = 10^7
 
 firstDigit(x) = Int(floor(x/10))
 secondDigit(x) = x%10
-    
+
 numThirteen,numFirstIsOne,numSecondIsThree = 0,0,0
 
 for _ in 1:N
     X = rand(numbers)
     numThirteen += X == 13 ? 1 : 0
     numFirstIsOne += firstDigit(X) == 1 ? 1 : 0
-    numSecondIsThree += secondDigit(X) == 3 ? 1 : 0 
+    numSecondIsThree += secondDigit(X) == 3 ? 1 : 0
 end
 
 probThirteen, probFirstIsOne, probSecondIsThree =

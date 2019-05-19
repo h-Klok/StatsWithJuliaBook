@@ -2,7 +2,7 @@ using DataFrames, CSV, PyPlot
 
 df = CSV.read("companyData.csv")
 
-types = unique(df[:Type])
+types = unique(df.Type)
 @assert length(unique(df[df.Type .== t, :Year] for t in types)) == 1
 years = df[df.Type .== "A", :Year]
 sizeA = df[df.Type .== "A", :MarketCap]

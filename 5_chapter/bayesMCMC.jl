@@ -8,10 +8,10 @@ likelihood(lam) = *([pdf(Poisson(lam),x) for x in data]...)
 posteriorUpToK(lam) = likelihood(lam)*prior(lam)
 
 sig = 0.5
-foldedNormalPDF(x,mu) = (1/sqrt(2*pi*sig^2))*(exp(-(x-mu)^2/2sig^2) 
+foldedNormalPDF(x,mu) = (1/sqrt(2*pi*sig^2))*(exp(-(x-mu)^2/2sig^2)
                                                 + exp(-(x+mu)^2/2sig^2))
 foldedNormalRV(mu) = abs(rand(Normal(mu,sig)))
-                                                
+
 function sampler(piProb,qProp,rvProp)
     lam = 1
     warmN, N = 10^5, 10^6
@@ -35,7 +35,7 @@ function sampler(piProb,qProp,rvProp)
 end
 
 mcmcSamples = sampler(posteriorUpToK,foldedNormalPDF,foldedNormalRV)
-plt[:hist](mcmcSamples,100,density=true, label="Histogram of MCMC samples");
+plt.hist(mcmcSamples,100,density=true, label="Histogram of MCMC samples")
 
 lamRange = 0:0.01:10
 plot(lamRange, prior.(lamRange), "b", label="Prior distribution")

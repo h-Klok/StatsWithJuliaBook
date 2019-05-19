@@ -9,7 +9,7 @@ xclara_kmeans = kmeans(data, 3)
 println("Number of clusters: ", nclusters(xclara_kmeans))
 println("Counts of clusters: ", counts(xclara_kmeans))
 
-df[:Group]  = assignments(xclara_kmeans)
+df.Group  = assignments(xclara_kmeans)
 
 fig = figure(figsize=(10, 5))
 subplot(121)

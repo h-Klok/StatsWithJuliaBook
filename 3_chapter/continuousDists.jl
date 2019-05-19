@@ -7,9 +7,9 @@ dists = [
     Weibull(10,0.5),
     Normal(20,3.5),
     Rayleigh(2.4),
-    Cauchy(20,3.5)];
+    Cauchy(20,3.5)]
 
 println("Distribution \t\t\t Parameters \t Support")
-reshape([dists ;  params.(dists) ; 
+reshape([dists ;  params.(dists) ;
 		((d)->(minimum(d),maximum(d))).(dists) ],
 		length(dists),3)

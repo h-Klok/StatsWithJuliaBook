@@ -29,8 +29,8 @@ Sigma = [var0 cv; cv var1]
 
 r = 2.0
 A = cholesky(Sigma).L
-pts = [r*A*[cos(t),sin(t)] + mu  for t in 0:0.01:2pi];
+pts = [r*A*[cos(t),sin(t)] + mu  for t in 0:0.01:2pi]
 
 plot(first.(pts),last.(pts),"r")
 xlabel("beta0")
-ylabel("beta1");
+ylabel("beta1")

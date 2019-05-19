@@ -3,8 +3,8 @@ Random.seed!(1)
 
 function queueDES(T,arrF,serF,capacity = Inf,initQ = 0,)
     t, q, qL = 0.0, initQ, 0.0
-    
-    nextArr, nextSer = arrF(), q == 0 ? Inf : serF()    
+
+    nextArr, nextSer = arrF(), q == 0 ? Inf : serF()
     while t < T
         tPrev, qPrev = t, q
         if nextSer < nextArr
@@ -24,8 +24,8 @@ function queueDES(T,arrF,serF,capacity = Inf,initQ = 0,)
                 q += 1
             end
             nextArr = t + arrF()
-        end 
-        qL += (t - tPrev)*qPrev 
+        end
+        qL += (t - tPrev)*qPrev
     end
     return qL/t
 end

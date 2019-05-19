@@ -27,4 +27,4 @@ subplot(121)
 plot(data.Weight, residuals,"b.")
 
 subplot(122)
-normalProbabilityPlot(data[:,3]);
+normalProbabilityPlot(data[:,3])

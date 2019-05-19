@@ -1,5 +1,5 @@
 using Distributions, PyPlot
-      
+
 std, n, N = 3, 15, 10^7
 dNormal   = Normal(2,std)
 dLogistic = Logistic(2,sqrt(std^2*3)/pi)
@@ -18,9 +18,9 @@ xlim(-8,12)
 ylim(0,0.16)
 
 subplot(122)
-plt[:hist](sNormal,200,color="b",histtype="step",normed=true,
+plt.hist(sNormal,200,color="b",histtype="step",normed=true,
     label="Normal")
-plt[:hist](sLogistic,200,color="r",histtype="step",normed=true,
+plt.hist(sLogistic,200,color="r",histtype="step",normed=true,
     label="Logistic")
 xlabel("Sample Variance")
 legend(loc="upper right")
