@@ -1,4 +1,4 @@
-using Statistics, LinearAlgebra, DataFrames, CSV
+using Statistics, StatsBase, LinearAlgebra, DataFrames, CSV
 df = CSV.read("../data/3featureData.csv",header=false)
 n, p = size(df)
 println("Number of features: ", p)
