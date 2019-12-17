@@ -14,8 +14,8 @@ numTx1 = 0
 totalRx1 = 0
 for i in 1:N
    if RxData[i] == 1
-        totalRx1 += 1
-        numTx1 += TxData[i]
+        global totalRx1 += 1
+        global numTx1 += TxData[i]
     end
 end
 
