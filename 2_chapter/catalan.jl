@@ -1,38 +1,19 @@
-using Random, Combinatorics, PyPlot
-Random.seed!(1)
+using Random, Combinatorics, Plots, LaTeXStrings ; pyplot()
+Random.seed!(12)
 
 n, N = 5, 10^5
+
 function isUpperLattice(v)
     for i in 1:Int(length(v)/2)
-        sum(v[1:2*i-1]) >= i ? continue : return false && break
+        sum(v[1:2*i-1]) >= i ? continue : return false
     end
     return true
 end
-function plotPath(v,l,c)
-    x,y = 0,0
-    graphX, graphY = [x], [y]
-    for i in v
-        if i == 0
-            x += 1
-        else
-            y += 1
-        end
-        push!(graphX,x), push!(graphY,y)
-    end
-    plot(graphX,graphY,alpha=0.8,label=l, lw=2, c=c)
-end
+
 omega = unique(permutations([zeros(Int,n);ones(Int,n)]))
 A = omega[isUpperLattice.(omega)]
-Ac = setdiff(omega,A)
-figure(figsize=(5,5))
-plotPath(rand(A),"Upper lattice path","b")
-plotPath(rand(Ac),"Non-upper lattice path","r")
-legend(loc="upper left")
-plot([0, n], [0,n], ls="--","k")
-xlim(0,n)
-ylim(0,n)
-grid("on")
 pA_modelI = length(A)/length(omega)
+
 function randomWalkPath(n)
     x, y = 0, 0
     path = []
@@ -45,12 +26,30 @@ function randomWalkPath(n)
             push!(path,1)
         end
     end
-    if x < n
-        append!(path,zeros(Int64,n-x))
-    else
-        append!(path,ones(Int64,n-y))
-    end
+    append!(path, x<n ? zeros(Int64,n-x) : ones(Int64,n-y))
     return path
 end
+
 pA_modelIIest = sum([isUpperLattice(randomWalkPath(n)) for _ in 1:N])/N
-pA_modelI, pA_modelIIest
+println("Model I: ",pA_modelI, "\t Model II: ", pA_modelIIest)
+
+function plotPath(v,l,c)
+    x,y = 0,0
+    graphX, graphY = [x], [y]
+    for i in v
+        if i == 0
+            x += 1
+        else
+            y += 1
+        end
+        push!(graphX,x), push!(graphY,y)
+    end
+    plot!(graphX, graphY, 
+            la=0.8, lw=2, label=l, c=c, ratio=:equal, legend=:topleft, 
+            xlims=(0,n), ylims=(0,n), 
+            xlabel=L"East\rightarrow", ylabel=L"North\rightarrow")
+end
+plot()
+plotPath(rand(A), "Upper lattice path", :blue)
+plotPath(rand(setdiff(omega,A)), "Non-upper lattice path", :red)
+plot!([0, n], [0,n], ls=:dash, c=:black, label="")

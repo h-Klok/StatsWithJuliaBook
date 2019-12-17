@@ -1,11 +1,11 @@
-using StatsBase, PyPlot
+using StatsBase, Plots ; pyplot()
 
-function proportionFished(gF,sF,numberFished,N,withReplacement = false)
+function proportionFished(gF,sF,n,N,withReplacement = false)
     function fishing()
         fishInPond = [ones(Int64,gF); zeros(Int64,sF)]
         fishCaught = Int64[]
 
-        for fish in 1:numberFished
+        for fish in 1:n
             fished = rand(fishInPond)
             push!(fishCaught,fished)
             if withReplacement == false
@@ -16,24 +16,23 @@ function proportionFished(gF,sF,numberFished,N,withReplacement = false)
     end
 
     simulations = [fishing() for _ in 1:N]
-    proportions = counts(simulations,0:numberFished)/N
+    proportions = counts(simulations,0:n)/N
 
     if withReplacement
-        stem(0:numberFished,proportions,basefmt="none",linefmt="r--",
-             markerfmt="rx",label="With replacement")
+        plot!(0:n, proportions, 
+             line=:stem, marker=:circle, c=:blue, ms=6, msw=0,
+             label="With replacement",
+             xlabel="n",
+             ylims=(0, 0.6), ylabel="Probability")
     else
-        stem(0:numberFished,proportions,basefmt="none",
-			label="Without replacement")
+        plot!(0:n, proportions, 
+            line=:stem, marker=:xcross, c=:red, ms=6, msw=0,
+            label="Without replacement")
     end
 end
 
 N = 10^6
-goldFish, silverFish, numberFished = 3, 4, 3
-
-figure(figsize=(5,5))
-proportionFished(goldFish, silverFish, numberFished, N)
-proportionFished(goldFish, silverFish, numberFished, N, true)
-ylim(0,0.7)
-xlabel(L"$n$")
-ylabel("Probability")
-legend(loc="upper left")
+goldFish, silverFish, n = 3, 4, 3
+plot()
+proportionFished(goldFish, silverFish, n, N)
+proportionFished(goldFish, silverFish, n, N, true)

@@ -1,8 +1,6 @@
-using PyPlot
+using Plots ; pyplot()
 
-function occupancyAnalytic(n,r)
-    return sum([(-1)^k * binomial(n,k) * (1 - k/n)^r for k in 0:n])
-end
+occupancyAnalytic(n,r) =  sum([(-1)^k*binomial(n,k)*(1 - k/n)^r for k in 0:n])
 
 function occupancyMC(n,r,N)
     fullCount = 0
@@ -20,25 +18,13 @@ function occupancyMC(n,r,N)
     return fullCount/N
 end
 
-max_n = 100
-N = 10^3
+max_n, N, Kvals = 100, 10^3, [2,3,4]
 
-dataAnalytic2 = [occupancyAnalytic(big(n),big(2*n)) for n in 1:max_n]
-dataAnalytic3 = [occupancyAnalytic(big(n),big(3*n)) for n in 1:max_n]
-dataAnalytic4 = [occupancyAnalytic(big(n),big(4*n)) for n in 1:max_n]
+analytic = [[occupancyAnalytic(big(n),big(k*n)) for n in 1:max_n] for k in Kvals]
+monteCarlo = [[occupancyMC(n,k*n,N) for n in 1:max_n] for k in Kvals] 
 
-dataMC2 = [occupancyMC(n,2*n,N) for n in 1:max_n]
-dataMC3 = [occupancyMC(n,3*n,N) for n in 1:max_n]
-dataMC4 = [occupancyMC(n,4*n,N) for n in 1:max_n]
-
-plot(1:max_n,dataAnalytic2,"b",label="K=2")
-plot(1:max_n,dataAnalytic3,"r",label="K=3")
-plot(1:max_n,dataAnalytic4,"g",label="K=4")
-plot(1:max_n,dataMC2,"k+")
-plot(1:max_n,dataMC3,"k+")
-plot(1:max_n,dataMC4,"k+")
-xlim(0,max_n)
-ylim(0,1)
-xlabel("n")
-ylabel("Probability")
-legend(loc="upper right")
+plot(1:max_n, analytic, c=[:blue :red :green], 
+	label=["K=2" "K=3" "K=4"])
+scatter!(1:max_n, monteCarlo, mc=:black, shape=:+, 
+	label="", xlims=(0,max_n),ylims=(0,1), 
+	xlabel="n Envelopes", ylabel="Probability", legend=:topright)
