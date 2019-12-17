@@ -1,9 +1,9 @@
-using DataFrames, PyPlot, CSV
+using CSV, StatsPlots; pyplot()
 
-imputedData = CSV.read("purchaseDataImputed.csv")
-groupedData = by(imputedData, :Type, Prices = :Price => x -> [x], sort=true)
-boxplot(groupedData.Prices, widths=0.25, sym="b+")
-xticks(axes(groupedData, 1), groupedData.Type)
-xlabel("Types")
-ylabel("Price")
-savefig("boxplot.pdf")
+data1 = CSV.read("../data/machine1.csv", header=false)[:,1]
+data2 = CSV.read("../data/machine2.csv", header=false)[:,1]
+data3 = CSV.read("../data/machine3.csv", header=false)[:,1]
+
+boxplot([data1,data2,data3], c=[:blue :red :green], label="", 
+	xticks=([1:1:3;],["1", "2", "3"]), xlabel="Machine type",
+	ylabel="Pipe Diameter (mm)")

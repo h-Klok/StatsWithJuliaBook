@@ -11,4 +11,4 @@ function lineSearch(inputFilename, outputFilename, keyword)
     close(outfile)
 end
 
-lineSearch("earth.txt", "waterLines.txt", "water")
+lineSearch("../data/earth.txt", "../data/waterLines.txt", "water")

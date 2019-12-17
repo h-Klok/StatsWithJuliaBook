@@ -1,17 +1,10 @@
-using DataFrames, CSV, PyPlot
+using CSV, CategoricalArrays, Plots; pyplot()
 
-df = CSV.read("companyData.csv")
+df = CSV.read("../data/companyData.csv")
+mktCap = reshape(df.MarketCap, 5, 3)
+years  = levels(df.Year)
 
-types = unique(df.Type)
-@assert length(unique(df[df.Type .== t, :Year] for t in types)) == 1
-years = df[df.Type .== "A", :Year]
-sizeA = df[df.Type .== "A", :MarketCap]
-sizeB = df[df.Type .== "B", :MarketCap]
-sizeC = df[df.Type .== "C", :MarketCap]
-
-stackplot(years, sizeA, sizeB, sizeC, colors=["b", "r","g"], labels = types)
-legend(loc="upper left")
-xlim(minimum(years),maximum(years))
-xticks(years)
-xlabel("Years")
-ylabel("MarketCap")
+areaplot(years, mktCap, 
+	c=[:blue :red :green], labels=["A" "B" "C"],
+	xlims=(minimum(years),maximum(years)), ylims=(0,6.5), 
+	legend=:topleft, xlabel="Years", ylabel="MarketCap")

@@ -1,19 +1,10 @@
-using DataFrames, CSV, PyPlot
+using DataFrames, CSV, Plots; pyplot()
 
-df = CSV.read("companyData.csv")
+df = CSV.read("../data/companyData.csv")
+dividends = reshape(df[:Dividend], (5,:))
+stkPrice  = reshape(df[:StockPrice], (5,:))
 
-for g in groupby(df, :Type)
-	xVals = g.Dividend
-	yVals = g.StockPrice
-	mktCap = g.MarketCap
-	maxYear = maximum(g.Year)
-
-	scatter(xVals, yVals, mktCap*100, alpha=0.5)
-	plot(xVals, yVals,label = "Company $(g.Type[1])")
-	legend(loc="upper left")
-	annotate("$maxYear", xy = (last(xVals), last(yVals)))
-end
-xlabel("Dividend (%)")
-ylabel("StockPrice (\$)")
-xlim(0,10)
-ylim(0,10)
+plot(dividends, stkPrice, 
+	color=[:blue :red :green], xlims=(0,10), ylims=(0,10), 
+	label=levels(df[:Type]), legend=:topleft, 
+	xlabel="Dividend (%)", ylabel="StockPrice (\$)")

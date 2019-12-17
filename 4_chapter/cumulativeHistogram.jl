@@ -1,5 +1,5 @@
-using Random, Distributions, PyPlot
+using Random, Distributions, StatsPlots
 Random.seed!(0)
 
 data = randn(10^2)
-plt.hist(data, 8, ec="black", cumulative=true)
+histogram(data, bins=8, QQQQ BROKEN

@@ -1,8 +1,23 @@
-using Plots
+using DataFrames, CSV, Dates, StatsBase, Plots, TimeSeries; pyplot()
 
-grid = range(0, stop=1.5*pi, length=100)
-data  = abs.(0.1 * randn(100) + sin.(3*grid))
+data = CSV.read("../data/temperatures.csv",copycols = true)
+brisbane = data.Brisbane
+dates = [Date(
+            Year(data.Year[i]), 
+            Month(data.Month[i]), 
+            Day(data.Day[i])
+        ) for i in 1:nrow(data)]
 
-p1 = plot(grid, data, line=:blue, legend=false)
-p2 = plot(grid, data, proj=:polar, line=:blue, legend=false)
-plot(p1, p2, layout = 2)
+window1, window2 = 7, 14
+d1 = values(moving(mean,TimeArray(dates,brisbane),window1))
+d2 = values(moving(mean,TimeArray(dates,brisbane),window2))
+
+grid = (2pi:-2pi/365:0) .+ pi/2
+monthsNames = Dates.monthname.(dates[1:31:365])
+
+plot(grid, d1[1:365], 
+    c=:blue, proj=:polar, label="Brisbane weekly average temp.")
+plot!(grid, d2[1:365], 
+    xticks=([mod.((11pi/6:-pi/6:0) .+ pi/2,2pi) ;], monthsNames),
+    c=:red, proj=:polar, 
+    label="Brisbane fortnightly average temp.", legend=:outerbottom)

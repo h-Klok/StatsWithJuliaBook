@@ -1,19 +1,11 @@
-using DataFrames, CSV, PyPlot
+using CSV, CategoricalArrays, Plots; pyplot()
 
-df = CSV.read("companyData.csv")
-
-types = unique(df.Type)
+df = CSV.read("../data/companyData.csv")
+companies = levels(df.Type)
 
 year2012 = df[df.Year .== 2012, :MarketCap]
 year2016 = df[df.Year .== 2016, :MarketCap]
 
-subplot(121)
-pie(year2012, colors=["b","r","g"], labels = types, startangle=90)
-axis("equal")
-title("2012 Market Cap \n by company")
-
-subplot(122)
-pie(year2016, colors=["b","r","g"], labels = types, explode=[0.1, 0.1, 0.5],
-	startangle=90)
-axis("equal")
-title("2016 Market Cap \n by company")
+p1 = pie(companies, year2012, title="2012 Market Cap \n by company")
+p2 = pie(companies, year2016, title="2016 Market Cap \n by company")
+plot(p1, p2, size=(800, 400))
