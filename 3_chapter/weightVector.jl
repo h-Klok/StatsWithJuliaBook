@@ -1,4 +1,5 @@
-using StatsBase
+using StatsBase, Random
+Random.seed!(1)
 
 grade = ["A","B","C","D","E"]
 weightVect = Weights([0.1,0.2,0.1,0.2,0.4])

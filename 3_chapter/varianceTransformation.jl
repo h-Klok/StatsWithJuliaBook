@@ -1,20 +1,12 @@
-using Distributions,PyPlot
+using Distributions, Plots; pyplot()
+
 dist = TriangularDist(4,6,5)
 N = 10^6
 data = rand(dist,N)
-yData=(data.-5).^2
+yData=(data .- 5).^2
 
-figure(figsize=(10,5))
-subplots_adjust(wspace=0.4)
+println("Mean: ", mean(yData), " Variance: ", var(data))
 
-subplot(121)
-plt.hist(data,100, normed="true")
-xlabel("x")
-ylabel("Proportion")
-
-subplot(122)
-plt.hist(yData,100, normed="true")
-xlabel("y")
-ylabel("Proportion")
-
-mean(yData),var(data)
+p1 = histogram(data, xlabel="x", bins=80, normed=true, ylims=(0,1.1))
+p2 = histogram(yData, xlabel="y", bins=80, normed=true, ylims=(0,15))
+plot(p1, p2, ylabel="Proportion", size=(800, 400), legend=:none)

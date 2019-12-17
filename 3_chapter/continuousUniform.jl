@@ -1,10 +1,11 @@
-using Distributions, PyPlot
+using Distributions, Plots, LaTeXStrings; pyplot()
 
-cUnif = Uniform(0,2*pi)
-xGrid, N = 0:0.1:2*pi, 10^6
+cUnif = Uniform(0,2π)
+xGrid, N = 0:0.1:2π, 10^6
 
-plt.hist(rand(N)*2*pi,50, histtype = "step", density = true,
-    label="MC Estimate")
-plot(xGrid,pdf.(cUnif,xGrid),"r",label="PDF")
-legend(loc="upper right")
-ylim(0,0.2)
+stephist( rand(N)*2π, bins=xGrid, 
+	normed=:true, c=:blue, 
+	label="MC Estimate")
+plot!( xGrid, pdf.(cUnif,xGrid), 
+	c=:red,ylims=(0,0.2),label="PDF", ylabel="Density",xticks=([0:π/2:2π;],
+	["0", L"\dfrac{\pi}{2}", L"\pi", L"\dfrac{3\pi}{2}", L"2\pi"]))

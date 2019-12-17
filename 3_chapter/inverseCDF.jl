@@ -1,4 +1,4 @@
-using PyPlot
+using Plots, LaTeXStrings; pyplot()
 
 xGrid = 0:0.01:10
 uGrid = 0:0.01:1
@@ -9,19 +9,10 @@ F(t)= t<=0 ? 0 : 1 - busy*exp(-(1-busy)t)
 infimum(B) = isempty(B) ? Inf : minimum(B)
 invF(u) = infimum(filter((x) -> (F(x) >= u),xGrid))
 
-figure(figsize=(10,5))
-subplots_adjust(wspace=0.3)
+p1 = plot(xGrid,F.(xGrid), c=:blue, xlims=(-0.1,10), ylims=(0,1), 
+	xlabel=L"x", ylabel=L"F(x)")
 
-subplot(121)
-plot(xGrid,F.(xGrid))
-xlim(-0.1,10)
-ylim(0,1)
-xlabel("x")
-ylabel("CDF")
-
-subplot(122)
-plot(uGrid,invF.(uGrid))
-xlim(0,0.95)
-ylim(0,maximum(xGrid))
-xlabel("u")
-ylabel("Inverse CDF")
+p2 = plot(uGrid,invF.(uGrid), c=:blue, xlims=(0,0.95), ylims=(0,maximum(xGrid)),
+	xlabel=L"u", ylabel=L"F^{-1}(u)")
+    
+plot(p1, p2, legend=:none, size=(800, 400))

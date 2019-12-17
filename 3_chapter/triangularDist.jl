@@ -1,29 +1,17 @@
-using Distributions, PyPlot
+using Distributions, Plots, LaTeXStrings; pyplot()
 
-tDist = TriangularDist(0,2,1)
+dist = TriangularDist(0,2,1)
 xGrid = 0:0.01:2
-xGrid2 = 0:0.01:1
+uGrid = 0:0.01:1
 
-figure(figsize=(12.4,4))
-subplots_adjust(wspace=0.4)
+p1 = plot( xGrid, pdf.(dist,xGrid), c=:blue, 
+		xlims=(0,2), ylims=(0,1.1), 
+		xlabel="x", ylabel="f(x)")
+p2 = plot( xGrid, cdf.(dist,xGrid), c=:blue, 
+		xlims=(0,2), ylims=(0,1), 
+		xlabel="x", ylabel="F(x)")
+p3 = plot( uGrid,quantile.(dist,uGrid), c=:blue, 
+		xlims=(0,1), ylims=(0,2), 
+		xlabel="u", ylabel=(L"F^{-1}(u)"))
 
-subplot(131)
-plot(xGrid,pdf(tDist,xGrid))
-xlim(0,2)
-ylim(0,1.1)
-xlabel("x")
-ylabel("f(x)")
-
-subplot(132)
-plot(xGrid,cdf(tDist,xGrid))
-xlim(0,2)
-ylim(0,1)
-xlabel("x")
-ylabel("F(x)")
-
-subplot(133)
-plot(xGrid2,quantile(tDist,xGrid2))
-xlim(0,1)
-ylim(0,2)
-xlabel("Quantile")
-ylabel(L"$F^{-1}(u)$")
+plot(p1, p2, p3, legend=false, layout=(1,3), size=(1200, 400))

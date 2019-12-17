@@ -1,4 +1,5 @@
-using Distributions
+using Distributions, Random
+Random.seed!(1)
 
 N = 10^6
 sig = 1.7
