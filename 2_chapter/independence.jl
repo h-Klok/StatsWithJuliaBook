@@ -7,13 +7,13 @@ N = 10^7
 firstDigit(x) = Int(floor(x/10))
 secondDigit(x) = x%10
 
-numThirteen,numFirstIsOne,numSecondIsThree = 0,0,0
+numThirteen, numFirstIsOne, numSecondIsThree = 0, 0, 0
 
 for _ in 1:N
     X = rand(numbers)
-    numThirteen += X == 13 
-    numFirstIsOne += firstDigit(X) == 1 
-    numSecondIsThree += secondDigit(X) == 3
+    global numThirteen += X == 13 
+    global numFirstIsOne += firstDigit(X) == 1 
+    global numSecondIsThree += secondDigit(X) == 3
 end
 
 probThirteen, probFirstIsOne, probSecondIsThree =
