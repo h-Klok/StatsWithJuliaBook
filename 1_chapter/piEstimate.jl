@@ -1,5 +1,4 @@
-using Random, LinearAlgebra, PyPlot, PyCall
-patch = pyimport("matplotlib.patches")
+using Random, LinearAlgebra, Plots; pyplot()
 Random.seed!()
 
 N = 10^5
@@ -9,9 +8,6 @@ outdata  = filter((x)-> (norm(x) > 1), data)
 piApprox = 4*length(indata)/N
 println("Pi Estimate: ", piApprox)
 
-fig,ax = subplots(1,1,figsize=(5,5))
-ax.plot(first.(indata),last.(indata),"b.",ms=0.2)
-ax.plot(first.(outdata),last.(outdata),"r.",ms=0.2)
-ax.set_aspect("equal")
-r1 = patch.Wedge([0,0],1,0, 90,fc="none",ec="black")
-ax.add_artist(r1)
+scatter(first.(indata),last.(indata), c=:blue, ms=1, msw=0)
+scatter!(first.(outdata),last.(outdata), c=:red, ms=1, msw=0,
+	xlims=(0,1), ylims=(0,1), legend=:none, ratio=:equal)

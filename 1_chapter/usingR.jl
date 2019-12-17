@@ -1,8 +1,8 @@
 using CSV, DataFrames, RCall
 
-data1 = CSV.read("machine1.csv", header=false)[:,1]
-data2 = CSV.read("machine2.csv", header=false)[:,1]
-data3 = CSV.read("machine3.csv", header=false)[:,1]
+data1 = CSV.read("../data/machine1.csv", header=false)[:,1]
+data2 = CSV.read("../data/machine2.csv", header=false)[:,1]
+data3 = CSV.read("../data/machine3.csv", header=false)[:,1]
 
 function R_ANOVA(allData)
 

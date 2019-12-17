@@ -19,7 +19,7 @@ highestVec = eigVecs[:,findmax(abs.(eigvals(P)))[2]]
 piProb3 = Array{Float64}(highestVec)/norm(highestVec,1)
 
 # Fourth way
-numInState = zeros(3)
+numInState = zeros(Int,3)
 state = 1
 N = 10^6
 for t in 1:N

@@ -1,23 +1,21 @@
-using PyPlot
+using Plots, LaTeXStrings, Measures; pyplot()
 
-xGrid = 0:0.1:5
-G(x) = 1/2*x^2-2*x
-g(x) = x - 2
+f(x,y) = x^2 + y^2
+f0(x) = f(x,0)
+f2(x) = f(x,2)
 
-ax = subplot()
-ax.spines["left"].set_position("zero")
-ax.spines["right"].set_position("zero")
-ax.spines["bottom"].set_position("zero")
-ax.spines["top"].set_position("zero")
-ax.set_xlim(-1,5)
-ax.set_ylim(-3,3)
-ax.set_aspect("equal")
+xVals, yVals = -5:0.1:5 , -5:0.1:5
+plot(xVals, [f0.(xVals), f2.(xVals)], 
+	c=[:blue :red], xlims=(-5,5), legend=:top,
+	ylims=(-5,25), ylabel=L"f(x,\cdot)", label=[L"f(x,0)" L"f(x,2)"])
+p1 = annotate!(0, -0.2, text("(0,0) The minimum\n of f(x,0)", :left, :top, 10))
 
-plot(xGrid,G.(xGrid),"b",label="G(x)")
-plot(xGrid,g.(xGrid),"r",label="g(x)")
-legend(loc="upper center")
-title(L"Plot of $G(x)= \frac{1}{2}x^2-2x$ and it's derivative")
+z = [ f(x,y) for y in yVals, x in xVals ]
+p2 = surface(xVals, yVals, z, c=cgrad([:blue, :red]),legend=:none, 
+	ylabel="y", zlabel=L"f(x,y)")
 
-annotate("The minimum", xy=(2, -2), xytext=(3, -2.5), xycoords="data",
-    bbox=Dict("fc"=>"0.8"), arrowprops=Dict("facecolor"=>"black",
-    "arrowstyle"=>"->"))
+M = z[1:10,1:10]
+p3 = heatmap(M, c=cgrad([:blue, :red]), yflip=true, ylabel="y",  
+	xticks=([1:10;], xVals), yticks=([1:10;], yVals))
+
+plot(p1, p2, p3, layout=(1,3), size=(1200,400), xlabel="x", margin=5mm)
