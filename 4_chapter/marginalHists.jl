@@ -1,4 +1,4 @@
-using StatsPlots, Distributions, CSV, Measures; pyplot()
+using StatsPlots, Distributions, CSV, DataFrames, Measures; pyplot()
 
 realData = CSV.read("../data/temperatures.csv")
 
