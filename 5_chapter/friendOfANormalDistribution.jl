@@ -1,4 +1,4 @@
-using Distributions, PyPlot
+using Distributions, Plots, Plots.PlotMeasures; pyplot()
 
 mu, sigma = 10, 4
 n, N = 10, 10^6
@@ -20,28 +20,17 @@ xRangeMean = 5:0.1:15
 xRangeVar = 0:0.1:60
 xRangeTStat = -5:0.1:5
 
-figure(figsize=(12.4,4))
-subplots_adjust(wspace=0.4)
+p1 = stephist(sMeans, bins=50, c=:blue, normed=true, legend=false)
+p1 = plot!(xRangeMean, pdf.(Normal(mu,sigma/sqrt(n)), xRangeMean),
+    c=:red, xlims=(5,15), ylims=(0,0.35), xlabel="Sample mean",ylabel="Density")
 
-subplot(131)
-plt.hist(sMeans,50, histtype="step", color="b", normed = true)
-plot(xRangeMean, pdf(Normal(mu,sigma/sqrt(n)),xRangeMean), "-r")
-xlim(5,15)
-xlabel(L"$\overline{X}$")
+p2 = stephist(sVars, bins=50, c=:blue, normed=true, label="Simulated")
+p2 = plot!(xRangeVar, (n-1)/sigma^2*pdf.(Chisq(n-1), xRangeVar*(n-1)/sigma^2),
+    c=:red, label="Analytic", xlims=(0,60), ylims=(0,0.06),
+    xlabel="Sample Variance",ylabel="Density")
 
-subplot(132)
-plt.hist(sVars,50, histtype="step", color="b", label="Simulated",
-	normed=true)
-plot(xRangeVar, (n-1)/sigma^2*pdf(Chisq(n-1), xRangeVar * (n-1)/sigma^2),
-	"-r", label="Analytic")
-xlim(5,15)
-xlim(0,60)
-xlabel(L"$S^2$")
-legend(loc="upper right")
+p3 = stephist(tStats, bins=100, c=:blue, normed=true, legend=false)
+p3 = plot!(xRangeTStat, pdf.(TDist(n-1), xRangeTStat), 
+    c=:red, xlims=(-5,5), ylims=(0,0.4), xlabel="t-statistic",ylabel="Density")
 
-subplot(133)
-plt.hist(tStats,80, histtype="step", color="b", normed=true)
-plot(xRangeTStat, pdf(TDist(n-1), xRangeTStat), "-r",)
-xlim(5,15)
-xlim(-5,5)
-xlabel("t-statistic")
+plot(p1, p2, p3, layout = (1,3), size=(1200, 400))
