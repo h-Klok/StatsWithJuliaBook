@@ -1,4 +1,4 @@
-using Distributions, PyPlot
+using Distributions, Plots; pyplot()
 
 n1, n2 = 10, 15
 N = 10^6
@@ -13,10 +13,8 @@ for i in 1:N
     fValues[i] = var(data1)/var(data2)
 end
 
-xRange = 0:0.1:5
-
-plt.hist(fValues,400,histtype="step",color="b",
-    label="Simulated",normed=true)
-plot(xRange,pdf(FDist(n1-1, n2-1), xRange),"r",label="Analytic")
-xlim(0,5)
-legend(loc="upper right")
+fRange = 0:0.1:5
+stephist(fValues, bins=400, c=:blue, label="Simulated", normed=true)
+plot!(fRange, pdf.(FDist(n1-1, n2-1), fRange), 
+	c=:red, label="Analytic", xlims=(0,5), ylims=(0,0.8),
+    	xlabel = "F", ylabel = "Density")
