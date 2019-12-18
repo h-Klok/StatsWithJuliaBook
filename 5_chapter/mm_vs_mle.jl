@@ -1,56 +1,43 @@
-using Distributions, PyPlot
+using Distributions, Plots; pyplot()
 
-min_n, step_n, max_n = 10, 10, 100
-sampleSizes = min_n:step_n:max_n
-
-MSE = Array{Float64}(undef, Int(max_n/step_n), 6)
-
+N = 10^5
+nMin, nStep, nMax = 10, 10, 200
+nn = Int(nMax/nStep)
+sampleSizes = nMin:nStep:nMax
 trueB = 5
 trueDist = Uniform(-2, trueB)
-N = 10^4
 
 MLEest(data) = maximum(data)
 MMest(data)  = mean(data) + sqrt(3)*std(data)
 
-for (index, n) in enumerate(sampleSizes)
+res = Dict{Symbol,Array{Float64}}(
+    ((sym) -> sym => Array{Float64}(undef,nn)).(
+        [:MSeMLE,:MSeMM, :VarMLE,:VarMM,:BiasMLE,:BiasMM]))
 
-    mleEst = Array{Float64}(undef, N)
-    mmEst  = Array{Float64}(undef, N)
-    for i in 1:N
+for (i, n) in enumerate(sampleSizes)
+    mleEst, mmEst = Array{Float64}(undef, N), Array{Float64}(undef, N) 
+    for j in 1:N
         sample    = rand(trueDist,n)
-        mleEst[i] = MLEest(sample)
-        mmEst[i]  = MMest(sample)
+        mleEst[j] = MLEest(sample)
+        mmEst[j]  = MMest(sample)
     end
-    meanMLE = mean(mleEst)
-    meanMM  = mean(mmEst)
-    varMLE  = var(mleEst)
-    varMM   = var(mmEst)
+    meanMLE, meanMM = mean(mleEst), mean(mmEst)
+    varMLE, varMM = var(mleEst), var(mmEst)
 
-    MSE[index,1] = varMLE + (meanMLE - trueB)^2
-    MSE[index,2] = varMM + (meanMM - trueB)^2
-    MSE[index,3] = varMLE
-    MSE[index,4] = varMM
-    MSE[index,5] = meanMLE - trueB
-    MSE[index,6] = meanMM - trueB
+    res[:MSeMLE][i] = varMLE + (meanMLE - trueB)^2
+    res[:MSeMM][i] = varMM + (meanMM - trueB)^2
+    res[:VarMLE][i] = varMLE
+    res[:VarMM][i] = varMM
+    res[:BiasMLE][i] = meanMLE - trueB
+    res[:BiasMM][i] = meanMM - trueB
 end
 
-figure("MM vs MLE comparrision", figsize=(12,4))
-subplots_adjust(wspace=0.2)
+p1 = scatter(sampleSizes, [res[:MSeMLE] res[:MSeMM]], c=[:blue :red],
+    label=["Mean sq.err (MLE)" "Mean sq.err (MM)"])
+p2 = scatter(sampleSizes, [res[:VarMLE] res[:VarMM]], c=[:blue :red],
+    label=["Variance (MLE)" "Variance (MM)"])
+p3 = scatter(sampleSizes, [res[:BiasMLE] res[:BiasMM]], c=[:blue :red],
+    label=["Bias (MLE)" "Bias (MM)"])
 
-subplot(131)
-plot(sampleSizes,MSE[:,1],"xb",label="Mean sq.err (MLE)")
-plot(sampleSizes,MSE[:,2],"xr",label="Mean sq.err (MM)")
-xlabel("n")
-legend(loc="upper right")
-
-subplot(132)
-plot(sampleSizes,MSE[:,3],"xb",label="Variance (MLE)")
-plot(sampleSizes,MSE[:,4],"xr",label="Variance (MM)")
-xlabel("n")
-legend(loc="upper right")
-
-subplot(133)
-plot(sampleSizes,MSE[:,5],"xb",label="Bias (MLE)")
-plot(sampleSizes,MSE[:,6],"xr",label="Bias (MM)")
-xlabel("n")
-legend(loc="center right")
+plot(p1, p2, p3, ms=10, shape=:xcross, xlabel="n", 
+    layout=(1,3), size=(1200, 400))
