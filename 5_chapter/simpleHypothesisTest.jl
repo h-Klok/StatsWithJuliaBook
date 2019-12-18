@@ -1,34 +1,24 @@
-using Distributions, StatsBase, PyCall, PyPlot
-patch = pyimport("matplotlib.patches")
+using Distributions, StatsBase, Plots, LaTeXStrings; pyplot()
 
-mu0, mu1, sd  = 15, 18, 2
-tau = 17.5
-dist0 = Normal(mu0,sd)
-dist1 = Normal(mu1,sd)
-
-gridMin, gridMax = 5, 25
-grid = gridMin:0.1:gridMax
-
-fig = figure(figsize=(6,6))
-ax = fig.add_subplot(1,1,1)
-
-plot(grid,pdf(dist0,grid),"b", label="Bolt type 15g")
-plot(grid,pdf(dist1,grid),"g", label="Bolt type 18g")
-plot([tau,gridMax],[0,0],"r",lw=3,label="Rejection region")
-
-verts1 = [ [[tau,0.0]]; [[i,pdf(dist0,i)] for i in tau:0.1:gridMax] ;
-    [[gridMax,0.0]] ]
-poly1 = patch.Polygon(verts1, fc="blue", ec="0.5",alpha=0.2)
-
-verts2 = [ [[gridMin,0.0]]; [[i,pdf(dist1,i)] for i in gridMin:0.1:tau] ;
-    [[tau,0.0]] ]
-poly2 = patch.Polygon(verts2, fc="green", ec="0.5",alpha=0.2)
-ax.add_artist(poly1)
-ax.add_artist(poly2)
-
-xlim(gridMin,gridMax)
-ylim(0,0.25)
-legend(loc="upper left")
+mu0, mu1, sd, tau  = 15, 18, 2, 17.5
+dist0, dist1 = Normal(mu0,sd), Normal(mu1,sd)
+grid = 5:0.1:25
+h0grid, h1grid = tau:0.1:25, 5:0.1:tau
 
 println("Probability of Type I error: ", ccdf(dist0,tau))
 println("Probability of Type II error: ", cdf(dist1,tau))
+
+plot(grid, pdf.(dist0,grid),
+	c=:blue, label="Bolt type 15g")
+plot!(h0grid, pdf.(dist0, h0grid), 
+	c=:blue, fa=0.2, fillrange=[0 1], label="")
+plot!(grid, pdf.(dist1,grid), 
+	c=:green, label="Bolt type 18g")
+plot!(h1grid, pdf.(dist1, h1grid), 
+	c=:green, fa=0.2, fillrange=[0 1], label="")
+plot!([tau, 25],[0,0],
+	c=:red, lw=3, label="Rejection region", 
+	xlims=(5, 25), ylims=(0,0.25) , legend=:topleft,
+    xlabel="x", ylabel="Density")
+annotate!([(16, 0.02, text(L"\beta")),(18.5, 0.02, text(L"\alpha")),
+            (15, 0.21, text(L"H_0")),(18, 0.21, text(L"H_1"))])

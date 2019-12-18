@@ -1,10 +1,11 @@
-using Combinatorics, DataFrames, CSV
+using Combinatorics, Statistics, DataFrames, CSV
 
-data = CSV.read("fertilizer.csv")
+data = CSV.read("../data/fertilizer.csv")
 control = data.Control
 fertilizer = data.FertilizerX
 
-x = collect(combinations([control;fertilizer],10))
+subGroups = collect(combinations([control;fertilizer],10))
 
 meanFert = mean(fertilizer)
-proportion = sum([mean(i) >= meanFert for i in x])/length(x)
+pVal = sum([mean(i) >= meanFert for i in subGroups])/length(subGroups)
+println("p-value = ", pVal)

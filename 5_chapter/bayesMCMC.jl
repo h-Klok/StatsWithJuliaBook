@@ -1,11 +1,11 @@
-using Distributions, PyPlot
+using Distributions, Plots; pyplot()
 
 alpha, beta = 8, 2
 prior(lam) = pdf(Gamma(alpha, 1/beta), lam)
-data = [3, 7, 0, 1, 5, 3, 6, 2]
+data = [2,1,0,0,1,0,2,2,5,2,4,0,3,2,5,0]
 
-likelihood(lam) = *([pdf(Poisson(lam),x) for x in data]...)
-posteriorUpToK(lam) = likelihood(lam)*prior(lam)
+like(lam) = *([pdf(Poisson(lam),x) for x in data]...)
+posteriorUpToK(lam) = like(lam)*prior(lam)
 
 sig = 0.5
 foldedNormalPDF(x,mu) = (1/sqrt(2*pi*sig^2))*(exp(-(x-mu)^2/2sig^2)
@@ -35,11 +35,17 @@ function sampler(piProb,qProp,rvProp)
 end
 
 mcmcSamples = sampler(posteriorUpToK,foldedNormalPDF,foldedNormalRV)
-plt.hist(mcmcSamples,100,density=true, label="Histogram of MCMC samples")
+println("MCMC Bayes Estimate: ",mean(mcmcSamples))
+
+stephist(mcmcSamples, bins=100, 
+	c=:black, normed=true, label="Histogram of MCMC samples")
 
 lamRange = 0:0.01:10
-plot(lamRange, prior.(lamRange), "b", label="Prior distribution")
+plot!(lamRange, prior.(lamRange), 
+	c=:blue, label="Prior distribution")
+
 closedFormPosterior(lam)=pdf(Gamma(alpha + sum(data),1/(beta+length(data))),lam)
-plot(lamRange, closedFormPosterior.(lamRange), "r", label="Posterior distribution")
-xlim(0, 10); ylim(0, 0.7); legend(loc="upper right")
-println("MCMC Bayes Estimate: ",mean(mcmcSamples))
+plot!(lamRange, closedFormPosterior.(lamRange), 
+	c=:red, label="Posterior distribution", 
+	xlims=(0, 10), ylims=(0, 1.2),
+    xlabel=L"\lambda",ylabel="Density")
