@@ -19,5 +19,7 @@ function equations(F, x)
 end
 
 nlOutput = nlsolve(equations, [ 0.1; 0.1; 0.1])
-println("Found estimates for (a,b,c) = ", nlOutput.zero)
+sol = sort(nlOutput.zero)
+aHat, bHat, cHat = sol[1], sol[3], sol[2]
+println("Found estimates for (a,b,c) = ", (aHat, bHat, cHat) , "\n" )
 println(nlOutput)
