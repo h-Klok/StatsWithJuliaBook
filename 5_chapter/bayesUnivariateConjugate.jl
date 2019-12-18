@@ -1,4 +1,4 @@
-using Distributions, Plots
+using Distributions, Plots; pyplot()
 
 alpha, beta = 8, 2
 prior(lam) = pdf(Gamma(alpha, 1/beta), lam)
