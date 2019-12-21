@@ -1,28 +1,21 @@
-using Distributions, PyPlot
+using Distributions, Plots; pyplot()
 
-std, n, N = 3, 15, 10^7
-dNormal   = Normal(2,std)
-dLogistic = Logistic(2,sqrt(std^2*3)/pi)
+mu, sig = 2, 3
+eta = sqrt(3)*sig/pi
+n, N = 15, 10^7
+dNormal   = Normal(mu, sig)
+dLogistic = Logistic(mu, eta)
 xGrid = -8:0.1:12
 
 sNormal   = [var(rand(dNormal,n)) for _ in 1:N]
 sLogistic = [var(rand(dLogistic,n)) for _ in 1:N]
 
-figure(figsize=(12.4,4))
-subplot(121)
-plot(xGrid, pdf(dNormal,xGrid), "b",label="Normal")
-plot(xGrid, pdf(dLogistic,xGrid), "r",label="Logistic")
-xlabel("x")
-legend(loc="upper right")
-xlim(-8,12)
-ylim(0,0.16)
+p1 = plot(xGrid, pdf.(dNormal,xGrid), c=:blue, label="Normal")
+p1 = plot!(xGrid, pdf.(dLogistic,xGrid), c=:red, label="Logistic", 
+	xlabel="x",ylabel="Density", xlims= (-8,12), ylims=(0,0.16))
 
-subplot(122)
-plt.hist(sNormal,200,color="b",histtype="step",normed=true,
-    label="Normal")
-plt.hist(sLogistic,200,color="r",histtype="step",normed=true,
-    label="Logistic")
-xlabel("Sample Variance")
-legend(loc="upper right")
-xlim(0,30)
-ylim(0,0.14)
+p2 = stephist(sNormal, bins=200, c=:blue, normed=true, label="Normal")
+p2 = stephist!(sLogistic, bins=200, c=:red, normed=true, label="Logistic", 
+	xlabel="Sample Variance", ylabel="Density", xlims=(0,30), ylims=(0,0.14))
+
+plot(p1, p2, size=(800, 400))

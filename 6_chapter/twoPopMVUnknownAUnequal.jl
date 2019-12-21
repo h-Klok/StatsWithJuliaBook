@@ -1,7 +1,7 @@
 using CSV, Distributions, HypothesisTests
 
-data1 = CSV.read("machine1.csv", header=false, allowmissing=:none)[:,1]
-data2 = CSV.read("machine2.csv", header=false, allowmissing=:none)[:,1]
+data1 = CSV.read("../data/machine1.csv", header=false)[:,1]
+data2 = CSV.read("../data/machine2.csv", header=false)[:,1]
 xBar1, xBar2 = mean(data1), mean(data2)
 s1, s2 = std(data1), std(data2)
 n1, n2 = length(data1), length(data2)

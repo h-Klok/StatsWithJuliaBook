@@ -1,34 +1,31 @@
-using Random, Statistics, Distributions, PyPlot
-Random.seed!(3)
+using Random, Statistics, Distributions, Plots; pyplot()
+Random.seed!(0)
 
-mu, sig = 50, 3
-dist = Normal(mu,sig)
+mu, sig = 50, 5
+dist = Normal(mu, sig)
 alpha = 0.01
-N = 40
+nMax = 40
 
-observations = rand(dist,2)
-ciLarray, ciUarray = [],[]
+observations = rand(dist,1)
+piLarray, piUarray = [], []
 
-for n in 2:N
-    xbar = mean(observations)
-    sd = std(observations)
-    tVal = quantile(TDist(n-1),1-alpha/2)
-    delta = tVal * sd * sqrt(1+1/n)
-
-    ciL = xbar - delta
-    ciU = xbar + delta
-
-    push!(ciLarray,ciL)
-    push!(ciUarray,ciU)
-
+for _ in 2:nMax
     xNew = rand(dist)
     push!(observations,xNew)
+
+    xbar, sd = mean(observations), std(observations)
+    n = length(observations)
+    tVal = quantile(TDist(n-1),1-alpha/2)
+    delta = tVal * sd * sqrt(1+1/n)
+    piL, piU = xbar - delta, xbar + delta
+    
+    push!(piLarray,piL); push!(piUarray,piU)
 end
 
-plot(1:N+1,observations,".",label="Observations")
-plot(3:N+1,ciUarray,"rx",label="Prediction Interval")
-plot(3:N+1,ciLarray,"rx")
-ylim(0,100)
-xlabel("Number of observations")
-ylabel("Value")
-legend(loc="upper right")
+scatter(1:nMax, observations, 
+	c=:blue, msw=0, label="Observations")
+plot!(2:nMax, piUarray, 
+	c=:red, shape=:xcross, msw=0, label="Prediction Interval")
+plot!(2:nMax, piLarray, 
+	c=:red, shape=:xcross, msw=0, label="", 
+	ylims=(0,100), xlabel="Number of observations", ylabel="Value")

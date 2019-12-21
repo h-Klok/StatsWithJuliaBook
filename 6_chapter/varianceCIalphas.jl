@@ -1,14 +1,16 @@
-using Distributions, PyPlot
+using Distributions, Plots, LaTeXStrings; pyplot()
 
-std, n, N = 3, 15, 10^4
+mu, sig = 2, 3
+eta = sqrt(3)*sig/pi
+n, N = 15, 10^4
+dNormal   = Normal(mu, sig)
+dLogistic = Logistic(mu, eta)
 alphaUsed = 0.001:0.001:0.1
-dNormal   = Normal(2,std)
-dLogistic = Logistic(2,sqrt(std^2*3)/pi)
 
 function alphaSimulator(dist, n, alpha)
     popVar        = var(dist)
     coverageCount = 0
-    for i in 1:N
+    for _ in 1:N
         sVar = var(rand(dist, n))
         L = (n - 1) * sVar / quantile(Chisq(n-1),1-alpha/2)
         U = (n - 1) * sVar / quantile(Chisq(n-1),alpha/2)
@@ -17,11 +19,10 @@ function alphaSimulator(dist, n, alpha)
     1 - coverageCount/N
 end
 
-plot(alphaUsed, alphaSimulator.(dNormal,n,alphaUsed),".b",label="Normal")
-plot(alphaUsed, alphaSimulator.(dLogistic, n, alphaUsed),".r",label="Logistic")
-plot([0,0.1],[0,0.1],"k",lw=0.5)
-xlabel("alpha used")
-ylabel("alpha actual")
-legend(loc="upper left")
-xlim(0,0.1)
-ylim(0,0.2)
+scatter(alphaUsed, alphaSimulator.(dNormal,n,alphaUsed), 
+	c=:blue, msw=0, label="Normal")
+scatter!(alphaUsed, alphaSimulator.(dLogistic, n, alphaUsed), 
+	c=:red, msw=0, label="Logistic")
+plot!([0,0.1],[0,0.1],c=:black, label="1:1 slope", 
+	xlabel=L"\alpha"*" used", ylabel=L"\alpha"*" actual", 
+	legend=:topleft, xlim=(0,0.1), ylims=(0,0.2))
