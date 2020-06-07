@@ -31,5 +31,5 @@ default(xlabel = "p", ylabel = "n",
     yticks =([1:5:length(nGrid);], minimum(nGrid):5:maximum(nGrid)))
 
 p1 = heatmap(errs, c=cgrad([:white, :black]))
-p2 = heatmap(abs.(errs) .<= 0.04, legend = false, c=cgrad([:white, :black]))
+p2 = heatmap(abs.(errs) .<= 0.04, legend = false, c=cgrad([:black, :white]))
 plot(p1,p2, size = (1000,400), margin = 5mm)
