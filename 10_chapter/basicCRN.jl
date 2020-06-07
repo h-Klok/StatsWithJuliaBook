@@ -1,4 +1,4 @@
-using Distributions, PyPlot, Random
+using Distributions, Random, Plots, LaTeXStrings; pyplot()
 
 seed = 1
 n = 10
@@ -16,9 +16,10 @@ trueM = theorM.(lamGrid)
 estM0 = estM.(lamGrid)
 estMCRN = estM.(lamGrid,seed)
 
-plot(lamGrid,trueM,"k", label="Expected curve")
-plot(lamGrid,estM0,"b", label="No CRN estiamte")
-plot(lamGrid,estMCRN,"r", label="CRN estimate")
-xlim(0,1); ylim(0,0.4)
-xlabel("lambda")
-legend(loc="upper right")
+plot(lamGrid,trueM,
+	c=:black, label="Expected curve")
+plot!(lamGrid,estM0,
+	c=:blue, label="No CRN estiamte")
+plot!(lamGrid,estMCRN,
+	c=:red, label="CRN estimate", 
+	xlims=(0,1), ylims=(0,0.4), xlabel=L"\lambda")
