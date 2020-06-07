@@ -1,7 +1,7 @@
 using Distributions, Random
 Random.seed!(1)
 
-function queueDES(T,arrF,serF,capacity = Inf,initQ = 0,)
+function queueDES(T, arrF, serF, capacity = Inf, initQ = 0)
     t, q, qL = 0.0, initQ, 0.0
 
     nextArr, nextSer = arrF(), q == 0 ? Inf : serF()
@@ -35,7 +35,7 @@ rho = lam/mu
 T = 10^6
 
 mm1Theor = rho/(1-rho)
-md1Theor = rho*(1 + (1/2)rho/(1-rho))
+md1Theor = rho/(1-rho)*(2-rho)/2
 mm1kTheor = rho/(1-rho)*(1-(K+1)*rho^K+K*rho^(K+1))/(1-rho^(K+1))
 
 mm1Est = queueDES(T,()->rand(Exponential(1/lam)),
