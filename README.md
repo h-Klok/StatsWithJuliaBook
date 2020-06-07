@@ -16,9 +16,11 @@ The book is comprised of the following ten chapters and three appendices:
 9. Machine Learning Basics
 10. Simulation of Dynamic Models
 
-Appendix A. How-to in Julia
-Appendix B. Additional Language Features
-Appendix C. Additional Packages
+<ol type="A">
+	<li> How-to in Julia</li>
+	<li>Additional Language Features</li>
+	<li>Additional Packages</li>
+</ol>
 
 We hope you find this an enjoyable and instructive resource.
 
