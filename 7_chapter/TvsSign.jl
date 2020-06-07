@@ -1,10 +1,9 @@
-using Random, Distributions, HypothesisTests, PyPlot
+using Random, Distributions, HypothesisTests, Plots; pyplot()
 
 muRange = 51:0.02:55
 n = 20
 N = 10^4
 mu0 = 53.0
-
 powerT, powerU = [], []
 
 for muActual in muRange
@@ -21,7 +20,7 @@ for muActual in muRange
         pValT  = 2*ccdf(TDist(n-1), abs(tStatT))
 
         xPositive = sum(data .> mu0)
-        uStat = min(xPositive, n-xPositive)
+        uStat = max(xPositive, n-xPositive)
         pValSign = 2*cdf(Binomial(n,0.5), uStat)
 
         rejectT += pValT < 0.05
@@ -33,10 +32,8 @@ for muActual in muRange
 
 end
 
-plot(muRange, powerT, "b",label="t test")
-plot(muRange, powerU, "r",label="Sign test")
-xlim(51,55)
-ylim(0,1)
-legend(loc="bottom right")
-xlabel("Different values of muActual")
-ylabel("Proportion of times H0 rejected")
+plot(muRange, powerT, c=:blue, label="t test")
+plot!(muRange, powerU, c=:red, label="Sign test", 
+	xlims=(51,55), ylims=(0,1), 
+	xlabel="Different values of muActual", 
+	ylabel="Proportion of times H0 rejected", legend=:bottomleft)

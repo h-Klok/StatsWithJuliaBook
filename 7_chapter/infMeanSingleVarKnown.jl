@@ -1,6 +1,6 @@
 using CSV, Distributions, HypothesisTests
 
-data = CSV.read("machine1.csv", header=false)[:,1]
+data = CSV.read("../data/machine1.csv", header=false)[:,1]
 xBar, n = mean(data), length(data)
 sigma = 1.2
 mu0A, mu0B = 52.2, 53

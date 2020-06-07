@@ -1,20 +1,19 @@
-using Random, Distributions, PyPlot
-Random.seed!(808)
+using Distributions, Plots; pyplot()
 
 function anovaFStat(allData)
     xBarArray = mean.(allData)
     nArray = length.(allData)
     xBarTotal = mean(vcat(allData...))
-    d = length(nArray)
+    L = length(nArray)
 
-    ssBetween = sum( [nArray[i]*(xBarArray[i] - xBarTotal)^2 for i in 1:d] )
+    ssBetween = sum( [nArray[i]*(xBarArray[i] - xBarTotal)^2 for i in 1:L] )
     ssWithin = sum([sum([(ob - xBarArray[i])^2 for ob in allData[i]])
-				for i in 1:d])
-    return (ssBetween/(d-1))/(ssWithin/(sum(nArray)-d))
+				for i in 1:L])
+    return (ssBetween/(L-1))/(ssWithin/(sum(nArray)-L))
 end
 
 case1 = [13.4, 13.4, 13.4, 13.4, 13.4]
-case2 = [12.7, 11.8, 13.4, 11.7, 12.9]
+case2 = [12.7, 11.8, 13.4, 12.7, 12.9]
 stdDevs = [2, 2, 2, 2, 2]
 numObs = [24, 15, 13, 23, 9]
 L = length(case1)
@@ -33,19 +32,17 @@ for i in 1:N
 		for j in 1:L ])
 end
 
-plt.hist(mcFstatsH0, 100, color="b", histtype="step",
-                    normed="true", label="Equal group \nmeans case")
-plt.hist(mcFstatsH1, 100, color="r", histtype="step",
-                    normed="true", label="Unequal group \nmeans case")
+stephist(mcFstatsH0, bins=100, 
+	c=:blue, normed=true, label="Equal group means case")
+stephist!(mcFstatsH1, bins=100, 
+	c=:red, normed=true, label="Unequal group means case")
 
 dfBetween = L - 1
 dfError = sum(numObs) - 1
 xGrid = 0:0.01:10
-plot(xGrid, pdf(FDist(dfBetween, dfError),xGrid),
-            color="b", label="f-statistic \nanalytic")
+plot!(xGrid, pdf.(FDist(dfBetween, dfError),xGrid),
+            c=:black, label="F-statistic analytic")
 critVal = quantile(FDist(dfBetween, dfError),0.95)
-plot([critVal, critVal],[0,0.8],"k--", label="Critical value \nboundary")
-xlim(0,10)
-ylim(0,0.8)
-xlabel("f-value")
-legend(loc="upper right")
+plot!([critVal, critVal],[0,0.8], 
+	c=:black, ls=:dash, label="Critical value boundary", 
+	xlims=(0,10), ylims=(0,0.8), xlabel="F-value", ylabel="Density")

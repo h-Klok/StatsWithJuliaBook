@@ -1,6 +1,6 @@
 using CSV, Distributions, HypothesisTests
 
-data = CSV.read("machine1.csv", header=false, allowmissing=:none)[:,1]
+data = CSV.read("../data/machine1.csv", header=false)[:,1]
 n = length(data)
 mu0A, mu0B = 52.2, 53
 

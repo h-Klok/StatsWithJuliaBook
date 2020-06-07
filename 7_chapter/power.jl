@@ -1,4 +1,4 @@
-using Random, Distributions, KernelDensity, PyPlot
+using Random, Distributions, KernelDensity, Plots, LaTeXStrings; pyplot()
 Random.seed!(1)
 
 function tStat(mu0,mu,sig,n)
@@ -34,11 +34,12 @@ kH1A = kde(dataH1A)
 kH1D = kde(dataH1D)
 xGrid = -10:0.1:15
 
-plot(xGrid,pdf(kH0,xGrid),"b", label="Distribution under H0")
-plot(xGrid,pdf(kH1A,xGrid),"r", label="Distribution under H1A")
-plot(xGrid,pdf(kH1D,xGrid),"g", label="Distribution under H1D")
-plot([tCrit,tCrit],[0,0.4],"k--", label="Critical value boundary")
-xlim(-5,10)
-ylim(0,0.4)
-xlabel(L"$\Delta = \mu - \mu_0$")
-legend(loc="upper right")
+plot(xGrid,pdf(kH0,xGrid),
+	c=:blue, label="Distribution under H0")
+plot!(xGrid,pdf(kH1A,xGrid),
+	c=:red, label="Distribution under H1A")
+plot!(xGrid,pdf(kH1D,xGrid),
+	c=:green, label="Distribution under H1D")
+plot!([tCrit,tCrit],[0,0.4], 
+	c=:black, ls=:dash, label="Critical value boundary", 
+	xlims=(-5,10), ylims=(0,0.4), xlabel=L"\Delta = \mu - \mu_0")
