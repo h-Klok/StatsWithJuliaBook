@@ -1,23 +1,22 @@
-using CSV, RDatasets, DataFrames, GLM, PyPlot
+using CSV, GLM, Plots; pyplot()
 
-df = CSV.read("weightHeight.csv")
+df = CSV.read("../data/weightHeight.csv")
 mW = df[df.Sex .== "M", :Weight]
 mH = df[df.Sex .== "M", :Height]
 fW = df[df.Sex .== "F", :Weight]
 fH = df[df.Sex .== "F", :Height]
-categorical!(df, :Sex)
+
 model = lm(@formula(Height ~ Weight * Sex), df)
-
 predFemale(x) = coef(model)[1:2]'*[1, x]
-predMale(x)   = [sum(coef(model)[[1,3]]) sum(coef(model)[[2,4]])]*[1, x]
+predMale(x)   = sum([sum(coef(model)[[1,3]]), sum(coef(model)[[2,4]])] .* [1, x])
 
-xlims = [minimum(df.Weight), maximum(df.Weight])
-
-plot(mW, mH, "b.", label="Males")
-plot(xlims, predMale.(xlims),"b", label="Male model")
-
-plot(fW, fH, "r.", label="Females")
-plot(xlims, predFemale.(xlims),"r", label="Female model")
-xlim(xlims)
-legend(loc="upper left")
 println(model)
+
+xlim = [minimum(df.Weight), maximum(df.Weight)]
+scatter(mW, mH, c=:blue, msw=0, label="Males")
+plot!(xlim, predMale.(xlim), c=:blue, label="Male model")
+
+scatter!(fW, fH, c=:red, msw=0, label="Females")
+plot!(xlim, predFemale.(xlim),
+	c=:red, label="Female model", xlims=(xlim),
+	xlabel="Weight (kg)", ylabel="Height (cm)", legend=:topleft)

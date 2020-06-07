@@ -1,6 +1,6 @@
 using RDatasets, GLM, Statistics
 
-df = dataset("MASS", "cpus")
+df = CSV.read("../data/cpus.csv")#QQQQ dataset("MASS", "cpus") doesn't work
 df.Freq = map( x->10^9/x , df.CycT)
 
 model = lm(@formula(Perf ~ MMax + Cach + ChMax + Freq), df)

@@ -1,30 +1,17 @@
-using DataFrames, GLM, PyPlot, Distributions, CSV
+using CSV, GLM, Distributions, StatsPlots, Plots, Measures; pyplot()
 
-function normalProbabilityPlot(data)
-        mu = mean(data)
-        sig = std(data)
-        n = length(data)
-        p = [(i-0.5)/n for i in 1:n]
-        x = quantile(Normal(),p)
-        y = sort([(i-mu)/sig for i in data])
-        plot(x, y, ".r")
-        xRange = maximum(x) - minimum(x)
-        plot( [minimum(x), maximum(x)],
-                [minimum(x), maximum(x)], "k", lw=0.5)
-        xlabel("Theoretical quantiles")
-        ylabel("Quantiles of data")
-end
+df = CSV.read("../data/weightHeight.csv")
 
-data = CSV.read("weightHeight.csv")
-
-model = lm(@formula(Height ~ Weight), data)
+model = lm(@formula(Height ~ Weight), df)
 pred(x) = coef(model)'*[1, x]
+residuals = df.Height - pred.(df.Weight)
 
-residuals = data.Height - pred.(data.Weight)
+p1 = plot([minimum(df.Weight),maximum(df.Weight)],[0,0], lw = 2, c=:black)
+scatter!(df.Weight, residuals, xlabel = "Weight (kg)", ylabel = "Residual (cm)",
+    c=:blue, msw=0, legend = false)
 
-figure(figsize=(8,4))
-subplot(121)
-plot(data.Weight, residuals,"b.")
+p2 = qqnorm(residuals, msw=0, lw=2, c =[:red :blue],legend = false,
+        xlabel="Normal Theoretical Quantiles",
+        ylabel="Residual Quantiles")
 
-subplot(122)
-normalProbabilityPlot(data[:,3])
+plot(p1,p2,size=(1000,500),margin = 5mm)

@@ -1,8 +1,11 @@
-using DataFrames, GLM, PyPlot, Distributions, LinearAlgebra
+using DataFrames, GLM, Distributions, LinearAlgebra, Random
+using Plots, LaTeXStrings;pyplot()
+Random.seed!(0)
 
 beta0, beta1 = 2.0, 1.5
 sigma = 2.5
 n, N = 10, 10^4
+alpha = 0.05
 
 function coefEst()
     xVals = collect(1:n)
@@ -14,9 +17,6 @@ end
 
 ests = [coefEst() for _ in 1:N]
 
-plot(first.(ests),last.(ests),".b",ms="0.5")
-plot(beta0,beta1,".r")
-
 xBar = mean(1:n)
 sXX = sum([(x - xBar)^2 for x in 1:n])
 sx2 = sum([x^2 for x in 1:n])
@@ -27,10 +27,20 @@ cv = -sigma^2*xBar/sXX
 mu = [beta0, beta1]
 Sigma = [var0 cv; cv var1]
 
-r = 2.0
 A = cholesky(Sigma).L
-pts = [r*A*[cos(t),sin(t)] + mu  for t in 0:0.01:2pi]
+Ai = inv(A)
 
-plot(first.(pts),last.(pts),"r")
-xlabel("beta0")
-ylabel("beta1")
+r = quantile(Rayleigh(),1-alpha)
+isInEllipse(x) = norm(Ai*(x-mu)) <= r
+estIn = isInEllipse.(ests)
+
+println("Proportion of points inside ellipse: ", sum(estIn)/N)
+
+scatter(first.(ests[estIn]),last.(ests[estIn]),c=:green, ms=2, msw=0)
+scatter!(first.(ests[.!estIn]),last.(ests[.!estIn]),c=:blue, ms=2, msw=0)
+
+ellipsePts = [r*A*[cos(t),sin(t)] + mu  for t in 0:0.01:2pi]
+scatter!([beta0],[beta1],c=:red, ms=5, msw = 0)
+plot!(first.(ellipsePts),last.(ellipsePts), 
+	c=:red, lw=2, legend=:none, 
+	xlabel=L"\hat{\beta}_0", ylabel=L"\hat{\beta}_1")

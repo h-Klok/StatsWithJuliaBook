@@ -1,6 +1,6 @@
-using DataFrames, GLM, PyPlot, Statistics, CSV
+using DataFrames, GLM, Statistics, CSV, Plots; pyplot()
 
-data = CSV.read("weightHeight.csv")
+data = CSV.read("../data/weightHeight.csv")
 
 lm1 = lm(@formula(Height ~ Weight), data)
 lm2 = fit(LinearModel,@formula(Height ~ Weight), data)
@@ -32,8 +32,7 @@ println("MSE (calculated in two ways: ",deviance(lm1)/dof_residual(lm1),
         ",\t",sum((pred.(data.Weight) - data.Height).^2)/(size(data)[1] - 2))
 
 xlims = [minimum(data.Weight), maximum(data.Weight)]
-plot(data.Weight, data.Height,"b.")
-plot(xlims, pred.(xlims),"r")
-xlim(xlims)
-xlabel("Weight (kg)")
-ylabel("Height (cm)")
+scatter(data.Weight, data.Height, c=:blue, msw=0)
+plot!(xlims, pred.(xlims), 
+	c=:red, xlims=(xlims), 
+	xlabel="Weight (kg)", ylabel="Height (cm)", legend=:none)

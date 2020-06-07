@@ -1,10 +1,10 @@
-using Distributions, GLM, DataFrames, PyPlot, Random, LinearAlgebra
+using Distributions, GLM, DataFrames, Random, LinearAlgebra
+Random.seed!(0)
 
 n = 100
 beta0, beta1, beta2, beta3 = 10, 30, 60, 90
-sig = 25
-sigX = 5
-etaVals = [50.0, 10.0, 1.0, 0.1, 0.001, 0.0]
+sig, sigX = 25, 5
+etaVals = [50.0, 10.0, 1.0, 0.1, 0.01, 0.0]
 
 function createDataFrame(eta)
     Random.seed!(1)
@@ -16,29 +16,22 @@ function createDataFrame(eta)
 end
 
 for eta in etaVals
-    println("\n **** eta = $(eta):")
+    print("eta = $(eta): ")
     df = createDataFrame(eta)
     glmOK = true
     try
         global model = lm(@formula(Y ~ X1 + X2 + X3),df)
     catch err
-        println("\nException with GLM: ", err, "!!!!\n\n")
+        println("Exception with GLM: ", err)
         glmOK = false
     end
 
     if glmOK
         covMat = vcov(model)
         sigVec = sqrt.(diag(covMat))
-        corrmat = round.(covMat ./ (sigVec*sigVec'),digits=6)
-        println("Cov(X1,X3) = ", corrmat[2,4],",\t Cov(X2,X3) = ",corrmat[3,4])
-        println(model)
+        corrmat = round.(covMat ./ (sigVec*sigVec'),digits=5)
+        println("Corr(X1,X3) = ", corrmat[2,4],",\t Corr(X2,X3) = ",corrmat[3,4])
     else
-        A = [ones(n) df.X1 df.X2 df.X3]
-        psInv(lambda) = inv(A'*A + lambda*I)*A'
-        for lam in [1000, 1, 0.5, 0.1, 0.01, 0.001, 0.0001, 0.0]
-            println("lam = ",lam,
-            	"\t coeff:",psInv(lam)*df.Y,
-		"\t pInv diff: ",round(norm(psInv(lam)-pinv(A)),digits=6))
-        end
+         println("\t In this case we may use SVD or ridge regression if needed.")
     end
 end
