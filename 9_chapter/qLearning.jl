@@ -1,4 +1,4 @@
-using LinearAlgebra, StatsBase, PyPlot, Random
+using LinearAlgebra, StatsBase, Random, Plots; pyplot()
 
 L = 10
 p0, p1 = 1/2, 3/4
@@ -46,6 +46,4 @@ for (i,kappa) in enumerate(kappaGrid)
     policyMap[:,i] = QlearnSim(kappa)
 end
 
-imshow(policyMap, cmap="bwr")
-xticks(0:2:20, 0:0.2:2); yticks(0:L-1, 1:L)
-xlabel("k"); ylabel("State")
+heatmap(policyMap, fill=cgrad([:blue, :red]), xticks=(0:1:21, -0.1:0.1:2), yticks=(0:L, 0:L), xlabel="k", ylabel="State", colorbar_entry=false)

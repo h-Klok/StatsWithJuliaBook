@@ -1,4 +1,4 @@
-using MultivariateStats, RDatasets, PyPlot, LinearAlgebra, Flux.Data.MNIST
+using MultivariateStats, RDatasets, LinearAlgebra, Flux.Data.MNIST, Plots
 
 imgs, labels   = MNIST.images(), MNIST.labels()
 x = hcat([vcat(float.(im)...) for im in imgs]...)
@@ -10,10 +10,8 @@ function compareDigits(dA,dB)
     xA = hcat([vcat(float.(im)...) for im in imA]...)
     xB = hcat([vcat(float.(im)...) for im in imB]...)
     zA, zB = M'*xA, M'*xB
-    plot(zA[1,:],zA[2,:],"r.",ms="0.5",label="Digit $(dA)")
-    plot(zB[1,:],zB[2,:],"b.",ms="0.5",label="Digit $(dB)")
-    xlim(-5,12.5);ylim(-7.5,7.5)
-    legend(loc="upper right")
+    plot(zA[1,:],zA[2,:], c=:red, ms=0.5, msw=0, label="Digit $(dA)")
+    plot!(zB[1,:],zB[2,:], c=:blue, ms=0.5, label="Digit $(dB)", xlims=(-5,12.5), ylims=(-7.5,7.5))
 end
 
 fig = figure(figsize = (15,10))

@@ -1,4 +1,4 @@
-using RDatasets, PyPlot, Distributions, Random
+using RDatasets, Distributions, Random
 Random.seed!(1)
 
 k = 3
