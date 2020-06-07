@@ -2,7 +2,7 @@ using Plots; pyplot()
 
 function graphCreator(n::Int)
     vertices = 1:n
-    complexPts = [exp(im*2*pi*k/n) for k in vertices]
+    complexPts = [exp(2*pi*im*k/n) for k in vertices]
     coords = [(real(p),imag(p)) for p in complexPts]
     xPts = first.(coords)
     yPts = last.(coords)

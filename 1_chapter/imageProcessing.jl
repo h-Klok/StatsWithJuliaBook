@@ -1,8 +1,10 @@
-using Plots, Images, ImageMagick; pyplot()
+using Plots, Images; pyplot()
 
-img = load("stars.png")
+img = load("../data/stars.png")
 gImg = red.(img)*0.299 + green.(img)*0.587 + blue.(img)*0.114
 rows, cols = size(img)
+
+println("Highest intensity pixel: ", findmax(gImg))
 
 function boxBlur(image,x,y,d)
     if x<=d || y<=d || x>=cols-d || y>=rows-d
