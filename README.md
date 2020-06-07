@@ -9,10 +9,10 @@ The book is comprised of the following ten chapters and three appendices:
 2. Basic Probability
 3. Probability Distributions
 4. Processing and Summarizing Data
-5. Statistical Inference Ideas
+5. Statistical Inference Concepts
 6. Confidence Intervals
 7. Hypothesis Testing
-8. Linear Regression
+8. Linear Regression and Extensions
 9. Machine Learning Basics
 10. Simulation of Dynamic Models
 
