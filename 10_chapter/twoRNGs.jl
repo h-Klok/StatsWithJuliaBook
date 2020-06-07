@@ -1,4 +1,4 @@
-using Distributions, PyPlot, Random
+using Distributions, Random, Plots, LaTeXStrings; pyplot()
 
 N, K, M = 10^2, 50, 10^3
 lamRange = 0.01:0.01:0.99
@@ -20,12 +20,6 @@ mGraph1(seed) = [mEst(lam,MersenneTwister(seed)) for lam in lamRange]
 mGraph2(seed1,seed2) = [mEst2(lam,MersenneTwister(seed1),
 		MersenneTwister(seed2)) for lam in lamRange]
 
-plot(lamRange,mGraph0(1987),"r")
-plot(lamRange,mGraph1(1987),"g")
-plot(lamRange,mGraph2(1987,1988),"b")
-
-argMaxLam(graph) = lamRange[findmax(graph)[2]]
-
 std0 = std([argMaxLam(mGraph0(seed)) for seed in 1:M])
 std1 = std([argMaxLam(mGraph1(seed)) for seed in 1:M])
 std2 = std([argMaxLam(mGraph2(seed,seed+M)) for seed in 1:M])
@@ -33,3 +27,12 @@ std2 = std([argMaxLam(mGraph2(seed,seed+M)) for seed in 1:M])
 println("Standard deviation with no CRN: ", std0)
 println("Standard deviation with CRN and single RNG: ", std1)
 println("Standard deviation with CRN and two RNGs: ", std2)
+
+plot(lamRange,mGraph0(1987),
+	c=:red, label="No CRN")
+plot!(lamRange,mGraph1(1987),
+	c=:green, label="CRN and one RNG")
+plot!(lamRange,mGraph2(1987,1988),
+	c=:blue, label="CRN and two RNG's", xlims=(0,1),ylims=(0,14))
+
+argMaxLam(graph) = lamRange[findmax(graph)[2]]

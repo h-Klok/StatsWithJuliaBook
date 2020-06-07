@@ -1,4 +1,4 @@
-tusing Statistics, StatsBase, PyPlot, Random, LinearAlgebra
+using Statistics, StatsBase, Random, LinearAlgebra
 Random.seed!(1)
 
 function cmHitTime()
@@ -10,7 +10,6 @@ function cmHitTime()
         end
     return t
 end
-
 function mcTraj(P,initState,T,stopState=0)
     n = size(P)[1]
     state = initState
@@ -24,9 +23,7 @@ function mcTraj(P,initState,T,stopState=0)
     end
     return traj
 end
-
 N = 10^6
-
 P = [   0   1   0   0   0;
         1/4 0   1/4 1/4 1/4;
         0   1/2 0   0   1/2;

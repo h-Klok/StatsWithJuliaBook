@@ -1,5 +1,5 @@
-using PyPlot, Distributions, Random
-Random.seed!(1)
+using Distributions, Random, Plots; pyplot()
+Random.seed!(4)
 
 function simulateMM1DoobGillespie(lambda,mu,Q0,T)
     t, Q = 0.0 , Q0
@@ -28,20 +28,21 @@ function stichSteps(epochs,q)
         push!(newEpochs,epochs[i])
         push!(newQ,q[i])
     end
-    return [newEpochs,newQ]
+    return [newEpochs, newQ]
 end
 
 lambda, mu = 0.7, 1.0
 Tplot, Testimation = 200, 10^7
-Q0 = 40
-
-epochs, qValues = simulateMM1DoobGillespie(lambda, mu, Q0,Tplot)
-epochsForPlot, qForPlot = stichSteps(epochs,qValues)
-plot(epochsForPlot,qForPlot)
-xlim(0,Tplot);ylim(0,50)
+Q0 = 20
 
 eL,qL = simulateMM1DoobGillespie(lambda, mu ,Q0, Testimation)
 meanQueueLength = (eL[2:end]-eL[1:end-1])'*qL[1:end-1]/last(eL)
 rho = lambda/mu
 println("Estimated mean queue length: ", meanQueueLength )
 println("Theoretical mean queue length: ", rho/(1-rho) )
+
+epochs, qValues = simulateMM1DoobGillespie(lambda, mu, Q0,Tplot)
+epochsForPlot, qForPlot = stichSteps(epochs,qValues)
+plot(epochsForPlot,qForPlot, 
+	c=:blue, xlims=(0,Tplot), ylims=(0,25), xlabel="Time",
+	ylabel="Customers in queue", legend=:none)

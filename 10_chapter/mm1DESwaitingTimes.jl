@@ -1,11 +1,11 @@
-using DataStructures, Distributions, StatsBase, PyPlot, Random
+using DataStructures,Distributions,StatsBase,Random,Plots, LaTeXStrings; pyplot()
 
 function simMM1Wait(lambda,mu,T)
     tNextArr = rand(Exponential(1/(lambda)))
     tNextDep = Inf
     t = tNextArr
 
-    waitingRoom = Queue(Float64)
+    waitingRoom = Queue{Float64}()
     serverBusy = false
     waitTimes = Array{Float64,1}()
 
@@ -46,7 +46,9 @@ empiricalCDF = ecdf(data)
 F(x) = 1-(lambda/mu)*MathConstants.e^(-(mu-lambda)x)
 xGrid = 0:0.1:20
 
-plot(xGrid,F.(xGrid),"b",label="Analytic CDF of waiting time")
-plot(xGrid,empiricalCDF(xGrid),"r",label="ECDF of waiting times")
-xlabel("x"); xlim(0,20); ylim(0,1)
-legend(loc="lower right")
+plot(xGrid, F.(xGrid),
+	c=:blue,label="Analytic CDF of waiting time")
+plot!(xGrid, empiricalCDF(xGrid),
+	c=:red,label="ECDF of waiting times",  
+	xlabel=L"x", ylabel=L"\Prob(W \leq x)", xlims=(0,20),ylims=(0,1),
+	legend=:bottomright)

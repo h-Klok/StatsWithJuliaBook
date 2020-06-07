@@ -1,4 +1,4 @@
-using PyPlot, Distributions, Random
+using Distributions, Random, Plots, LaTeXStrings; pyplot()
 Random.seed!(1)
 
 a, c, d = 2, 1, 5
@@ -21,9 +21,14 @@ for t in 2:tEndStoch
     trajStoch[t] = next(trajStoch[t-1]...) + [rand(Normal(0,sig)),0.0]
 end
 
-plot(traj[1][1], traj[1][2], "k.", ms=15, label="Initial state")
-plot(first.(traj),last.(traj),"b.--", label="Deterministic trajectory")
-plot(first.(trajStoch),last.(trajStoch),"g.--", label="Stochastic trajectory")
-plot(equibPoint[1],equibPoint[2],"r+",mew="4",ms="10",label="Equlibrium point")
-xlabel("X1"); ylabel("X2"); legend(loc="upper right")
-xlim(0,1); ylim(0,0.3)
+scatter([traj[1][1]], [traj[1][2]], 
+	c=:black, ms=10, label="Initial state")
+plot!(first.(traj), last.(traj), 
+	c=:blue, ls=:dash, m=(:dot, 5, Plots.stroke(0)), 
+	label="Deterministic trajectory")
+plot!(first.(trajStoch),last.(trajStoch), 
+	c=:green, ls=:dash, m=(:dot, 5, Plots.stroke(0)), 
+	label="Stochastic trajectory")
+scatter!([equibPoint[1]], [equibPoint[2]], 
+	c=:red, shape=:cross, ms=10, label="Equlibrium point", 
+	xlabel=L"X_1", ylabel=L"X_2")
