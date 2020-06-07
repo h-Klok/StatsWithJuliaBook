@@ -1,5 +1,5 @@
 using RDatasets, Distributions, Random
-Random.seed!(1)
+Random.seed!(0)
 
 k = 3
 
