@@ -1,10 +1,10 @@
 using Flux.Data.MNIST, DecisionTree, Random
-Random.seed!(1)
+Random.seed!(0)
 
 trainImgs   = MNIST.images()
 trainLabels = MNIST.labels()
-nTrain = length(imgs)
-trainData = vcat([hcat(float.(imgs[i])...) for i in 1:nTrain]...)
+nTrain = length(trainImgs)
+trainData = vcat([hcat(float.(trainImgs[i])...) for i in 1:nTrain]...)
 
 testImgs = MNIST.images(:test)
 testLabels = MNIST.labels(:test)

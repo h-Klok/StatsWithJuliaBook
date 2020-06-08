@@ -3,7 +3,7 @@ using Flux.Optimise: update!
 using Flux: logitbinarycrossentropy
 
 batchSize, latentDim = 500, 100
-epochs = 20
+epochs = 40
 etaD, etaG = 0.0002, 0.0002
 
 images, _ = MLDatasets.MNIST.traindata(Float32)

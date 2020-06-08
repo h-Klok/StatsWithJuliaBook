@@ -1,5 +1,5 @@
 using Flux, BSON, Random, Plots; pyplot()
-Random.seed!(3)
+Random.seed!(0)
 
 latentDim = 100
 outputX, outputY = 6, 3
@@ -10,10 +10,10 @@ gen =  Chain(Dense(latentDim,7*7*256),BatchNorm(7*7*256,relu),
         BatchNorm(64,relu),ConvTranspose((4,4),64=>1,tanh;stride=2,pad=1))
 
 cd(@__DIR__)
-BSON.@load "../data/mnistGAN3.bson" genParams
+BSON.@load "../data/mnistGAN40.bson" genParams
 Flux.loadparams!(gen, genParams)
 
-fixedNoise = [ones(latentDim, 1) for _ in 1:outputX*outputY]
+fixedNoise = [randn(latentDim, 1) for _ in 1:outputX*outputY]
 
 fakeImages = @. gen(fixedNoise)
 
@@ -22,4 +22,4 @@ imageArray = permutedims(dropdims(reduce(vcat,
              dims=(3, 4)), (2, 1))
 
 heatmap(imageArray, yflip = true, color = :Greys,
-        size = (600,300), legend=false, ticks=false)
+        size = (300,150), legend=false, ticks=false)
