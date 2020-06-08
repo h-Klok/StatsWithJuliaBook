@@ -36,4 +36,6 @@ for (i,kappa) in enumerate(kappaGrid)
     policyMap[:,i] = valueIteration(kappa)
 end
 
-heatmap(policyMap, fill=cgrad([:blue, :red]), xticks=(0:1:21, -0.1:0.1:2), yticks=(0:L, 0:L), xlabel="k", ylabel="State", colorbar_entry=false)
+heatmap(policyMap, fill=cgrad([:blue, :red]), 
+        xticks=(0:1:21, -0.1:0.1:2), yticks=(0:L, 0:L), 
+        xlabel="k", ylabel="State", colorbar_entry=false)

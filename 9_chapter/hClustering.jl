@@ -1,5 +1,5 @@
 using RDatasets, Clustering, Random, LinearAlgebra, Plots; pyplot()
-Random.seed!(1)
+Random.seed!(0)
 
 xclara = dataset("cluster", "xclara")
 n,_ = size(xclara)
@@ -17,11 +17,13 @@ cluster(ell,K) = (1:n)[cutree(result,k=K) .== ell]
 
 C1, C2, C3 = cluster(1,30),cluster(2,30),cluster(3,30)
 
-p1 = scatter( first.(dataPoints[C1]),last.(dataPoints[C1]),c=:blue, msw=0)
-p1 = scatter!( first.(dataPoints[C2]),last.(dataPoints[C2]), c=:red, msw=0)
-p1 = scatter!( first.(dataPoints[C3]),last.(dataPoints[C3]), c=:green, msw=0)
+plt = scatter( first.(dataPoints[C1]),last.(dataPoints[C1]),c=:blue, msw=0)
+      scatter!( first.(dataPoints[C2]),last.(dataPoints[C2]), c=:red, msw=0)
+      scatter!( first.(dataPoints[C3]),last.(dataPoints[C3]), c=:green, msw=0)
 for ell in 4:30
     clst = cluster(ell,30)
-    scatter!(p1, first.(dataPoints[clst]),last.(dataPoints[clst]), ms=10, c=:purple, shape=:xcross, ratio=:equal, legend=:none)
+    scatter!(first.(dataPoints[clst]),last.(dataPoints[clst]), 
+        ms=10, c=:purple, shape=:xcross, ratio=:equal, legend=:none,
+        xlabel="V1", ylabel="V2")
 end
-p1
+plot(plt)

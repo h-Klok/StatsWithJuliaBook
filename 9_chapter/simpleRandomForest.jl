@@ -1,25 +1,34 @@
-using Flux.Data.MNIST, DecisionTree, PyPlot, Random
+using Flux.Data.MNIST, DecisionTree, Random
 Random.seed!(1)
 
-imgs   = MNIST.images()
-labels = MNIST.labels()
+trainImgs   = MNIST.images()
+trainLabels = MNIST.labels()
+nTrain = length(imgs)
+trainData = vcat([hcat(float.(imgs[i])...) for i in 1:nTrain]...)
 
-trainData = vcat([hcat(float.(imgs[i])...) for i in 1:50000]...)
-trainLabels = labels[1:50000]
+testImgs = MNIST.images(:test)
+testLabels = MNIST.labels(:test)
+nTest = length(testImgs)
+testData = vcat([hcat(float.(testImgs[i])...) for i in 1:nTest]...)
 
-testData = vcat([hcat(float.(imgs[i])...) for i in 50001:60000]...)
-testLabels = labels[50001:60000]
+numFeaturesPerTree = 10
+numTrees = 40
+portionSamplesPerTree = 0.7
+maxTreeDepth = 10
 
-model = build_forest(trainLabels, trainData, 10, 40, 0.7, 10)
+model = build_forest(trainLabels, trainData, 
+                    numFeaturesPerTree, numTrees, 
+                    portionSamplesPerTree, maxTreeDepth)
+println("Trained model:")
+println(model)
 
-predicted_labels = [apply_forest(model, testData[k,:]) for k in 1:10000]
-
-accuracy = sum(predicted_labels .== testLabels)/10000
-println("Prediction accuracy (measured on test set of size 100): ", accuracy)
+predicted_labels = [apply_forest(model, testData[k,:]) for k in 1:nTest]
+accuracy = sum(predicted_labels .== testLabels)/nTest
+println("\nPrediction accuracy (measured on test set of size $nTest): ",accuracy)
 
 k = 1
 while predicted_labels[k] == testLabels[k]
     global k +=1
 end
-println("Example error (MNIST image $(50000+k)):",
+println("Example error (MNIST test image $(k)):",
         " Predicted $(predicted_labels[k]) but it is actually $(testLabels[k]).")
