@@ -1,4 +1,5 @@
-using RDatasets, DataFrames, Random, LinearAlgebra, MultivariateStats
+using RDatasets, DataFrames, Random, Statistics, LinearAlgebra
+using MultivariateStats,LaTeXStrings, Plots; pyplot()
 Random.seed!(0)
 
 df = dataset("MASS", "cpus")
@@ -8,31 +9,40 @@ df = df[shuffle(1:n),:]
 K = 10
 nG = Int(floor(n/K))
 n = K*nG
+# nT = n - nG
 println("Loosing $(size(df)[1] - n) observations.")
 
-lamMin, lamMax = 0.0, 1.0
-lamVals = collect(lamMin:(lamMax-lamMin)/(K-1):lamMax)
+lamGrid = 0:100:30000
 
-testSet(k) = collect(1+nG*(k-1):nG*k)
-trainSet(k) = setdiff(1:n,testSet(k))
+devSet(k) = collect(1+nG*(k-1):nG*k)
+trainSet(k) = setdiff(1:n,devSet(k))
 
-yTest(k) = convert(Array{Float64,1},df[testSet(k),:Perf])
-yTrain(k) = convert(Array{Float64,1},df[trainSet(k),:Perf])
-
-xTest(k) = convert(Array{Float64,2},df[testSet(k),[ :Cach, :ChMin]])
 xTrain(k) = convert(Array{Float64,2},df[trainSet(k),[:Cach, :ChMin]])
+xDev(k) = convert(Array{Float64,2},df[devSet(k),[ :Cach, :ChMin]])
 
-betas = [ridge(xTrain(k),yTrain(k),lamVals[k]) for k in 1:K]
-errs = [norm([ones(nG) xTest(k)]*betas[k] - yTest(k) ) for k in 1:K]
-bestLambda = lamVals[findmin(errs)[2]]
+yTrain(k) = convert(Array{Float64,1},df[trainSet(k),:Perf])
+yDev(k) = convert(Array{Float64,1},df[devSet(k),:Perf])
 
-macro RR(x) return:(round.($x,digits = 2)) end
+errVals = zeros(length(lamGrid))
+for (i,lam) in enumerate(lamGrid)
+    errSamples = zeros(K)
+    for k in 1:K
+        beta = ridge(xTrain(k),yTrain(k),lam)
+        errSamples[k] = norm([ones(nG) xDev(k)]*beta - yDev(k) )^2
+    end
+    errVals[i] = mean(errSamples)
+end
 
-println("Tried lambdas: ", @RR lamVals)
-println("Errors: ", @RR errs)
+i = argmin(errVals)
+bestLambda = lamGrid[i]
+
+betaFinal = ridge(convert(Array{Float64,2},df[:,[:Cach, :ChMin]]),
+                  convert(Array{Float64,1},df[:,:Perf]),bestLambda)
+
+macro RR(x) return:(round.($x,digits = 3)) end
 println("Found best lambda for regularization: ", bestLambda)
+println("Beta estimate: ", @RR betaFinal)
 
-betaFinal = ridge(convert(Array{Float64,2},df[:,[:MMin, :Cach, :ChMin]]),
-                convert(Array{Float64,1},df[:,:Perf]),bestLambda)
-
-println("Beta estimate: ", betaFinal)
+plot(lamGrid, errVals,legend = false,
+     xlabel = L"\lambda", ylabel = "Loss")
+plot!([bestLambda,bestLambda],[0,9*10^5], c = :black, ylim = (8*10^5, 1.25*10^6))
