@@ -1,7 +1,7 @@
 using GLM, RDatasets, DataFrames, Distributions, Random, LinearAlgebra
 Random.seed!(0)
 
-df = CSV.read("../data/cpus.csv")#QQQQ dataset("MASS", "cpus") doesn't work
+df = dataset("MASS", "cpus")
 n = size(df)[1]
 df = df[shuffle(1:n),:]
 

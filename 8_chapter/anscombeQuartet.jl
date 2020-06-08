@@ -1,6 +1,6 @@
-using RDatasets, DataFrames, CSV, GLM, Plots, Measures; pyplot()
+using RDatasets, DataFrames, GLM, Plots, Measures; pyplot()
 
-df = CSV.read("../data/anscombe.csv")#QQQQ dataset("datasets", "anscombe") doesn't work
+df = dataset("datasets", "anscombe")
 
 model1 = lm(@formula(Y1 ~ X1), df)
 model2 = lm(@formula(Y2 ~ X2), df)

@@ -1,6 +1,6 @@
 using RDatasets, DataFrames, Lasso, LaTeXStrings, Plots, Measures; pyplot()
 
-df = CSV.read("../data/cpus.csv",copycols = true)#QQQQ dataset("MASS", "cpus") broken
+df = dataset("MASS", "cpus")
 df.Freq = map( x->10^9/x , df.CycT)
 df = df[:, [:Perf, :Freq, :MMin, :MMax, :Cach, :ChMin, :ChMax]]
 X = [df.Freq df.MMin df.MMax df.Cach df.ChMin df.ChMax]

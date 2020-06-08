@@ -30,7 +30,7 @@ for (i,lam) in enumerate(lamGrid)
         beta = ridge(xTrain(k),yTrain(k),lam)
         errSamples[k] = norm([ones(nG) xDev(k)]*beta - yDev(k) )^2
     end
-    errVals[i] = mean(errSamples)
+    errVals[i] = sqrt(mean(errSamples))
 end
 
 i = argmin(errVals)
@@ -45,4 +45,4 @@ println("Beta estimate: ", @RR betaFinal)
 
 plot(lamGrid, errVals,legend = false,
      xlabel = L"\lambda", ylabel = "Loss")
-plot!([bestLambda,bestLambda],[0,9*10^5], c = :black, ylim = (8*10^5, 1.25*10^6))
+plot!([bestLambda,bestLambda],[0,10^3], c = :black, ylim = (750, 1250))

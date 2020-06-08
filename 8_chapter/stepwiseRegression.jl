@@ -1,6 +1,6 @@
 using RDatasets, DataFrames, GLM
 
-df = CSV.read("../data/cpus.csv")#QQQQ dataset("MASS", "cpus") doesn't work
+df = dataset("MASS", "cpus")
 df.Freq = map( x->10^9/x , df.CycT)
 df = df[:, [:Perf, :MMax, :Cach, :ChMax, :Freq]]
 
