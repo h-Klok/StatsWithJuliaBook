@@ -1,4 +1,5 @@
-using LinearAlgebra, StatsBase, Random, Plots; pyplot()
+using LinearAlgebra, StatsBase, Random, LaTeXStrings, Plots; pyplot()
+Random.seed!(0)
 
 L = 10
 p0, p1 = 1/2, 3/4
@@ -6,8 +7,6 @@ beta = 0.75
 pExplore(t) = t^-0.2
 alpha(t) = t^-0.2
 T = 10^6
-
-Random.seed!(1)
 
 function QlearnSim(kappa)
     P0 = diagm(1=>fill(p0,L-1)) + diagm(-1=>fill(1-p0,L-1))
@@ -46,4 +45,6 @@ for (i,kappa) in enumerate(kappaGrid)
     policyMap[:,i] = QlearnSim(kappa)
 end
 
-heatmap(policyMap, fill=cgrad([:blue, :red]), xticks=(0:1:21, -0.1:0.1:2), yticks=(0:L, 0:L), xlabel="k", ylabel="State", colorbar_entry=false)
+heatmap(policyMap, fill=cgrad([:blue, :red]), 
+        xticks=(0:1:21, -0.1:0.1:2), yticks=(0:L, 0:L), 
+        xlabel=L"\kappa", ylabel="State", colorbar_entry=false)

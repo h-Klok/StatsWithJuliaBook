@@ -1,4 +1,4 @@
-using LinearAlgebra, Plots; pyplot()
+using LinearAlgebra, LaTeXStrings, Plots; pyplot()
 
 L = 10
 p0, p1 = 1/2, 3/4
@@ -38,4 +38,4 @@ end
 
 heatmap(policyMap, fill=cgrad([:blue, :red]), 
         xticks=(0:1:21, -0.1:0.1:2), yticks=(0:L, 0:L), 
-        xlabel="k", ylabel="State", colorbar_entry=false)
+        xlabel=L"\kappa", ylabel="State", colorbar_entry=false)
