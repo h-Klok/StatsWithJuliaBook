@@ -1,8 +1,8 @@
-using CSV,DataFrames,GLM,Statistics,LinearAlgebra,Measures,Plots; pyplot()
+using CSV,DataFrames,Dates,GLM,Statistics,LinearAlgebra,Measures,Plots; pyplot()
 df = CSV.read("../data/oneOnEpsilonBlogs.csv",copycols = true)
 len = size(df)[1]
 
-dow = dayofweek.(Date.(df.Day,DateFormat("m/d/y")))
+dow = dayofweek.(Date.(df.Day,Dates.DateFormat("m/d/y")))
 dayGroups = [[7], [1,6], [2,3,4,5]]
 inds = [[in(d,grp) for d in dow] for grp in dayGroups]
 df2 = DataFrame(Time=1:len,Users=df.Users,
@@ -12,7 +12,6 @@ trainRange1, futureRange1 = 100:130, 130:180
 trainRange2, futureRange2 = 200:300, 300:320 
 trainRange3, futureRange3 = 400:500, 500:600 
 trainRange4, futureRange4 = 560:600, 600:630
-
 
 function forecast(trainRange,futureRange)
     model = lm(@formula(Users ~ Time + Group1 + Group2),df2[trainRange,:])

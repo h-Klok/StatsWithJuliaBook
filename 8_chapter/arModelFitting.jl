@@ -1,1 +1,0 @@
-QQQQ - AR model fitting.

@@ -1,7 +1,7 @@
-using CSV, TimeSeries, Statistics, Measures, Plots, StatsPlots; pyplot()
+using CSV, TimeSeries, Dates, Statistics, Measures, Plots, StatsPlots; pyplot()
 df = CSV.read("../data/oneOnEpsilonBlogs.csv",copycols = true)
 
-tsA = TimeArray(Date.(df.Day,DateFormat("m/d/y")),df.Users)
+tsA = TimeArray(Date.(df.Day,Dates.DateFormat("m/d/y")),df.Users)
 tsB = moving(mean,tsA,7,padding = true)
 tsC = TimeArray(timestamp(tsA), values(tsA) - values(tsB))
 
