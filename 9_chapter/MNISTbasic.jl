@@ -47,8 +47,10 @@ F1test = harmmean([precision,recall])
 
 p1 = stephist(psPositive, normed = true, label="1 Digit")
 stephist!(psNegative, normed = true, xlim=(0,1), ylim=(0,6),
-			xlabel = "Value", ylabel = "Frequency", label="Non 1 Digit")
+			xlabel = "Value", ylabel = "Frequency", 
+			label="Non 1 Digit")
 plot!([bestTheta,bestTheta],[0,5], c =:black, label = :none)
-p2 = plot(thetaRange,f1Values, legend = false, xlabel = "Threshold", ylabel = "F1 Value")
+p2 = plot(thetaRange,f1Values, legend = false, 
+	xlabel = "Threshold", ylabel = "F1 Value")
 plot!([bestTheta],[bestF1], c=:black)#QQQQ doesn't work
 plot(p1,p2,size=(800,400))
