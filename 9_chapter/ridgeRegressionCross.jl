@@ -1,5 +1,5 @@
 using RDatasets, DataFrames, Random, Statistics, LinearAlgebra
-using MultivariateStats,LaTeXStrings, Plots; pyplot()
+using MultivariateStats, LaTeXStrings, Plots; pyplot()
 Random.seed!(0)
 
 df = dataset("MASS", "cpus")
