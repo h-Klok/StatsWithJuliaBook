@@ -28,4 +28,4 @@ for t in 1:N
 end
 piProb4 = numInState/N
 
-[piProb1 piProb2 piProb3 piProb4]
+display([piProb1 piProb2 piProb3 piProb4])

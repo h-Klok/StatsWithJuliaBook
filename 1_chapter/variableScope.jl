@@ -14,10 +14,11 @@ end
 println("\nSum of data in external scope: ", s)
 
 function sumData(beta)
-    s = 0
+    s = 0           #try adding the prefix global
     for i in 1:length(data)
         s += data[i] + gamma
     end
-    s
+    return s
 end
 println("Sum of data in a function: ", sumData(beta/2))
+@show s
