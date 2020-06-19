@@ -24,6 +24,10 @@ This repository is a collection of all 200+ code blocks contained in the book. S
 
 ## Usage instructions:
 
+1. Clone or download this repository or a fork of it.
+1. Have Julia 1.4 or above installed.
+1. Run init.jl to install and precompile the required packages.
+1. Run individual code examples.
 
 ---
 
