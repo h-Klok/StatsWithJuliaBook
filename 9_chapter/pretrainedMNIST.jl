@@ -4,7 +4,7 @@ using Flux: onecold
 model= Chain(Conv((5, 5), 1=>8, relu), MaxPool((2,2)),
              Conv((3, 3), 8=>16, relu), MaxPool((2,2)),
                 flatten, Dense(400, 10), softmax)
-cd(@__DIR__)
+
 BSON.@load "../data/mnistConv.bson" modelParams
 Flux.loadparams!(model, modelParams)
 
