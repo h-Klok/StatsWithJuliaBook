@@ -1,9 +1,8 @@
 using Distributions, Random, Plots; pyplot()
 Random.seed!(0)
 
-beta, delta, gamma = 0.25, 0.4, 0.1
-initialInfect = 0.025
-M = 1000
+beta, delta, gamma = 0.25, 0.2, 0.1
+initialInfect, M = 0.025, 1000
 I0 = Int(floor(initialInfect*M))
 N = 30
 
@@ -33,9 +32,7 @@ function simulateSIRDoobGillespie(beta,delta,gamma,I0,M,T)
 end
 
 tV,sV,eV,iV,rV = simulateSIRDoobGillespie(beta/M,M*delta,gamma,I0,M,Inf)
-lastT = tV[end]
-
-finals = [simulateSIRDoobGillespie(beta/M,M*delta,gamma,I0,M,Inf)[5][end] 
+finals = [simulateSIRDoobGillespie(beta/M,M*delta,gamma,I0,M,Inf)[5][end]
                 for _ in 1:N]/M
 
 p1 = plot(tV,sV/M,label = "Susceptible", c=:green)
@@ -43,5 +40,5 @@ plot!(tV,eV/M,label = "Exposed", c=:blue)
 plot!(tV,iV/M,label = "Infected",c=:red)
 plot!(tV,rV/M,label = "Removed", c=:yellow,
     xlabel = "Time", ylabel = "Proportion",
-    legend = :topleft, xlim = (0,lastT*1.05))
-scatter!(lastT*1.025*ones(N),finals, c = :yellow,label= "Final Infected")
+    legend = :topleft, xlim = (0,tV[end]*1.05))
+scatter!(tV[end]*1.025*ones(N),finals, c = :yellow,label= "Final Infected")

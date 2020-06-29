@@ -34,13 +34,10 @@ end
 data1 = [countTau(f1,rand) for _ in 1:N]
 data2 = [countTau(f2,()->rand([-1,0,1]) ) for _ in 1:N]
 est1, est2 = mean(data1), mean(data2)
-
 c1, c2 = counts(data1)/N,counts(data2)/N
-
 println("Estimated mean value of tau using f1: ",est1)
 println("Estimated mean value of tau using f2: ",est2)
 println("\nThe matrix P:", P)
-
 scatter(4:33,c1[1:30], 
 	c=:blue, ms=5, msw=0, 
 	label="Transition probability matrix")

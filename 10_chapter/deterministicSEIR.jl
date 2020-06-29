@@ -1,6 +1,6 @@
 using DifferentialEquations, Plots; pyplot()
 
-beta, delta, gamma = 0.25, 0.4, 0.1
+beta, delta, gamma = 0.25, 0.2, 0.1
 initialInfect = 0.025
 println("R0 = ", beta/gamma)
 

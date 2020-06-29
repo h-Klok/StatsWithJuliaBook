@@ -9,17 +9,18 @@ negativeTrain = trainData[yTrain .!= 1]
 testData = [xTest[:,:,k]' for k in 1:nTest]
 testLabels = yTest .== 1
 
-function outPeakMass(img)
-	outSum = 0.0
+function peakProp(img)
+	peakSum = 0.0
 	for j in 1:28
 		m = argmax(img[j,:])
-		outSum += sum(img[j,1:m-2]) + sum(img[j,m+2:end])
+		(m <=2 || m >= 26) && continue
+		peakSum += sum(img[j,m-2:m+2])
 	end
-	outSum/sum(img)
+	peakSum/sum(img)
 end
 
-psPositive, psNegative = outPeakMass.(positiveTrain), outPeakMass.(negativeTrain)
-predict(img,theta) = outPeakMass(img) <= theta ? true : false
+psPositive, psNegative = peakProp.(positiveTrain), peakProp.(negativeTrain)
+predict(img,theta) = peakProp(img) <= theta ? false : true
 function F1value(theta)
 	predictionOnPositive = predict.(positiveTrain,theta)
 	predictionOnNegative = predict.(negativeTrain,theta)
@@ -31,7 +32,7 @@ function F1value(theta)
 	return 2*(precision*recall)/(precision+recall)
 end
 
-thetaRange = 0:0.05:1
+thetaRange = 0.5:0.005:1
 f1Values = F1value.(thetaRange)
 bestF1, bestIndex = findmax(f1Values)
 bestTheta = thetaRange[bestIndex]
@@ -45,12 +46,12 @@ recall, precision = TP/(TP + FN), TP/(TP + FP)
 F1test = harmmean([precision,recall])
 @show TP, FN, FP, TN; @show recall, precision; @show F1test
 
-p1 = stephist(psPositive, normed = true, label="1 Digit")
-stephist!(psNegative, normed = true, xlim=(0,1), ylim=(0,6),
-			xlabel = "Value", ylabel = "Frequency", 
+p1 = stephist(psPositive, normed = true, label="1 Digit",bins=50)
+stephist!(psNegative, normed = true, xlim=(0.4,1), ylim=(0,6),bins=50,
+			xlabel = "Value", ylabel = "Frequency",
 			label="Non 1 Digit")
 plot!([bestTheta,bestTheta],[0,5], c =:black, label = :none)
-p2 = plot(thetaRange,f1Values, legend = false, 
+p2 = plot(thetaRange,f1Values, legend = false,
 	xlabel = "Threshold", ylabel = "F1 Value")
-plot!([bestTheta],[bestF1], c=:black)#QQQQ doesn't work
+plot!([bestTheta],[bestF1], c=:black)
 plot(p1,p2,size=(800,400))

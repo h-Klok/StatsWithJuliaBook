@@ -1,6 +1,8 @@
 using CSV, GLM, StatsBase, Random, Distributions, Plots, Measures; pyplot()
 Random.seed!(0)
 
+n, N = 10^3, 10^6
+
 function waldWolfowitz(data)
     n = length(data)
     sgns = data .>= mean(data);
@@ -12,21 +14,12 @@ function waldWolfowitz(data)
     for i in 1:n-1
         R += sgns[i] != sgns[i+1]
     end
-    
+
     zStat = abs((R-wwMu)/sqrt(wwVar))
     2*ccdf(Normal(),zStat)
 end
 
-df = CSV.read("../data/weightHeight.csv")
-model = lm(@formula(Height ~ Weight), df)
-pred(x) = coef(model)'*[1, x]
-weightHeightResiduals = df.Height - pred.(df.Weight)
-weightHeightPval = waldWolfowitz(weightHeightResiduals)
-println("p-value for WW runs test on weight height data: ", weightHeightPval)
-
-n, N = 10^3, 10^6
 experimentPvals = [waldWolfowitz(rand(Normal(),n)) for _ in 1:N]
-println("\nSimulation results:")
 for alpha in [ 0.001, 0.005, 0.01, 0.05, 0.1]
     pva = sum(experimentPvals .< alpha)/N
     println("For alpha = $(alpha), p-value area = $(pva)")
@@ -36,6 +29,7 @@ p1 = histogram(experimentPvals,bins = 5n, legend = false,
     xlabel = "p-value", ylabel = "Frequency")
 
 Fhat = ecdf(experimentPvals)
+
 pGrid = 0:0.001:1
 p2 = plot(pGrid,Fhat.(pGrid), legend =false, xlabel = "p-value", ylabel = "ECDF")
 plot(p1, p2, size = (1000,400), margin = 5mm)
