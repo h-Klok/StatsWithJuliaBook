@@ -4,14 +4,14 @@ Random.seed!(0)
 
 nTrain = 20000
 miniBatchSize = 1000
-imgs   = MNIST.images()[1:nTrain]
-labels = MNIST.labels()[1:nTrain]
+imgs   = Flux.Data.MNIST.images()[1:nTrain]
+labels = Flux.Data.MNIST.labels()[1:nTrain]
 
 trainData = hcat([vcat(float.(imgs[i])...) for i in 1:nTrain]...)
 trainLabels = labels
 
-testImgs = MNIST.images(:test)
-testLabels = MNIST.labels(:test)
+testImgs = Flux.Data.MNIST.images(:test)
+testLabels = Flux.Data.MNIST.labels(:test)
 nTest = length(testImgs)
 testData = hcat([vcat(float.(testImgs[i])...) for i in 1:nTest]...)
 
@@ -28,18 +28,18 @@ lossArray = []
 epochNum = 0
 while true
     global lossValue
-      prevLossValue = lossValue
-      for batch in Iterators.partition(1:nTrain,miniBatchSize)
-          gs = gradient(()->loss(trainData[:,batch],trainLabels[batch]),params(W,b))
-          for p in (W,b)
-              update!(opt,p,gs[p])
-          end
+    prevLossValue = lossValue
+    for batch in Iterators.partition(1:nTrain,miniBatchSize)
+      gs = gradient(()->loss(trainData[:,batch],trainLabels[batch]),params(W,b))
+      for p in (W,b)
+          update!(opt,p,gs[p])
       end
-      global epochNum += 1
-      lossValue = loss(trainData,trainLabels)
-      push!(lossArray,lossValue)
-      print(".")
-      abs(prevLossValue-lossValue) < 5e-4 && break
+    end
+    global epochNum += 1
+    lossValue = loss(trainData,trainLabels)
+    push!(lossArray,lossValue)
+    print(".")
+    abs(prevLossValue-lossValue) < 5e-4 && break
 end
 
 println("\nNumber of epochs: ", epochNum)

@@ -1,15 +1,15 @@
 using Flux, Flux.Data.MNIST, LinearAlgebra
 using Flux: onehotbatch
 
-imgs   = MNIST.images()
-labels = MNIST.labels()
+imgs   = Flux.Data.MNIST.images()
+labels = Flux.Data.MNIST.labels()
 nTrain = length(imgs)
 
 trainData = vcat([hcat(float.(imgs[i])...) for i in 1:nTrain]...)
 trainLabels = labels[1:nTrain]
 
-testImgs = MNIST.images(:test)
-testLabels = MNIST.labels(:test)
+testImgs = Flux.Data.MNIST.images(:test)
+testLabels = Flux.Data.MNIST.labels(:test)
 nTest = length(testImgs)
 
 testData = vcat([hcat(float.(testImgs[i])...) for i in 1:nTest]...)
