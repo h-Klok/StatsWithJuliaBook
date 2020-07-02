@@ -18,7 +18,7 @@ testData = hcat([vcat(float.(testImgs[i])...) for i in 1:nTest]...)
 W = randn(10,28*28)
 b = randn(10)
 
-logisticM(imgVec) = softmax(sigmoid.(W*imgVec .+ b))
+logisticM(imgVec) = softmax(W*imgVec .+ b)
 logisticMclassifier(imgVec) = argmax(logisticM(imgVec))-1
 loss(x,y) = crossentropy(logisticM(x),onehotbatch(y,0:9))
 opt = ADAM(0.01)

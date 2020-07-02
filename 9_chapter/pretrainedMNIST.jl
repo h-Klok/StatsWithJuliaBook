@@ -14,8 +14,8 @@ function predictor(img)
     onecold(model(whcn),0:9)[1]
 end
 
-testLabels = MNIST.labels(:test)
-testImages = MNIST.images(:test)
+testLabels = Flux.Data.MNIST.labels(:test)
+testImages = Flux.Data.MNIST.images(:test)
 nTest = length(testLabels)
 
 iC, iR = 0, 0

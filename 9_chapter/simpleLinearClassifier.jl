@@ -4,14 +4,11 @@ using Flux: onehotbatch
 imgs   = Flux.Data.MNIST.images()
 labels = Flux.Data.MNIST.labels()
 nTrain = length(imgs)
-
 trainData = vcat([hcat(float.(imgs[i])...) for i in 1:nTrain]...)
 trainLabels = labels[1:nTrain]
-
 testImgs = Flux.Data.MNIST.images(:test)
 testLabels = Flux.Data.MNIST.labels(:test)
 nTest = length(testImgs)
-
 testData = vcat([hcat(float.(testImgs[i])...) for i in 1:nTest]...)
 
 A = [ones(nTrain) trainData]
@@ -27,6 +24,5 @@ confusionMatrix = [sum((predictions .== i) .& (testLabels .== j))
 				for i in 0:9, j in 0:9]
 accuracy = sum(diag(confusionMatrix))/nTest
 
-println("Accuracy: ", accuracy)
-println("Confusion Matrix:")
+println("Accuracy: ", accuracy, "\nConfusion Matrix:")
 show(stdout, "text/plain", confusionMatrix)

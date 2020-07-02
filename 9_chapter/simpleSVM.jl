@@ -1,10 +1,10 @@
 using Flux.Data.MNIST, LIBSVM, Plots
 
 logFilePath = "../data/svmlog.txt"
+nTrain = 10^4
 
-trainImgs   = MNIST.images()[1:10000]
-trainLabels = MNIST.labels()[1:10000]
-nTrain = length(trainImgs)
+trainImgs   = MNIST.images()[1:nTrain]
+trainLabels = MNIST.labels()[1:nTrain]
 trainData = hcat([vcat(float.(trainImgs[i])...) for i in 1:nTrain]...)
 
 testImgs = MNIST.images(:test)

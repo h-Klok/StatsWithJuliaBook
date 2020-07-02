@@ -7,18 +7,18 @@ eta = 5e-3
 batchSize = 1000
 trainRange, validateRange = 1:5000, 5001:10000
 
-function minibatch(x, y, idxs)
-    xBatch = Array{Float32}(undef, size(x[1])..., 1, length(idxs))
-    for i in 1:length(idxs)
-        xBatch[:, :, :, i] = Float32.(x[idxs[i]])
+function minibatch(x, y, indexRange)
+    xBatch = Array{Float32}(undef, size(x[1])..., 1, length(indexRange))
+    for i in 1:length(indexRange)
+        xBatch[:, :, :, i] = Float32.(x[indexRange[i]])
     end
-    return (xBatch, onehotbatch(y[idxs], 0:9))
+    return (xBatch, onehotbatch(y[indexRange], 0:9))
 end
 
 trainLabels = MNIST.labels()[trainRange]
 trainImgs = MNIST.images()[trainRange]
 mbIdxs = Iterators.partition(1:length(trainImgs), batchSize)
-trainSet = [minibatch(trainImgs, trainLabels, i) for i in mbIdxs]
+trainSet = [minibatch(trainImgs, trainLabels, bi) for bi in mbIdxs]
 
 validateLabels = MNIST.labels()[validateRange]
 validateImgs = MNIST.images()[validateRange]

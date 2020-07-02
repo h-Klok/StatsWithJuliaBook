@@ -4,9 +4,9 @@ xTrain, yTrain = MLDatasets.MNIST.traindata(Float32)
 xTest, yTest = MLDatasets.MNIST.testdata(Float32)
 nTrain, nTest = size(xTrain)[3], size(xTest)[3]
 trainData = [xTrain[:,:,k]' for k in 1:nTrain]
+testData = [xTest[:,:,k]' for k in 1:nTest]
 positiveTrain = trainData[yTrain .== 1]
 negativeTrain = trainData[yTrain .!= 1]
-testData = [xTest[:,:,k]' for k in 1:nTest]
 testLabels = yTest .== 1
 
 function peakProp(img)
@@ -18,8 +18,6 @@ function peakProp(img)
 	end
 	peakSum/sum(img)
 end
-
-psPositive, psNegative = peakProp.(positiveTrain), peakProp.(negativeTrain)
 predict(img,theta) = peakProp(img) <= theta ? false : true
 function F1value(theta)
 	predictionOnPositive = predict.(positiveTrain,theta)
@@ -32,8 +30,10 @@ function F1value(theta)
 	return 2*(precision*recall)/(precision+recall)
 end
 
+psPositive, psNegative = peakProp.(positiveTrain), peakProp.(negativeTrain)
 thetaRange = 0.5:0.005:1
 f1Values = F1value.(thetaRange)
+
 bestF1, bestIndex = findmax(f1Values)
 bestTheta = thetaRange[bestIndex]
 println("Best theta = ", bestTheta, " with F1 value of ", bestF1)
