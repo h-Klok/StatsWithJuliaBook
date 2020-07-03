@@ -14,9 +14,7 @@ BSON.@load "../data/mnistGAN40.bson" genParams
 Flux.loadparams!(gen, genParams)
 
 fixedNoise = [randn(latentDim, 1) for _ in 1:outputX*outputY]
-
 fakeImages = @. gen(fixedNoise)
-
 imageArray = permutedims(dropdims(reduce(vcat,
             reduce.(hcat, Iterators.partition(fakeImages, outputY)));
              dims=(3, 4)), (2, 1))
