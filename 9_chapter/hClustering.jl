@@ -1,9 +1,9 @@
 using RDatasets, Clustering, Random, LinearAlgebra, Plots; pyplot()
 Random.seed!(0)
 
-xclara = dataset("cluster", "xclara")
-n,_ = size(xclara)
-dataPoints = [convert(Array{Float64,1},xclara[i,:]) for i in 1:n]
+df = dataset("cluster", "xclara")
+n,_ = size(df)
+dataPoints = [convert(Array{Float64,1},df[i,:]) for i in 1:n]
 shuffle!(dataPoints)
 D = [norm(pt1 - pt2) for pt1 in dataPoints, pt2 in dataPoints]
 
