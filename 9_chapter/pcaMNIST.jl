@@ -11,7 +11,8 @@ function compareDigits(dA,dB)
     xA = hcat([vcat(float.(im)...) for im in imA]...)
     xB = hcat([vcat(float.(im)...) for im in imB]...)
     zA, zB = M'*xA, M'*xB
-    default(ms=0.8, msw=0, xlims=(-5,12.5), ylims=(-7.5,7.5), legend = :topright)
+    default(ms=0.8, msw=0, xlims=(-5,12.5), ylims=(-7.5,7.5),
+            legend = :topright, xlabel="PC 1", ylabel="PC 2")
     scatter(zA[1,:],zA[2,:], c=:red,  label="Digit $(dA)")
     scatter!(zB[1,:],zB[2,:], c=:blue, label="Digit $(dB)")
 end
