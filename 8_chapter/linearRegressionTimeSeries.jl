@@ -1,4 +1,5 @@
 using CSV,DataFrames,Dates,GLM,Statistics,LinearAlgebra,Measures,Plots; pyplot()
+
 df = CSV.read("../data/oneOnEpsilonBlogs.csv",copycols = true)
 len = size(df)[1]
 
@@ -30,6 +31,7 @@ end
 
 model1, train1, fcst1 = forecast(trainRange1,futureRange1)
 println(model1)
+
 default(legend = :topleft)
 p1 = forecastPlot((trainRange1, train1), (futureRange1, fcst1))
 

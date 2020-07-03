@@ -1,4 +1,5 @@
 using CSV, TimeSeries, Dates, Statistics, Measures, Plots, StatsPlots; pyplot()
+
 df = CSV.read("../data/oneOnEpsilonBlogs.csv",copycols = true)
 
 tsA = TimeArray(Date.(df.Day,Dates.DateFormat("m/d/y")),df.Users)
