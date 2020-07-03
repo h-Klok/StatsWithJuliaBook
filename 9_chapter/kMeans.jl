@@ -1,11 +1,12 @@
 using Clustering, RDatasets, Random, Measures, Plots; pyplot()
 Random.seed!(0)
 
+K = 3
 df = dataset("cluster", "xclara")
 data = copy(convert(Array{Float64}, df)')
 
-seeds = initseeds(:rand, data, 3)
-xclaraKmeans = kmeans(data, 3, init = seeds)
+seeds = initseeds(:rand, data, K)
+xclaraKmeans = kmeans(data, K, init = seeds)
 
 println("Number of clusters: ", nclusters(xclaraKmeans))
 println("Counts of clusters: ", counts(xclaraKmeans))

@@ -1,11 +1,10 @@
 using RDatasets, Distributions, Random
 Random.seed!(0)
 
-k = 3
-
-xclara = dataset("cluster", "xclara")
-n,_ = size(xclara)
-dataPoints = [convert(Array{Float64,1},xclara[i,:]) for i in 1:n]
+K = 3
+df = dataset("cluster", "xclara")
+n,_ = size(df)
+dataPoints = [convert(Array{Float64,1},df[i,:]) for i in 1:n]
 shuffle!(dataPoints)
 
 xMin,xMax = minimum(first.(dataPoints)),maximum(first.(dataPoints))
