@@ -5,12 +5,12 @@ df = dataset("cluster", "xclara")
 data = copy(convert(Array{Float64}, df)')
 
 seeds = initseeds(:rand, data, 3)
-xclara_kmeans = kmeans(data, 3)
+xclaraKmeans = kmeans(data, 3, init = seeds)
 
-println("Number of clusters: ", nclusters(xclara_kmeans))
-println("Counts of clusters: ", counts(xclara_kmeans))
+println("Number of clusters: ", nclusters(xclaraKmeans))
+println("Counts of clusters: ", counts(xclaraKmeans))
 
-df.Group  = assignments(xclara_kmeans)
+df.Group  = assignments(xclaraKmeans)
 
 p1 = scatter(df[:, :V1], df[:, :V2], c=:blue, msw=0)
      scatter!(df[seeds, :V1], df[seeds, :V2], markersize=12, c=:red, msw=0)
