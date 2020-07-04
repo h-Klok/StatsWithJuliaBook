@@ -18,14 +18,14 @@ predC(x) = coef(modelC)' * [1, x]
 xlims = collect(extrema(df.IQ))
 
 p1 = scatter(df.IQ, df.AlcConsumption, c=:blue, msw=0, ma=0.2, label="")
-p1 = plot!(xlims, pred.(xlims), c=:blue, label="All data")
+     plot!(xlims, pred.(xlims), c=:blue, label="All data")
 
 p2 = scatter(groupA.IQ, groupA.AlcConsumption, c=:blue, msw=0, ma=0.2, label="")
-p2 = scatter!(groupB.IQ, groupB.AlcConsumption, c=:red, msw=0, ma=0.2, label="")
-p2 = scatter!(groupC.IQ, groupC.AlcConsumption, c=:green,msw=0, ma=0.2, label="")
-p2 = plot!(xlims, predA.(xlims), c=:blue, label="Group A")
-p2 = plot!(xlims, predB.(xlims), c=:red, label="Group B")
-p2 = plot!(xlims, predC.(xlims), c=:green, label="Group C")
+     scatter!(groupB.IQ, groupB.AlcConsumption, c=:red, msw=0, ma=0.2, label="")
+     scatter!(groupC.IQ, groupC.AlcConsumption, c=:green,msw=0, ma=0.2, label="")
+     plot!(xlims, predA.(xlims), c=:blue, label="Group A")
+     plot!(xlims, predB.(xlims), c=:red, label="Group B")
+     plot!(xlims, predC.(xlims), c=:green, label="Group C")
 
 plot(p1, p2, xlims=(xlims), ylims=(0,1), 
-	xlabel="IQ", ylabel="Alcohol metric", size=(800,400))
+	xlabel="IQ", ylabel="Alcohol Metric", size=(800,400))
