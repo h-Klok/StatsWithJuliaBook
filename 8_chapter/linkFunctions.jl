@@ -5,8 +5,8 @@ df = dataset("MASS", "cpus")
 n = size(df)[1]
 df = df[shuffle(1:n),:]
 
-pTrain = 0.2
-lastTindex = Int(floor(n*(1-pTrain)))
+pTest = 0.2
+lastTindex = Int(floor(n*(1-pTest)))
 numTest = n - lastTindex
 
 train = df[1:lastTindex,:]
