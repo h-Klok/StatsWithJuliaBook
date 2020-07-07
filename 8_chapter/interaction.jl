@@ -6,17 +6,17 @@ n = size(df)[1]
 df[shuffle(1:n),:] = df
 df[[10,40,60,130,140,175,190,200],:Sex] .= "O"
 
-model = lm(@formula(Height ~ Weight * Sex), df,
-        contrasts=Dict(:Sex=>DummyCoding(base="F",levels=["F","M","O"])))
-b0, b1, b2, b3, b4, b5  = coef(model)
-pred(weight,sex) =  b0 + b1*weight + 
-                    b2*(sex=="M") + b3*(sex=="O") + 
-                    b4*weight*(sex=="M") + b5*weight*(sex=="O")
-println(model)
+conts = Dict(:Sex=>DummyCoding(base="F",levels=["F","M","O"]))
 
-males = df[df.Sex .== "M",:]
-females = df[df.Sex .== "F",:]
-other = df[df.Sex .== "O",:]
+model1 = lm(@formula(Height ~ Weight * Sex), df, contrasts=conts)
+model2 = lm(@formula(Height ~ Weight + Weight & Sex), df, contrasts=conts)
+model3 = lm(@formula(Height ~ Weight & Sex), df, contrasts=conts)
+println(model1); println(model2); println(model3)
+
+b0, b1, b2, b3 = coef(model3)
+pred(weight,sex) =  b0 + weight*(b1*(sex=="F") + b2*(sex=="M") + b3*(sex=="O"))
+
+males,females,other=df[df.Sex .=="M",:],df[df.Sex .=="F",:],df[df.Sex .=="O",:]
 
 xlim = [minimum(df.Weight), maximum(df.Weight)]
 scatter(males.Weight, males.Height, c=:blue, msw=0, label="Male")
