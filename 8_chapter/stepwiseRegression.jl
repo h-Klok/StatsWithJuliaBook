@@ -18,8 +18,8 @@ function stepReg(df, reVar, pThresh)
         pVals = coeftable(model).cols[4][2:end]
         println("Variables: ", predVars)
         println("P-values = ", round.(pVals,digits = 3))
-        maximum(pVals) < pThresh && break
         pVal, knockout = findmax(pVals)
+        pVal < pThresh && break
         println("\tRemoving the variable ", predVars[knockout], 
                 " with p-value = ", round(pVal,digits=3))
         deleteat!(predVars,knockout)
