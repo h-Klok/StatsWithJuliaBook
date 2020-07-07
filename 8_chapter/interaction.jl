@@ -30,10 +30,10 @@ males,females,other=df[df.Sex .=="M",:],df[df.Sex .=="F",:],df[df.Sex .=="O",:]
 
 xlim = [0, maximum(df.Weight)]
 scatter(males.Weight, males.Height, c=:blue, msw=0, label="Male")
-plot!(xlim, pred1.(xlim,"M"), c=:blue, label="Male fit 1")
-plot!(xlim, pred2.(xlim,"M"), c=:blue, lw=3, label="Male fit 2")
+plot!(xlim, pred1.(xlim,"M"), c=:blue, lw = 1.5, label="Male fit 1")
+plot!(xlim, pred2.(xlim,"M"), c=:blue, linestyle=:dash, label="Male fit 2")
 scatter!(females.Weight, females.Height, c=:red, msw=0, label="Female")
-plot!(xlim, pred1.(xlim,"F"), c=:red, label="Female fit 1", xlims=(xlim))
-plot!(xlim, pred2.(xlim,"F"), c=:red, lw=3, label="Female fit 2")
+plot!(xlim, pred1.(xlim,"F"), c=:red, lw=1.5,label="Female fit 1",xlims=(xlim))
+plot!(xlim, pred2.(xlim,"F"), c=:red, linestyle=:dash, label="Female fit 2")
 scatter!(other.Weight, other.Height, c=:green, msw=0, label="Other",
 	xlabel="Weight (kg)", ylabel="Height (cm)", legend=:topleft)
