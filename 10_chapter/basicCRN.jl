@@ -1,11 +1,11 @@
 using Distributions, Random, Plots, LaTeXStrings; pyplot()
 
 seed = 1
-n = 10
+N = 100
 lamGrid = 0.01:0.01:0.99
 
 theorM(lam) = mean(Uniform(0,2*lam*(1-lam)))
-estM(lam) = mean(rand(Uniform(0,2*lam*(1-lam)),n))
+estM(lam) = mean(rand(Uniform(0,2*lam*(1-lam)),N))
 
 function estM(lam,seed)
     Random.seed!(seed)
@@ -22,4 +22,4 @@ plot!(lamGrid,estM0,
 	c=:blue, label="No CRN estiamte")
 plot!(lamGrid,estMCRN,
 	c=:red, label="CRN estimate", 
-	xlims=(0,1), ylims=(0,0.4), xlabel=L"\lambda")
+	xlims=(0,1), ylims=(0,0.4), xlabel=L"\lambda", ylabel = "Mean")
