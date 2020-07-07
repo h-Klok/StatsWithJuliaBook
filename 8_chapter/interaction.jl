@@ -16,7 +16,7 @@ println(model)
 
 males = df[df.Sex .== "M",:]
 females = df[df.Sex .== "F",:]
-other = df[(df.Sex .!= "M") .& (df.Sex .!= "F"),:]
+other = df[df.Sex .== "O",:]
 
 xlim = [minimum(df.Weight), maximum(df.Weight)]
 scatter(males.Weight, males.Height, c=:blue, msw=0, label="Male")
