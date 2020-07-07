@@ -28,7 +28,7 @@ pred2(weight,sex) =  b0 + weight*(b1*(sex=="F") + b2*(sex=="M") + b3*(sex=="O"))
 
 males,females,other=df[df.Sex .=="M",:],df[df.Sex .=="F",:],df[df.Sex .=="O",:]
 
-xlim = [minimum(df.Weight), maximum(df.Weight)]
+xlim = [0, maximum(df.Weight)]
 scatter(males.Weight, males.Height, c=:blue, msw=0, label="Male")
 plot!(xlim, pred1.(xlim,"M"), c=:blue, label="Male fit 1")
 plot!(xlim, pred2.(xlim,"M"), c=:blue, lw=3, label="Male fit 2")
