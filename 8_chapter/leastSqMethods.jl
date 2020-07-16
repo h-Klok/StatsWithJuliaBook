@@ -51,7 +51,7 @@ modelJ = lm(@formula(Y ~ X), data)
 b0J, b1J = coef(modelJ)
 
 # Approach K
-modelK = glm(@formula(Y ~ X), data,Normal())
+modelK = glm(@formula(Y ~ X), data, Normal())
 b0K, b1K = coef(modelK)
 println(round.([b0A,b0B,b0C,b0D,b0E,b0F,b0G,b0H,b0I,b0J,b0K],digits=3))
 println(round.([b1A,b1B,b1C,b1D,b1E,b1F,b1G,b1H,b1I,b1J,b1K],digits=3))
