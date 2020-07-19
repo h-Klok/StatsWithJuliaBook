@@ -17,8 +17,8 @@ predC(x) = coef(modelC)' * [1, x]
 
 xlims = collect(extrema(df.IQ))
 
-p1 = scatter(df.IQ, df.AlcConsumption, c=:blue, msw=0, ma=0.2, label="")
-     plot!(xlims, pred.(xlims), c=:blue, label="All data")
+p1 = scatter(df.IQ, df.AlcConsumption, c=:black, msw=0, ma=0.2, label="")
+     plot!(xlims, pred.(xlims), c=:black, label="All data")
 
 p2 = scatter(groupA.IQ, groupA.AlcConsumption, c=:blue, msw=0, ma=0.2, label="")
      scatter!(groupB.IQ, groupB.AlcConsumption, c=:red, msw=0, ma=0.2, label="")

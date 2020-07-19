@@ -10,12 +10,12 @@ pred(x) = coef(model)'*[1, x]
 A = [ones(n) df.Weight]
 H = A*pinv(A)
 residuals = (I-H)*df.Height
-studentizedResiduals = residuals ./ (sqrt(MSE)*(1 .- diag(H)))
+studentizedResiduals = residuals ./ (sqrt.(MSE*(1 .- diag(H))))
 
-p = rank(H)
-println("p = ", p, " or (calculated via sum of diagonal) = ", sum(diag(H)))
+tau = rank(H)
+println("tau = ", tau, " or ", sum(diag(H)), " or ", tr(H))
 
-cookDistances = (studentizedResiduals.^2/p) .* diag(H) ./ (1 .- diag(H))
+cookDistances = (studentizedResiduals.^2/tau) .* diag(H) ./ (1 .- diag(H))
 maxCook, indexMaxCook = findmax(cookDistances)
 println("Maximal Cook's distance = ", maxCook)
 
