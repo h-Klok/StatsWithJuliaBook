@@ -22,16 +22,17 @@ groupDivs = [vcat(dayDiv[g]...) for g in dayGroups]
 
 default(legend = :topleft)
 labels = ["Daily" "7 Day Average"]
-p1 = plot(1:indexLast, [values(tsA) values(tsB)],label = labels,
+p1 = plot(1:indexLast, [values(tsA) values(tsB)], c=[:blue :red],label = labels,
         xlabel = "Day", ylabel = "Daily Users", ylim = (0,200))
 
 p2 = plot(indexes2020, [values(tsA)[indexes2020] values(tsB)[indexes2020]],
-        label=labels,xlabel="Day in 2020",ylabel="Daily Users",ylim=(0,200))
+        c=[:blue :red], label=labels, xlabel="Day in 2020",
+        ylabel="Daily Users",ylim=(0,200))
 
-p3 = plot(1:indexLast, values(tsC),label = labels,
+p3 = plot(1:indexLast, values(tsC),label = labels, c=:black,
         xlabel="Day",ylabel="Variation",ylim=(-50,50),legend=false)
 
-p4 = plot(indexes2020, values(tsC)[indexes2020],label = labels,
+p4 = plot(indexes2020, values(tsC)[indexes2020],label = labels, c=:black,
          xlabel="Day in 2020",ylabel="Variation",ylim=(-50,50),legend=false)
 
 dayNames = dayname.(timestamp(tsA)[4:10])
@@ -40,6 +41,6 @@ p5 = density(dayDiv, label = hcat(dayNames...),legend = :topright,
 
 dayGroupNames = ["Sun", "Mon+Sat", "Tue+Wed+Thu+Fri"]
 p6 = density(groupDivs,label = hcat(dayGroupNames...), legend = :topright,
-                xlabel = "Variation", ylabel = "Frequency",)
+                xlabel = "Variation", ylabel = "Frequency",c=[:blue :red :green])
 
 plot(p1, p2, p3, p4, p5, p6, layout=(3,2), size = (900,600), margin = 5mm)
