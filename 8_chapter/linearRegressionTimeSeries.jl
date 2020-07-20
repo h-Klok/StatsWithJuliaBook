@@ -22,10 +22,10 @@ end
 
 function forecastPlot(train,future)
     p = plot(train[1], df.Users[train[1]], label = "Observed Users",
-            xlabel = "Day", ylabel = "Daily Users")
-        plot!(train[1], train[2], label = "Train")
-        plot!(future[1], future[2], label = "Forecast")
-        plot!(future[1], df.Users[future[1]], label = "Actual Users")
+            xlabel = "Day", ylabel = "Daily Users", c=:blue)
+        plot!(train[1], train[2], label = "Train", c=:red)
+        plot!(future[1], future[2], label = "Forecast",c=:magenta)
+        plot!(future[1], df.Users[future[1]], label = "Actual Users",c=:green)
     return p
 end
 
@@ -44,5 +44,4 @@ p3 = forecastPlot((trainRange3, train3), (futureRange3, fcst3))
 
 _, train4, fcst4 = forecast(trainRange4, futureRange4)
 p4 = forecastPlot((trainRange4, train4), (futureRange4, fcst4))
-
 plot(p1, p2, p3, p4, size = (900,600), margin = 5mm)
