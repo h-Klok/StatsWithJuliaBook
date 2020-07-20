@@ -8,7 +8,7 @@ df[[10,40,60,130,140,175,190,200],:Sex] .= "O1"
 df[[9,44,63,132,138,172,192,199],:Sex] .= "O2"
 
 model = lm(@formula(Height ~ Weight + Sex), df,
-        contrasts=Dict(:Sex=>DummyCoding(base="F",levels=["F","M","O1","O2"])))
+        contrasts=Dict(:Sex=>DummyCoding(base="F",levels=["M","O1","O2","F"])))
 b0, b1, b2, b3, b4  = coef(model)
 pred(weight,sex) = b0+b1*weight+b2*(sex=="M")+b3*(sex=="O1")+b3*(sex=="O2")
 println(model)
