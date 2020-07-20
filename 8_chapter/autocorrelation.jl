@@ -16,6 +16,8 @@ lags = 1:50
 acc = autocor(diffs,lags)
 
 default(legend = false)
-p1 = plot(diffs,xlabel="Day",ylabel="Difference Between Corrected Days")
-p2 = plot(lags,acc,line=:stem,xlabel="Lag",ylabel="Autocorrelation")
+p1 = plot(diffs, c=:blue,
+        xlabel="Day",ylabel="Difference Between Corrected Days")
+p2 = plot(lags,acc,line=:stem, c=:blue,
+        xlabel="Lag",ylabel="Autocorrelation")
 plot(p1,p2,size=(900,400),margin = 5mm)
