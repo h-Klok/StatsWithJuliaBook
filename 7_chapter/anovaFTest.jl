@@ -1,8 +1,8 @@
 using GLM, Distributions, DataFrames
 
-data1 = parse.(Float64, readlines("machine1.csv"))
-data2 = parse.(Float64, readlines("machine2.csv"))
-data3 = parse.(Float64, readlines("machine3.csv"))
+data1 = parse.(Float64, readlines("../data/machine1.csv"))
+data2 = parse.(Float64, readlines("../data/machine2.csv"))
+data3 = parse.(Float64, readlines("../data/machine3.csv"))
 
 function manualANOVA(allData)
     nArray = length.(allData)
