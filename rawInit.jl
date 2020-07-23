@@ -41,10 +41,8 @@ packages = [("BSON","0.2.6"),
             ("TimeSeries","0.18.0")
              ]
 
-Pkg.update()
-
 for (pN,pV) in packages
     Pkg.add(Pkg.PackageSpec(;name=pN,version=pV))
 end
 
-Pkg.precompile()
+@info "Packages not precompiled.\n If you wish to precompile (on Julia V1.3 or above) use `Pkg.precompile()`."
