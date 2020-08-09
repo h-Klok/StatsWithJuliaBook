@@ -25,10 +25,3 @@ println(model)
 predicted_labels = [apply_forest(model, testData[k,:]) for k in 1:nTest]
 accuracy = sum(predicted_labels .== testLabels)/nTest
 println("\nPrediction accuracy (measured on test set of size $nTest): ",accuracy)
-
-k = 1
-while predicted_labels[k] == testLabels[k]
-    global k +=1
-end
-println("Example error (MNIST test image $(k)):",
-        " Predicted $(predicted_labels[k]) but it is actually $(testLabels[k]).")
