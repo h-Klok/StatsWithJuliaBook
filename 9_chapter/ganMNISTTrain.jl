@@ -20,7 +20,7 @@ gen =  Chain(Dense(latentDim,7*7*256),BatchNorm(7*7*256,relu),
 
 dLoss(realOut,fakeOut) =    mean(logitbinarycrossentropy.(realOut,1f0)) +
                             mean(logitbinarycrossentropy.(fakeOut,0f0))
-gLoss(fakeOut) = mean(logitbinarycrossentropy.(fakeOut, 1f0))
+gLoss(u) = mean(logitbinarycrossentropy.(u, 1f0))
 
 function updateD!(gen, dscr, x, opt_dscr)
     noise = randn!(similar(x, (latentDim, batchSize)))
