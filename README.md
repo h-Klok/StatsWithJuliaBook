@@ -3,6 +3,8 @@
 
 This repository is a collection of all 200+ code blocks contained in the book. See the [Draft version of the book](https://statisticswithjulia.org/index.html).
 
+You may also wish to visit the books dedicated [website](https://statisticswithjulia.org/).
+
 ## The book is comprised of the following ten chapters and three appendices:
 
 1. Introducing Julia
