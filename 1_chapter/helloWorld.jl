@@ -9,7 +9,7 @@ end
 
 println("\nThese squares are just perfect:")
 
-# This construct is called a `comprehension' (or 'list comprehension')
+# This construct is called a 'comprehension' (or 'list comprehension')
 squares = [i^2 for i in 0:10]
 
 # You can loop on elements of arrays without having to use indexing
