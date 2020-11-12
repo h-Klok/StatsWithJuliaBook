@@ -31,6 +31,8 @@ This repository is a collection of all 200+ code blocks contained in the book. S
 
 ---
 
+An alternative is to use Pluto. See [StatisticsWithJuliaPlutoNotebooks.jl](https://github.com/StatisticalRethinkingJulia/StatisticsWithJuliaPlutoNotebooks.jl)
+
 We hope you find this an enjoyable and instructive resource.
 
 H.Klok
