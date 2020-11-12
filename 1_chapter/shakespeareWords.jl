@@ -7,7 +7,7 @@ shakespeareWords = split(shakespeare)
 
 jsonWords = HTTP.request("GET",
 "https://raw.githubusercontent.com/"*
-"h-Klok/StatsWithJuliaBook/master/1_chapter/jsonCode.json")
+"h-Klok/StatsWithJuliaBook/master/data/jsonCode.json")
 parsedJsonDict = JSON.parse( String(jsonWords.body))
 
 keywords = Array{String}(parsedJsonDict["words"])
@@ -16,4 +16,4 @@ wordCount = Dict([(x,count(w -> lowercase(w) == lowercase(x), shakespeareWords))
                   for x in keywords])
 
 sortedWordCount = sort(collect(wordCount),by=last,rev=true)
-sortedWordCount[1:numberToShow]
+display(sortedWordCount[1:numberToShow])
