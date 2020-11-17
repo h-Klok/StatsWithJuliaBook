@@ -9,7 +9,7 @@ df = df[shuffle(1:n),:]
 K = 10
 nG = Int(floor(n/K))
 n = K*nG
-println("Loosing $(size(df)[1] - n) observations.")
+println("Losing $(size(df)[1] - n) observations.")
 
 lamGrid = 0:100:30000
 

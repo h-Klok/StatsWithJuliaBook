@@ -17,9 +17,9 @@ interval(x,sign,prediction = 0) = sign(pred(x),
 xGrid = 40:1:140
 scatter(data.Weight, data.Height, c=:black, ms=2, label="")
 plot!(xGrid,pred.(xGrid), c=:red, label="Linear model")
-plot!(xGrid,interval.(xGrid,+),c=:green, label="Confidence interval")
+plot!(xGrid,interval.(xGrid,+),c=:green, label="Confidence bands")
 plot!(xGrid,interval.(xGrid,-),c=:green, label="")
-plot!(xGrid,interval.(xGrid,+,1),c=:blue,label="Prediction interval")
+plot!(xGrid,interval.(xGrid,+,1),c=:blue,label="Prediction bands")
 plot!(xGrid,interval.(xGrid,-,1), 
 	c=:blue, label="", xlims=(40, 120), ylims=(145, 200), legend=:topleft,
 	xlabel = "Weight (kg)", ylabel = "Height (cm)")

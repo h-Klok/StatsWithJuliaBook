@@ -20,5 +20,5 @@ while norm(prevMeans - means) > 0.001
     means = [sum(dataPoints[labels .== i])/sum(labels .==i) for i in 1:K]
 end
 
-cnts = [sum(labels .== i) for i in 1:K]
-println("Counts of clusters (manual implementation): ", cnts)
+countResult = [sum(labels .== i) for i in 1:K]
+println("Counts of clusters (manual implementation): ", countResult)
