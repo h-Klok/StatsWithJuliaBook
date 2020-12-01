@@ -1,4 +1,4 @@
-using MultivariateStats,RDatasets,LinearAlgebra,Flux.Data.MNIST,Measures,Plots
+using MultivariateStats,LinearAlgebra,Flux.Data.MNIST,Measures,Plots
 pyplot()
 
 imgs, labels   = MNIST.images(), MNIST.labels()
