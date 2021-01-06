@@ -19,7 +19,7 @@ estMCRN = estM.(lamGrid,seed)
 plot(lamGrid,trueM,
 	c=:black, label="Expected curve")
 plot!(lamGrid,estM0,
-	c=:blue, label="No CRN estiamte")
+	c=:blue, label="No CRN estimate")
 plot!(lamGrid,estMCRN,
 	c=:red, label="CRN estimate", 
 	xlims=(0,1), ylims=(0,0.4), xlabel=L"\lambda", ylabel = "Mean")
