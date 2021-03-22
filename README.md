@@ -3,7 +3,7 @@
 
 This repository is a collection of all 200+ code blocks contained in the book. See the [Book's website](https://statisticswithjulia.org/index.html), or go directly to Springer:
 
-![bookCoverImage](https://statisticswithjulia.org/img/book1Cover.png])
+![bookCoverImage](https://statisticswithjulia.org/img/book1Cover.png)
 
 ## The book is comprised of the following ten chapters and three appendices:
 
