@@ -1,7 +1,9 @@
 # Statistics with Julia: Fundamentals for Data Science, Machine Learning and Artificial Intelligence
 
 
-This repository is a collection of all 200+ code blocks contained in the book. See the [Draft version of the book](https://statisticswithjulia.org/index.html).
+This repository is a collection of all 200+ code blocks contained in the book. See the [Book's website](https://statisticswithjulia.org/index.html), or go directly to Springer:
+
+![https://statisticswithjulia.org/img/book1Cover.png](bookCoverImage)
 
 ## The book is comprised of the following ten chapters and three appendices:
 
