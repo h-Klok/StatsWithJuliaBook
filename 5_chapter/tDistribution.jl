@@ -8,7 +8,7 @@ mcQuantile = quantile([myT(n) for _ in 1:N],alpha)
 analyticQuantile = quantile(TDist(n-1),alpha)
 
 println("Quantile from Monte Carlo: ", mcQuantile)
-println("Analytic qunatile: ", analyticQuantile)
+println("Analytic quantile: ", analyticQuantile)
 
 xGrid = -5:0.1:5
 plot(xGrid, pdf.(Normal(), xGrid), c=:black, label="Normal Distribution")
