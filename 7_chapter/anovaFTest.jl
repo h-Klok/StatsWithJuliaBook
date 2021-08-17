@@ -1,8 +1,9 @@
-using GLM, Distributions, DataFrames
+using GLM, Distributions, DataFrames, CategoricalArrays
 
 data1 = parse.(Float64, readlines("../data/machine1.csv"))
 data2 = parse.(Float64, readlines("../data/machine2.csv"))
 data3 = parse.(Float64, readlines("../data/machine3.csv"))
+allData = [data1, data2, data3]
 
 function manualANOVA(allData)
     nArray = length.(allData)
@@ -34,8 +35,8 @@ function glmANOVA(allData)
     modelH0  = lm(@formula(Response ~ 1), dataFrame)
     modelH1a = lm(@formula(Response ~ 1 + Treatment), dataFrame)
     res = ftest(modelH1a.model, modelH0.model)
-    (res.fstat[1],res.pval[1])
+    return (res.fstat[2],res.pval[2]) 
 end
 
-println("Manual ANOVA: ", manualANOVA([data1, data2, data3]))
-println("GLM ANOVA: ", glmANOVA([data1, data2, data3]))
+println("Manual ANOVA: ", manualANOVA(allData))
+println("GLM ANOVA: ", glmANOVA(allData))
