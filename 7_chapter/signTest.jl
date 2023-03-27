@@ -17,9 +17,9 @@ pValB = 2*ccdf(binom, testStatisticB)
 println("Binomial mean: ", mean(binom))
 
 println("Case A: mu0: ", mu0A)
-println("\tTest statistc: ", testStatisticA)
+println("\tTest statistic: ", testStatisticA)
 println("\tP-value: ", pValA)
 
 println("Case B: mu0: ", mu0B)
-println("\tTest statistc: ", testStatisticB)
+println("\tTest statistic: ", testStatisticB)
 println("\tP-value: ", pValB)

@@ -43,8 +43,8 @@ while true
 end
 
 println("\nNumber of epochs: ", epochNum)
-acccuracy = mean([logisticMclassifier(testData[:,k]) for k in 1:nTest]
+accuracy = mean([logisticMclassifier(testData[:,k]) for k in 1:nTest]
                 .== testLabels)
-println("Accuracy: ", acccuracy)
+println("Accuracy: ", accuracy)
 
 plot(lossArray, xlabel = "Epoch", ylabel = "Cross Entropy Loss", legend = false)
