@@ -17,12 +17,12 @@ model1 = glm(form, train, Normal(),  IdentityLink())
 model2 = glm(form, train, Poisson(), LogLink())
 model3 = glm(form, train, Gamma(),  InverseLink())
 
-invIdenityLink(x) = x
+invIdentityLink(x) = x
 invLogLink(x) = exp(x)
 invInverseLink(x) = 1/x
 
 A = [ones(numTest) test.CycT test.MMin test.MMax test.Cach test.ChMin test.ChMax]
-pred1 = invIdenityLink.(A*coef(model1))
+pred1 = invIdentityLink.(A*coef(model1))
 pred2 = invLogLink.(A*coef(model2))
 pred3 = invInverseLink.(A*coef(model3))
 

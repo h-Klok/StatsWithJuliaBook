@@ -32,7 +32,7 @@ smallTraj, smallHat, smallY = luenbergerTrack(kKalman, Tsmall, spikeTime)
 p1 = scatter(smallTraj, c=:blue, 
         ms=3, msw=0, label="System trajectory")
 p1 = scatter!(smallY, c = :black,
-        ms=3, msw=0, label="Measurments")
+        ms=3, msw=0, label="Measurements")
 p1 = scatter!(smallHat,c=:red, 
         ms=3, msw=0, label="Kalman filter tracking",
         xlabel = "Time", ylabel = "Temperature", 

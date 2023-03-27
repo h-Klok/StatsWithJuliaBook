@@ -12,5 +12,5 @@ pVal = 2*ccdf(Normal(), abs(testStatistic))
 
 println("Sample mean machine 1: ",xBar1)
 println("Sample mean machine 2: ",xBar2)
-println("Manually calculated test statistc: ", testStatistic)
+println("Manually calculated test statistic: ", testStatistic)
 println("Manually calculated p-value: ", pVal)

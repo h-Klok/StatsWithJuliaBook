@@ -24,4 +24,4 @@ println("\nOut of $n non-missing observations, "*
 println("Hence a point estimate for the proportion "*
         "of grades at level $gradeInQuestion is $phat.")
 println("A $confidencePercent% confidence interval for "*
-        "the proprotion of level $gradeInQuestion is:\n$confInt.")
+        "the proportion of level $gradeInQuestion is:\n$confInt.")
